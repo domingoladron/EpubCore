@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using static System.Reflection.Assembly;
 
 namespace Penman.EpubSharp.Tests
@@ -12,16 +13,6 @@ namespace Penman.EpubSharp.Tests
             return Path.Combine(AssemblyDirectory, relativePath);
         }
 
-        [Obsolete("Obsolete")]
-        public static string AssemblyDirectory
-        {
-            get
-            {
-                var codeBase = GetExecutingAssembly().CodeBase;
-                var uri = new UriBuilder(codeBase);
-                var path = Uri.UnescapeDataString(uri.Path);
-                return Path.GetDirectoryName(path);
-            }
-        }
+        public static string AssemblyDirectory => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
     }
 }
