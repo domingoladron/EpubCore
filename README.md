@@ -10,7 +10,7 @@ Install-Package Penman.EpubSharp
 ```
 
 # Supported Frameworks
-``.NET5.0, .NET6.0, .NETSTANDARD2.0``
+``.NET6.0, .NETSTANDARD2.0``
 
 # Usage
 
