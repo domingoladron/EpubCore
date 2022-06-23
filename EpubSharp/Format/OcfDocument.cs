@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 
-namespace EpubSharp.Format
+namespace Penman.EpubSharp.Format
 {
     public class OcfDocument
     {

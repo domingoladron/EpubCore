@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace EpubSharp.Format
+namespace Penman.EpubSharp.Format
 {
     internal static class OpfElements
     {
@@ -58,7 +57,7 @@ namespace EpubSharp.Format
         public OpfSpine Spine { get; internal set; } = new OpfSpine();
         public OpfGuide Guide { get; internal set; } = new OpfGuide();
 
-        internal string FindCoverPath()
+        public string FindCoverPath()
         {
             var coverMetaItem = Metadata.FindCoverMeta();
             if (coverMetaItem != null)
@@ -82,7 +81,7 @@ namespace EpubSharp.Format
             return path;
         }
         
-        internal string FindNcxPath()
+        public string FindNcxPath()
         {
             string path = null;
 
@@ -110,7 +109,7 @@ namespace EpubSharp.Format
             return path;
         }
 
-        internal string FindNavPath()
+        public string FindNavPath()
         {
             var navItem = Manifest.Items.FirstOrDefault(e => e.Properties.Contains("nav"));
             return navItem?.Href;
@@ -211,6 +210,7 @@ namespace EpubSharp.Format
         public string Property { get; internal set; }
         public string Scheme { get; internal set; }
         public string Text { get; internal set; }
+        public string Content { get; set; }
     }
 
     public class OpfManifest

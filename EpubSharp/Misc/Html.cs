@@ -2,7 +2,7 @@
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace EpubSharp
+namespace Penman.EpubSharp.Misc
 {
     internal static class Html
     {

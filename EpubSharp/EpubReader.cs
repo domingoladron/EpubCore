@@ -5,10 +5,12 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using EpubSharp.Format;
-using EpubSharp.Format.Readers;
+using Penman.EpubSharp.Extensions;
+using Penman.EpubSharp.Format;
+using Penman.EpubSharp.Format.Readers;
+using Penman.EpubSharp.Misc;
 
-namespace EpubSharp
+namespace Penman.EpubSharp
 {
     public static class EpubReader
     {

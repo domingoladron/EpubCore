@@ -1,4 +1,4 @@
-﻿namespace EpubSharp.Format.Writers
+﻿namespace Penman.EpubSharp.Format.Writers
 {
     internal class MimeTypeWriter
     {

@@ -1,4 +1,4 @@
-﻿namespace EpubSharp
+﻿namespace Penman.EpubSharp.Extensions
 {
     public static class StringExt
     {

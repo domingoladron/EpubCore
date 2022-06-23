@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Linq;
-using EpubSharp.Format;
+using Penman.EpubSharp.Format;
 using Xunit;
 
-namespace EpubSharp.Tests
+namespace Penman.EpubSharp.Tests
 {
     public class EpubWriterTests
     {

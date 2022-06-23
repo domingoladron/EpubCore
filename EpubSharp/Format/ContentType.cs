@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace EpubSharp.Format
+namespace Penman.EpubSharp.Format
 {
     public enum EpubContentType
     {

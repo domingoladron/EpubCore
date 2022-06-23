@@ -3,10 +3,12 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Xml.Linq;
-using EpubSharp.Format;
-using EpubSharp.Format.Writers;
+using Penman.EpubSharp.Extensions;
+using Penman.EpubSharp.Format;
+using Penman.EpubSharp.Format.Writers;
+using Penman.EpubSharp.Misc;
 
-namespace EpubSharp
+namespace Penman.EpubSharp
 {
     public enum ImageFormat
     {

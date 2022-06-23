@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using EpubSharp.Format;
+using Penman.EpubSharp.Extensions;
+using Penman.EpubSharp.Format;
 
-namespace EpubSharp
+namespace Penman.EpubSharp
 {
     public class EpubArchive
     {

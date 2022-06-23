@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using Penman.EpubSharp.Extensions;
 
-namespace EpubSharp.Format.Readers
+namespace Penman.EpubSharp.Format.Readers
 {
     internal static class NcxReader
     {

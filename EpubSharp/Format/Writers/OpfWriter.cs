@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 
-namespace EpubSharp.Format.Writers
+namespace Penman.EpubSharp.Format.Writers
 {
     internal class OpfWriter
     {

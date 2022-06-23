@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Xunit;
 
-namespace EpubSharp.Tests
+namespace Penman.EpubSharp.Tests
 {
     public class EpubBookTests
     {
         [Fact]
         public void EpubAsPlainTextTest1()
         {
-            var book = EpubReader.Read(Cwd.Combine(@"Samples/epub-assorted/boothbyg3249432494-8epub.epub"));
+            var book = EpubReader.Read(Cwd.Combine(@"Samples/boothbyg3249432494-8epub.epub"));
             //File.WriteAllText(Cwd.Join("Samples/epub-assorted/boothbyg3249432494-8epub.txt", book.ToPlainText()));
 
             Func<string, string> normalize = text => text.Replace("\r", "").Replace("\n", "").Replace(" ", "");

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace EpubSharp.Format
+namespace Penman.EpubSharp.Format
 {
     internal static class NavElements
     {
@@ -76,7 +76,7 @@ namespace EpubSharp.Format
         /// <summary>
         /// Instantiated only when the EPUB was read.
         /// </summary>
-        internal XElement Dom { get; set; }
+        public XElement Dom { get; set; }
 
         public IList<NavNav> Navs { get; internal set; } = new List<NavNav>();
     }
@@ -101,7 +101,7 @@ namespace EpubSharp.Format
         /// <summary>
         /// Instantiated only when the EPUB was read.
         /// </summary>
-        internal XElement Dom { get; set; }
+        public XElement Dom { get; set; }
 
         public string Type { get; internal set; }
         public string Id { get; internal set; }

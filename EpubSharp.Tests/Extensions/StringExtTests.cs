@@ -1,41 +1,42 @@
 ﻿using FluentAssertions;
+using Penman.EpubSharp.Extensions;
 using Xunit;
 
-namespace EpubSharp.Tests.Extensions
+namespace Penman.EpubSharp.Tests.Extensions
 {
     public class StringExtTests
     {
         [Fact]
         public void CanGetAbsolutePathInIdealScenario()
         {
-            "file.txt".ToAbsolutePath("one/two/").Should().Be("/one/two/file.txt");
-            "file.txt".ToAbsolutePath("/one/two/").Should().Be("/one/two/file.txt");
+            AssertionExtensions.Should((string)"file.txt".ToAbsolutePath("one/two/")).Be("/one/two/file.txt");
+            AssertionExtensions.Should((string)"file.txt".ToAbsolutePath("/one/two/")).Be("/one/two/file.txt");
         }
 
         [Fact]
         public void CanGetAbsolutePathByTrimmingPathFilename()
         {
-            "file.txt".ToAbsolutePath("one/two").Should().Be("/one/file.txt");
-            "file.txt".ToAbsolutePath("/one/two").Should().Be("/one/file.txt");
+            AssertionExtensions.Should((string)"file.txt".ToAbsolutePath("one/two")).Be("/one/file.txt");
+            AssertionExtensions.Should((string)"file.txt".ToAbsolutePath("/one/two")).Be("/one/file.txt");
         }
 
         [Fact]
         public void CanGetAbsolutePathFromFileAndFile()
         {
-            "bar.txt".ToAbsolutePath("foo.txt").Should().Be("/bar.txt");
-            "bar.txt".ToAbsolutePath("/one/foo.txt").Should().Be("/one/bar.txt");
-            "/one/bar.txt".ToAbsolutePath("foo.txt").Should().Be("/one/bar.txt");
-            "two/bar.txt".ToAbsolutePath("/one/foo.txt").Should().Be("/one/two/bar.txt");
-            "/two/bar.txt".ToAbsolutePath("/one/foo.txt").Should().Be("/two/bar.txt");
+            AssertionExtensions.Should((string)"bar.txt".ToAbsolutePath("foo.txt")).Be("/bar.txt");
+            AssertionExtensions.Should((string)"bar.txt".ToAbsolutePath("/one/foo.txt")).Be("/one/bar.txt");
+            AssertionExtensions.Should((string)"/one/bar.txt".ToAbsolutePath("foo.txt")).Be("/one/bar.txt");
+            AssertionExtensions.Should((string)"two/bar.txt".ToAbsolutePath("/one/foo.txt")).Be("/one/two/bar.txt");
+            AssertionExtensions.Should((string)"/two/bar.txt".ToAbsolutePath("/one/foo.txt")).Be("/two/bar.txt");
         }
 
         [Fact]
         public void CanGetAbsolutePathForRelativeFile()
         {
-            "./foo.txt".ToAbsolutePath("/one/").Should().Be("/one/foo.txt");
-            "./two/foo.txt".ToAbsolutePath("/one/").Should().Be("/one/two/foo.txt");
-            "../foo.txt".ToAbsolutePath("/one/").Should().Be("/foo.txt");
-            "../two/foo.txt".ToAbsolutePath("/one/").Should().Be("/two/foo.txt");
+            AssertionExtensions.Should((string)"./foo.txt".ToAbsolutePath("/one/")).Be("/one/foo.txt");
+            AssertionExtensions.Should((string)"./two/foo.txt".ToAbsolutePath("/one/")).Be("/one/two/foo.txt");
+            AssertionExtensions.Should((string)"../foo.txt".ToAbsolutePath("/one/")).Be("/foo.txt");
+            AssertionExtensions.Should((string)"../two/foo.txt".ToAbsolutePath("/one/")).Be("/two/foo.txt");
         }
     }
 }

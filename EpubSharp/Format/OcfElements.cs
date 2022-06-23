@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace EpubSharp.Format
+namespace Penman.EpubSharp.Format
 {
     internal static class OcfElements
     {

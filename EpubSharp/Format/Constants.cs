@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Xml.Linq;
 
-namespace EpubSharp.Format
+namespace Penman.EpubSharp.Format
 {
     internal class Constants
     {

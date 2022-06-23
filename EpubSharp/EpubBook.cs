@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using EpubSharp.Format;
+using Penman.EpubSharp.Format;
+using Penman.EpubSharp.Misc;
 
-namespace EpubSharp
+namespace Penman.EpubSharp
 {
     public class EpubBook
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace EpubSharp
+namespace Penman.EpubSharp.Extensions
 {
     internal static class XmlExt
     {

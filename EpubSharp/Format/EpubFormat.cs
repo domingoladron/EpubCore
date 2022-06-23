@@ -1,4 +1,4 @@
-﻿namespace EpubSharp.Format
+﻿namespace Penman.EpubSharp.Format
 {
     public class EpubFormatPaths
     {

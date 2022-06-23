@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Penman.EpubSharp.Extensions;
 
-namespace EpubSharp.Format.Readers
+namespace Penman.EpubSharp.Format.Readers
 {
     internal static class OpfReader
     {

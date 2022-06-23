@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EpubSharp.Format;
+﻿using System.Linq;
 using FluentAssertions;
+using Penman.EpubSharp.Format;
 using Xunit;
 
-namespace EpubSharp.Tests
+namespace Penman.EpubSharp.Tests
 {
     public class EpubReaderTests
     {

@@ -5,9 +5,9 @@ using System.IO.Compression;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using EpubSharp.Format;
+using Penman.EpubSharp.Format;
 
-namespace EpubSharp
+namespace Penman.EpubSharp.Extensions
 {
     public static class ZipArchiveExt
     {
