@@ -8,14 +8,16 @@ namespace Penman.EpubSharp.Tests
     {
         public static string Combine(string relativePath)
         {
+
             return Path.Combine(AssemblyDirectory, relativePath);
         }
 
+        [Obsolete("Obsolete")]
         public static string AssemblyDirectory
         {
             get
             {
-                var codeBase = GetExecutingAssembly().Location;
+                var codeBase = GetExecutingAssembly().CodeBase;
                 var uri = new UriBuilder(codeBase);
                 var path = Uri.UnescapeDataString(uri.Path);
                 return Path.GetDirectoryName(path);
