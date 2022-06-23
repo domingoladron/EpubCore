@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penman.EpubSharp", "EpubSharp\Penman.EpubSharp.csproj", "{E5886D1C-AFA1-4D32-A761-CCE7728909CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penman.EpubSharp", "Penman.EpubSharp\Penman.EpubSharp.csproj", "{E5886D1C-AFA1-4D32-A761-CCE7728909CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penman.EpubSharp.Tests", "EpubSharp.Tests\Penman.EpubSharp.Tests.csproj", "{02DE30CD-7D75-4666-9A13-7B4E2CC7B8D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penman.EpubSharp.Tests", "Penman.EpubSharp.Tests\Penman.EpubSharp.Tests.csproj", "{02DE30CD-7D75-4666-9A13-7B4E2CC7B8D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

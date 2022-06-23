@@ -6,13 +6,15 @@
     <Authors>Chris Laine (domingoladron)</Authors>
     <PackageTags>epub epubs book books 2.0 3.0 3.1</PackageTags>
     <PackageId>Penman.EpubSharp</PackageId>
-    <Version>1.1.5.13</Version>
+    <Version>1.0.0.0</Version>
     <Description>A library for reading and writing EPUB files.</Description>
-    <PackageIconUrl>https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/EPUB_silk_icon.svg/2000px-EPUB_silk_icon.svg.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/domingoladron/Penman.EpubSharp</PackageProjectUrl>
     <Copyright>Copyright 2022</Copyright>
-    <AssemblyVersion>1.1.5.13</AssemblyVersion>
-    <FileVersion>1.1.5.13</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <RepositoryUrl>https://github.com/domingoladron/Penman.EpubSharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
+
 
 </Project>
