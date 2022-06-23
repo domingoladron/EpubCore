@@ -21,7 +21,7 @@ namespace Penman.EpubSharp.Tests
             var epub = WriteAndRead(new EpubWriter());
 
             Assert.Null(epub.Title);
-            Assert.Equal(0, epub.Authors.Count());
+            Assert.Empty(epub.Authors);
             Assert.Null(epub.CoverImage);
 
             Assert.Equal(0, epub.Resources.Html.Count);
@@ -49,7 +49,7 @@ namespace Penman.EpubSharp.Tests
 
             writer.AddAuthor("Foo Bar");
             var epub = WriteAndRead(writer);
-            Assert.Equal(1, epub.Authors.Count());
+            Assert.Single(epub.Authors);
 
             writer.AddAuthor("Zoo Gar");
             epub = WriteAndRead(writer);
@@ -57,16 +57,16 @@ namespace Penman.EpubSharp.Tests
 
             writer.RemoveAuthor("Foo Bar");
             epub = WriteAndRead(writer);
-            Assert.Equal(1, epub.Authors.Count());
+            Assert.Single(epub.Authors);
             Assert.Equal("Zoo Gar", epub.Authors.First());
 
             writer.RemoveAuthor("Unexisting");
             epub = WriteAndRead(writer);
-            Assert.Equal(1, epub.Authors.Count());
+            Assert.Single(epub.Authors);
 
             writer.ClearAuthors();
             epub = WriteAndRead(writer);
-            Assert.Equal(0, epub.Authors.Count());
+            Assert.Empty(epub.Authors);
 
             writer.RemoveAuthor("Unexisting");
             writer.ClearAuthors();
@@ -196,12 +196,12 @@ namespace Penman.EpubSharp.Tests
 
             Assert.Equal(1, epub.Resources.Images.Count);
             Assert.Equal("img.jpeg", epub.Resources.Images.First().Href);
-            Assert.Equal(1, epub.Resources.Images.First().Content.Length);
+            Assert.Single(epub.Resources.Images.First().Content);
             Assert.Equal(0x42, epub.Resources.Images.First().Content.First());
 
             Assert.Equal(1, epub.Resources.Fonts.Count);
             Assert.Equal("font.ttf", epub.Resources.Fonts.First().Href);
-            Assert.Equal(1, epub.Resources.Fonts.First().Content.Length);
+            Assert.Single(epub.Resources.Fonts.First().Content);
             Assert.Equal(0x24, epub.Resources.Fonts.First().Content.First());
         }
 

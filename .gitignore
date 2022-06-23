@@ -253,3 +253,5 @@ paket-files/
 EpubSharp.Tests/Samples/epub-assorted/
 EpubSharp.Tests/Samples/epub30/
 EpubSharp.Tests/Samples/epub31/
+
+*.DotSettings

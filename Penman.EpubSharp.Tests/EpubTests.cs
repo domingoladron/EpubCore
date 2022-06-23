@@ -225,16 +225,16 @@ namespace Penman.EpubSharp.Tests
                         Assert.Equal(a.Text, b.Text);
                     });
 
-                    AssertPrimitiveCollection<string>(expected.Metadata.Coverages, actual.Metadata.Coverages, "Coverage");
-                    AssertPrimitiveCollection<string>(expected.Metadata.Descriptions, actual.Metadata.Descriptions, "Description");
-                    AssertPrimitiveCollection<string>(expected.Metadata.Languages, actual.Metadata.Languages, "Language");
-                    AssertPrimitiveCollection<string>(expected.Metadata.Publishers, actual.Metadata.Publishers, "Publisher");
-                    AssertPrimitiveCollection<string>(expected.Metadata.Relations, actual.Metadata.Relations, "Relation");
-                    AssertPrimitiveCollection<string>(expected.Metadata.Rights, actual.Metadata.Rights, "Right");
-                    AssertPrimitiveCollection<string>(expected.Metadata.Sources, actual.Metadata.Sources, "Source");
-                    AssertPrimitiveCollection<string>(expected.Metadata.Subjects, actual.Metadata.Subjects, "Subject");
-                    AssertPrimitiveCollection<string>(expected.Metadata.Titles, actual.Metadata.Titles, "Title");
-                    AssertPrimitiveCollection<string>(expected.Metadata.Types, actual.Metadata.Types, "Type");
+                    AssertPrimitiveCollection(expected.Metadata.Coverages, actual.Metadata.Coverages, "Coverage");
+                    AssertPrimitiveCollection(expected.Metadata.Descriptions, actual.Metadata.Descriptions, "Description");
+                    AssertPrimitiveCollection(expected.Metadata.Languages, actual.Metadata.Languages, "Language");
+                    AssertPrimitiveCollection(expected.Metadata.Publishers, actual.Metadata.Publishers, "Publisher");
+                    AssertPrimitiveCollection(expected.Metadata.Relations, actual.Metadata.Relations, "Relation");
+                    AssertPrimitiveCollection(expected.Metadata.Rights, actual.Metadata.Rights, "Right");
+                    AssertPrimitiveCollection(expected.Metadata.Sources, actual.Metadata.Sources, "Source");
+                    AssertPrimitiveCollection(expected.Metadata.Subjects, actual.Metadata.Subjects, "Subject");
+                    AssertPrimitiveCollection(expected.Metadata.Titles, actual.Metadata.Titles, "Title");
+                    AssertPrimitiveCollection(expected.Metadata.Types, actual.Metadata.Types, "Type");
                 }
 
                 Assert.Equal(expected.Guide == null, actual.Guide == null);
@@ -260,7 +260,7 @@ namespace Penman.EpubSharp.Tests
                         Assert.Equal(a.MediaType, b.MediaType);
                         Assert.Equal(a.RequiredModules, b.RequiredModules);
                         Assert.Equal(a.RequiredNamespace, b.RequiredNamespace);
-                        AssertPrimitiveCollection<string>(a.Properties, b.Properties, "Item.Property");
+                        AssertPrimitiveCollection(a.Properties, b.Properties, "Item.Property");
                     });
                 }
 
@@ -273,7 +273,7 @@ namespace Penman.EpubSharp.Tests
                         Assert.Equal(a.Id, b.Id);
                         Assert.Equal(a.IdRef, b.IdRef);
                         Assert.Equal(a.Linear, b.Linear);
-                        AssertPrimitiveCollection<string>(a.Properties, b.Properties, "ItemRef.Property");
+                        AssertPrimitiveCollection(a.Properties, b.Properties, "ItemRef.Property");
                     });
                 }
 
@@ -397,7 +397,7 @@ namespace Penman.EpubSharp.Tests
                 }
 
                 Assert.Equal(expected.Body == null, actual.Body == null);
-                if (expected.Body != null && actual.Body != null)
+                if (expected.Body == null || actual.Body == null) return;
                 {
                     Assert.Equal(expected.Body.Dom == null, actual.Body.Dom == null);
                     AssertCollection(expected.Body.Navs, actual.Body.Navs, (a, b) =>

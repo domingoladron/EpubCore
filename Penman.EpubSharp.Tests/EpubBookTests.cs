@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Xunit;
@@ -13,11 +12,11 @@ namespace Penman.EpubSharp.Tests
         {
             var book = EpubReader.Read(Cwd.Combine(@"Samples/pg68371.epub"));
 
-            Func<string, string> normalize = text => text.Replace("\r", "").Replace("\n", "").Replace(" ", "");
+            string Normalize(string text) => text.Replace("\r", "").Replace("\n", "").Replace(" ", "");
 
             var expected = File.ReadAllText(Cwd.Combine(@"Samples/pg68371.txt"));
             var actual = book.ToPlainText();
-            Assert.Equal(normalize(expected), normalize(actual));
+            Assert.Equal(Normalize(expected), Normalize(actual));
 
             var lines = actual.Split('\n').Select(str => str.Trim()).ToList();
             Assert.NotNull(lines.SingleOrDefault(e => e == "CHAPTER I."));
@@ -43,25 +42,25 @@ namespace Penman.EpubSharp.Tests
             var book = EpubReader.Read(Cwd.Combine(@"Samples/ios-hackers-handbook.epub"));
             //File.WriteAllText(Cwd.Join("Samples/epub-assorted/iOS Hackers Handbook.txt", book.ToPlainText()));
 
-            Func<string, string> normalize = text => text.Replace("\r", "").Replace("\n", "").Replace(" ", "");
+            string Normalize(string text) => text.Replace("\r", "").Replace("\n", "").Replace(" ", "");
             var expected = File.ReadAllText(Cwd.Combine(@"Samples/ios-hackers-handbook.txt"));
             var actual = book.ToPlainText();
 
-            Assert.Equal(normalize(expected), normalize(actual));
+            Assert.Equal(Normalize(expected), Normalize(actual));
             
             var trimmed = string.Join("\n", actual.Split('\n').Select(str => str.Trim()));
-            Assert.Equal(1, Regex.Matches(trimmed, "Chapter 1\niOS Security Basics").Count);
-            Assert.Equal(1, Regex.Matches(trimmed, "Chapter 2\niOS in the Enterprise").Count);
-            Assert.Equal(1, Regex.Matches(trimmed, "Chapter 3\nEncryption").Count);
-            Assert.Equal(1, Regex.Matches(trimmed, "Chapter 4\nCode Signing and Memory Protections").Count);
-            Assert.Equal(1, Regex.Matches(trimmed, "Chapter 5\nSandboxing").Count);
-            Assert.Equal(1, Regex.Matches(trimmed, "Chapter 6\nFuzzing iOS Applications").Count);
-            Assert.Equal(1, Regex.Matches(trimmed, "Chapter 7\nExploitation").Count);
-            Assert.Equal(1, Regex.Matches(trimmed, "Chapter 8\nReturn-Oriented Programming").Count);
-            Assert.Equal(1, Regex.Matches(trimmed, "Chapter 9\nKernel Debugging and Exploitation").Count);
-            Assert.Equal(1, Regex.Matches(trimmed, "Chapter 10\nJailbreaking").Count);
-            Assert.Equal(1, Regex.Matches(trimmed, "Chapter 11\nBaseband Attacks").Count);
-            Assert.Equal(1, Regex.Matches(trimmed, "How This Book Is Organized").Count);
+            Assert.Single(Regex.Matches(trimmed, "Chapter 1\niOS Security Basics"));
+            Assert.Single(Regex.Matches(trimmed, "Chapter 2\niOS in the Enterprise"));
+            Assert.Single(Regex.Matches(trimmed, "Chapter 3\nEncryption"));
+            Assert.Single(Regex.Matches(trimmed, "Chapter 4\nCode Signing and Memory Protections"));
+            Assert.Single(Regex.Matches(trimmed, "Chapter 5\nSandboxing"));
+            Assert.Single(Regex.Matches(trimmed, "Chapter 6\nFuzzing iOS Applications"));
+            Assert.Single(Regex.Matches(trimmed, "Chapter 7\nExploitation"));
+            Assert.Single(Regex.Matches(trimmed, "Chapter 8\nReturn-Oriented Programming"));
+            Assert.Single(Regex.Matches(trimmed, "Chapter 9\nKernel Debugging and Exploitation"));
+            Assert.Single(Regex.Matches(trimmed, "Chapter 10\nJailbreaking"));
+            Assert.Single(Regex.Matches(trimmed, "Chapter 11\nBaseband Attacks"));
+            Assert.Single(Regex.Matches(trimmed, "How This Book Is Organized"));
             Assert.Equal(2, Regex.Matches(trimmed, "Appendix: Resources").Count);
             Assert.Equal(2, Regex.Matches(trimmed, "Case Study: Pwn2Own 2010").Count);
         }             
