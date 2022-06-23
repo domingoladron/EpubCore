@@ -1,12 +1,12 @@
-# EpubSharp
-C# library for reading and writing EPUB files.
+# Penman.EpubSharp
+.NET library for reading and writing EPUB files.  An upgrade of [asido/EpubSharp](https://github.com/asido/EpubSharp)
 
 Supported EPUB versions: **2.0**, **3.0**, **3.1**
 
 # Installation
 
 ```
-Install-Package EpubSharp.dll
+Install-Package Penman.EpubSharp
 ```
 
 # Usage
