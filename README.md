@@ -9,9 +9,12 @@ Supported EPUB versions: **2.0**, **3.0**, **3.1**
 Install-Package Penman.EpubSharp
 ```
 
+# Supported Frameworks
+``.NET5.0, .NET6.0, .NETSTANDARD2.0``
+
 # Usage
 
-### Reading an EPUB
+## Reading an EPUB
 
 ```cs
 // Read an epub file
@@ -45,7 +48,7 @@ NavDocument nav = format.Nav;
 EpubWriter.Write(book, "new.epub");
 ```
 
-### Writing an EPUB
+## Writing an EPUB
 _**Editing capabilities are currently very limited and might not work at all. Use it at your own risk. The next release will bring a true write support.**_
 ```cs
 EpubWriter writer = new EpubWriter();
