@@ -37,7 +37,8 @@ namespace Penman.EpubSharp.Tests
                 var originalEpub = EpubReader.Read(archive);
 
                 var stream = new MemoryStream();
-                EpubWriter.Write(originalEpub, stream);
+                var epubWriter = new EpubWriter();
+                epubWriter.Write(originalEpub, stream);
                 stream.Seek(0, SeekOrigin.Begin);
                 var savedEpub = EpubReader.Read(stream, false);
 

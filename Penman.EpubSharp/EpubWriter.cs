@@ -15,15 +15,15 @@ namespace Penman.EpubSharp
         Gif, Png, Jpeg, Svg
     }
 
-    public class EpubWriter
+    public class EpubWriter : IEpubWriter
     {
-        private readonly string opfPath = "EPUB/package.opf";
-        private readonly string ncxPath = "EPUB/toc.ncx";
+        private readonly string _opfPath = "EPUB/package.opf";
+        private readonly string _ncxPath = "EPUB/toc.ncx";
 
-        private readonly EpubFormat format;
-        private readonly EpubResources resources;
+        private readonly EpubFormat _format;
+        private readonly EpubResources _resources;
 
-        public EpubWriter()
+        public EpubWriter() 
         {
             var opf = new OpfDocument
             {
@@ -37,21 +37,21 @@ namespace Penman.EpubSharp
             opf.Manifest.Items.Add(new OpfManifestItem { Id = "ncx", Href = "toc.ncx", MediaType = ContentType.ContentTypeToMimeType[EpubContentType.DtbookNcx] });
             opf.Spine.Toc = "ncx";
 
-            format = new EpubFormat
+            _format = new EpubFormat
             {
                 Opf = opf,
                 Nav = new NavDocument(),
                 Ncx = new NcxDocument()
             };
 
-            format.Nav.Head.Dom = new XElement(NavElements.Head);
-            format.Nav.Body.Dom =
+            _format.Nav.Head.Dom = new XElement(NavElements.Head);
+            _format.Nav.Body.Dom =
                 new XElement(
                     NavElements.Body,
                         new XElement(NavElements.Nav, new XAttribute(NavNav.Attributes.Type, NavNav.Attributes.TypeValues.Toc),
                             new XElement(NavElements.Ol)));
 
-            resources = new EpubResources();
+            _resources = new EpubResources();
         }
 
         public EpubWriter(EpubBook book)
@@ -59,31 +59,31 @@ namespace Penman.EpubSharp
             if (book == null) throw new ArgumentNullException(nameof(book));
             if (book.Format?.Opf == null) throw new ArgumentException("book opf instance == null", nameof(book));
 
-            format = book.Format;
-            resources = book.Resources;
+            _format = book.Format;
+            _resources = book.Resources;
 
-            opfPath = format.Ocf.RootFilePath;
-            ncxPath = format.Opf.FindNcxPath();
+            _opfPath = _format.Ocf.RootFilePath;
+            _ncxPath = _format.Opf.FindNcxPath();
 
-            if (ncxPath != null)
+            if (_ncxPath != null)
             {
                 // Remove NCX file from the resources - Write() will format a new one.
-                resources.Other = resources.Other.Where(e => e.Href != ncxPath).ToList();
+                _resources.Other = _resources.Other.Where(e => e.Href != _ncxPath).ToList();
 
-                ncxPath = ncxPath.ToAbsolutePath(opfPath);
+                _ncxPath = _ncxPath.ToAbsolutePath(_opfPath);
             }
         }
 
-        public static void Write(EpubBook book, string filename)
+        public void Write(EpubBook book, string epubBooKPath)
         {
             if (book == null) throw new ArgumentNullException(nameof(book));
-            if (string.IsNullOrWhiteSpace(filename)) throw new ArgumentNullException(nameof(filename));
+            if (string.IsNullOrWhiteSpace(epubBooKPath)) throw new ArgumentNullException(nameof(epubBooKPath));
 
             var writer = new EpubWriter(book);
-            writer.Write(filename);
+            writer.Write(epubBooKPath);
         }
 
-        public static void Write(EpubBook book, Stream stream)
+        public void Write(EpubBook book, Stream stream)
         {
             if (book == null) throw new ArgumentNullException(nameof(book));
             if (stream == null) throw new ArgumentNullException(nameof(stream));
@@ -92,21 +92,6 @@ namespace Penman.EpubSharp
             writer.Write(stream);
         }
 
-        /// <summary>
-        /// Clones the book instance by writing and reading it from memory.
-        /// </summary>
-        /// <param name="book"></param>
-        /// <returns></returns>
-        public static EpubBook MakeCopy(EpubBook book)
-        {
-            var stream = new MemoryStream();
-            var writer = new EpubWriter(book);
-            writer.Write(stream);
-            stream.Seek(0, SeekOrigin.Begin);
-            var epub = EpubReader.Read(stream, false);
-            return epub;
-        }
-        
         public void AddFile(string filename, byte[] content, EpubContentType type)
         {
             if (string.IsNullOrWhiteSpace(filename)) throw new ArgumentNullException(nameof(filename));
@@ -124,32 +109,32 @@ namespace Penman.EpubSharp
             switch (type)
             {
                 case EpubContentType.Css:
-                    resources.Css.Add(file.ToTextFile());
+                    _resources.Css.Add(file.ToTextFile());
                     break;
 
                 case EpubContentType.FontOpentype:
                 case EpubContentType.FontTruetype:
-                    resources.Fonts.Add(file);
+                    _resources.Fonts.Add(file);
                     break;
 
                 case EpubContentType.ImageGif:
                 case EpubContentType.ImageJpeg:
                 case EpubContentType.ImagePng:
                 case EpubContentType.ImageSvg:
-                    resources.Images.Add(file);
+                    _resources.Images.Add(file);
                     break;
 
                 case EpubContentType.Xml:
                 case EpubContentType.Xhtml11:
                 case EpubContentType.Other:
-                    resources.Other.Add(file);
+                    _resources.Other.Add(file);
                     break;
 
                 default:
                     throw new InvalidOperationException($"Unsupported file type: {type}");
             }
 
-            format.Opf.Manifest.Items.Add(new OpfManifestItem
+            _format.Opf.Manifest.Items.Add(new OpfManifestItem
             {
                 Id = Guid.NewGuid().ToString("N"),
                 Href = filename,
@@ -162,36 +147,36 @@ namespace Penman.EpubSharp
             AddFile(filename, Constants.DefaultEncoding.GetBytes(content), type);
         }
 
-        public void AddAuthor(string author)
+        public void AddAuthor(string authorName)
         {
-            if (string.IsNullOrWhiteSpace(author)) throw new ArgumentNullException(nameof(author));
-            format.Opf.Metadata.Creators.Add(new OpfMetadataCreator { Text = author });
+            if (string.IsNullOrWhiteSpace(authorName)) throw new ArgumentNullException(nameof(authorName));
+            _format.Opf.Metadata.Creators.Add(new OpfMetadataCreator { Text = authorName });
         }
 
         public void ClearAuthors()
         {
-            format.Opf.Metadata.Creators.Clear();
+            _format.Opf.Metadata.Creators.Clear();
         }
 
         public void RemoveAuthor(string author)
         {
             if (string.IsNullOrWhiteSpace(author)) throw new ArgumentNullException(nameof(author));
-            foreach (var entity in format.Opf.Metadata.Creators.Where(e => e.Text == author).ToList())
+            foreach (var entity in _format.Opf.Metadata.Creators.Where(e => e.Text == author).ToList())
             {
-                format.Opf.Metadata.Creators.Remove(entity);
+                _format.Opf.Metadata.Creators.Remove(entity);
             }
         }
         
         public void RemoveTitle()
         {
-            format.Opf.Metadata.Titles.Clear();
+            _format.Opf.Metadata.Titles.Clear();
         }
 
         public void SetTitle(string title)
         {
             if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
             RemoveTitle();
-            format.Opf.Metadata.Titles.Add(title);
+            _format.Opf.Metadata.Titles.Add(title);
         }
 
         public EpubChapter AddChapter(string title, string html, string fileId = null)
@@ -208,7 +193,7 @@ namespace Penman.EpubSharp
                 ContentType = EpubContentType.Xhtml11
             };
             file.MimeType = ContentType.ContentTypeToMimeType[file.ContentType];
-            resources.Html.Add(file);
+            _resources.Html.Add(file);
 
             var manifestItem = new OpfManifestItem
             {
@@ -216,19 +201,19 @@ namespace Penman.EpubSharp
                 Href = file.Href,
                 MediaType = file.MimeType
             };
-            format.Opf.Manifest.Items.Add(manifestItem);
+            _format.Opf.Manifest.Items.Add(manifestItem);
 
             var spineItem = new OpfSpineItemRef { IdRef = manifestItem.Id, Linear = true };
-            format.Opf.Spine.ItemRefs.Add(spineItem);
+            _format.Opf.Spine.ItemRefs.Add(spineItem);
 
             FindNavTocOl()?.Add(new XElement(NavElements.Li, new XElement(NavElements.A, new XAttribute("href", file.Href), title)));
 
-            format.Ncx?.NavMap.NavPoints.Add(new NcxNavPoint
+            _format.Ncx?.NavMap.NavPoints.Add(new NcxNavPoint
             {
                 Id = Guid.NewGuid().ToString("N"),
                 NavLabelText = title,
                 ContentSrc = file.Href,
-                PlayOrder = format.Ncx.NavMap.NavPoints.Any() ? format.Ncx.NavMap.NavPoints.Max(e => e.PlayOrder) : 1
+                PlayOrder = _format.Ncx.NavMap.NavPoints.Any() ? _format.Ncx.NavMap.NavPoints.Max(e => e.PlayOrder) : 1
             });
 
             return new EpubChapter
@@ -241,8 +226,8 @@ namespace Penman.EpubSharp
 
         public void ClearChapters()
         {
-            var spineItems = format.Opf.Spine.ItemRefs.Select(spine => format.Opf.Manifest.Items.Single(e => e.Id == spine.IdRef));
-            var otherItems = format.Opf.Manifest.Items.Where(e => !spineItems.Contains(e)).ToList();
+            var spineItems = _format.Opf.Spine.ItemRefs.Select(spine => _format.Opf.Manifest.Items.Single(e => e.Id == spine.IdRef));
+            var otherItems = _format.Opf.Manifest.Items.Where(e => !spineItems.Contains(e)).ToList();
 
             foreach (var item in spineItems)
             {
@@ -250,27 +235,27 @@ namespace Penman.EpubSharp
                 if (otherItems.All(e => new Href(e.Href).Path != href.Path))
                 {
                     // The HTML file is not referenced by anything outside spine item, thus can be removed from the archive.
-                    var file = resources.Html.Single(e => e.Href == href.Path);
-                    resources.Html.Remove(file);
+                    var file = _resources.Html.Single(e => e.Href == href.Path);
+                    _resources.Html.Remove(file);
                 }
 
-                format.Opf.Manifest.Items.Remove(item);
+                _format.Opf.Manifest.Items.Remove(item);
             }
 
-            format.Opf.Spine.ItemRefs.Clear();
-            format.Opf.Guide = null;
-            format.Ncx?.NavMap.NavPoints.Clear();
+            _format.Opf.Spine.ItemRefs.Clear();
+            _format.Opf.Guide = null;
+            _format.Ncx?.NavMap.NavPoints.Clear();
             FindNavTocOl()?.Descendants().Remove();
 
             // Remove all images except the cover.
             // I can't think of a case where this is a bad idea.
-            var coverPath = format.Opf.FindCoverPath();
-            foreach (var item in format.Opf.Manifest.Items.Where(e => e.MediaType.StartsWith("image/") && e.Href != coverPath).ToList())
+            var coverPath = _format.Opf.FindCoverPath();
+            foreach (var item in _format.Opf.Manifest.Items.Where(e => e.MediaType.StartsWith("image/") && e.Href != coverPath).ToList())
             {
-                format.Opf.Manifest.Items.Remove(item);
+                _format.Opf.Manifest.Items.Remove(item);
 
-                var image = resources.Images.Single(e => e.Href == new Href(item.Href).Path);
-                resources.Images.Remove(image);
+                var image = _resources.Images.Single(e => e.Href == new Href(item.Href).Path);
+                _resources.Images.Remove(image);
             }
         }
 
@@ -281,13 +266,13 @@ namespace Penman.EpubSharp
 
         public void RemoveCover()
         {
-            var path = format.Opf.FindAndRemoveCover();
+            var path = _format.Opf.FindAndRemoveCover();
             if (path == null) return;
 
-            var resource = resources.Images.SingleOrDefault(e => e.Href == path);
+            var resource = _resources.Images.SingleOrDefault(e => e.Href == path);
             if (resource != null)
             {
-                resources.Images.Remove(resource);
+                _resources.Images.Remove(resource);
             }
         }
 
@@ -319,7 +304,7 @@ namespace Penman.EpubSharp
                     type = EpubContentType.ImageSvg;
                     break;
                 default:
-                    throw new ArgumentException($"Unsupported cover format: {format}", nameof(format));
+                    throw new ArgumentException($"Unsupported cover format: {_format}", nameof(_format));
             }
 
             var coverResource = new EpubByteFile
@@ -330,7 +315,7 @@ namespace Penman.EpubSharp
                 Content = data
             };
             coverResource.MimeType = ContentType.ContentTypeToMimeType[coverResource.ContentType];
-            resources.Images.Add(coverResource);
+            _resources.Images.Add(coverResource);
 
             var coverItem = new OpfManifestItem
             {
@@ -339,8 +324,8 @@ namespace Penman.EpubSharp
                 MediaType = coverResource.MimeType
             };
             coverItem.Properties.Add(OpfManifest.ManifestItemCoverImageProperty);
-            format.Opf.Manifest.Items.Add(coverItem);
-            format.Opf.Metadata.Metas.Add(new OpfMetadataMeta() { 
+            _format.Opf.Manifest.Items.Add(coverItem);
+            _format.Opf.Metadata.Metas.Add(new OpfMetadataMeta() { 
                 Name= "cover",                
                 Content = "cover-image"
             });
@@ -354,9 +339,9 @@ namespace Penman.EpubSharp
             return stream.ReadToEnd();
         }
         
-        public void Write(string filename)
+        public void Write(string epubBookPath)
         {
-            using (var file = File.Create(filename))
+            using (var file = File.Create(epubBookPath))
             {
                 Write(file);
             }
@@ -367,23 +352,23 @@ namespace Penman.EpubSharp
             using (var archive = new ZipArchive(stream, ZipArchiveMode.Create, true))
             {
                 archive.CreateEntry("mimetype", MimeTypeWriter.Format());
-                archive.CreateEntry(Constants.OcfPath, OcfWriter.Format(opfPath));
-                archive.CreateEntry(opfPath, OpfWriter.Format(format.Opf));
+                archive.CreateEntry(Constants.OcfPath, OcfWriter.Format(_opfPath));
+                archive.CreateEntry(_opfPath, OpfWriter.Format(_format.Opf));
 
-                if (format.Ncx != null)
+                if (_format.Ncx != null)
                 {
-                    archive.CreateEntry(ncxPath, NcxWriter.Format(format.Ncx));
+                    archive.CreateEntry(_ncxPath, NcxWriter.Format(_format.Ncx));
                 }
 
                 var allFiles = new[]
                 {
-                    resources.Html.Cast<EpubFile>(),
-                    resources.Css,
-                    resources.Images,
-                    resources.Fonts,
-                    resources.Other
+                    _resources.Html.Cast<EpubFile>(),
+                    _resources.Css,
+                    _resources.Images,
+                    _resources.Fonts,
+                    _resources.Other
                 }.SelectMany(collection => collection as EpubFile[] ?? collection.ToArray());
-                var relativePath = PathExt.GetDirectoryPath(opfPath);
+                var relativePath = PathExt.GetDirectoryPath(_opfPath);
                 foreach (var file in allFiles)
                 {
                     var absolutePath = PathExt.Combine(relativePath, file.Href);
@@ -394,13 +379,13 @@ namespace Penman.EpubSharp
 
         private XElement FindNavTocOl()
         {
-            if (format.Nav == null)
+            if (_format.Nav == null)
             {
                 return null;
             }
 
-            var ns = format.Nav.Body.Dom.Name.Namespace;
-            var element = format.Nav.Body.Dom.Descendants(ns + NavElements.Nav)
+            var ns = _format.Nav.Body.Dom.Name.Namespace;
+            var element = _format.Nav.Body.Dom.Descendants(ns + NavElements.Nav)
                 .SingleOrDefault(e => (string)e.Attribute(NavNav.Attributes.Type) == NavNav.Attributes.TypeValues.Toc)
                 ?.Element(ns + NavElements.Ol);
 
@@ -411,18 +396,21 @@ namespace Penman.EpubSharp
 
             return element;
         }
-        
-        // Old code to add toc.ncx
-        /*
-            if (opf.Spine.Toc != null)
-            {
-                var ncxPath = opf.FindNcxPath();
-                if (ncxPath == null)
-                {
-                    throw new EpubWriteException("Spine TOC is set, but NCX path is not.");
-                }
-                manifest.Add(new XElement(OpfElements.Item, new XAttribute(OpfManifestItem.Attributes.Id, "ncx"), new XAttribute(OpfManifestItem.Attributes.MediaType, ContentType.ContentTypeToMimeType[EpubContentType.DtbookNcx]), new XAttribute(OpfManifestItem.Attributes.Href, ncxPath)));
-            }
-         */
+
+
+        /// <summary>
+        /// Clones the book instance by writing and reading it from memory.
+        /// </summary>
+        /// <param name="book"></param>
+        /// <returns></returns>
+        public static EpubBook MakeCopy(EpubBook book)
+        {
+            var stream = new MemoryStream();
+            var writer = new EpubWriter(book);
+            writer.Write(stream);
+            stream.Seek(0, SeekOrigin.Begin);
+            var epub = EpubReader.Read(stream, false);
+            return epub;
+        }
     }
 }
