@@ -1,22 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net6.0</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Chris Laine (domingoladron)</Authors>
     <PackageTags>epub epubs book books 2.0 3.0 3.1</PackageTags>
     <PackageId>Penman.EpubSharp</PackageId>
-    <Version>1.0.0.0</Version>
-    <Description>A library for reading and writing EPUB files.</Description>
+    <Version>1.1.0.0</Version>
+    <Description>A .NET 6 library for reading and writing EPUB files.</Description>
     <PackageProjectUrl>https://github.com/domingoladron/Penman.EpubSharp</PackageProjectUrl>
     <Copyright>Copyright 2022</Copyright>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
     <RepositoryUrl>https://github.com/domingoladron/Penman.EpubSharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>First release with decent reading functionality
-Limited writing functionality (more to come)</PackageReleaseNotes>
+    <PackageReleaseNotes>Refactor and adding an EpubBookBuilder to simplify
+    the work of building the Ebook</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
 	  <Summary></Summary>
