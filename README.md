@@ -1,5 +1,5 @@
 # Penman.EpubSharp
-.NET 6 library for reading and writing EPUB files.  An upgrade of [asido/EpubSharp](https://github.com/asido/EpubSharp)
+.NET 6 / .NET Standard 2.0 library for reading and writing EPUB files.  An upgrade of [asido/EpubSharp](https://github.com/asido/EpubSharp)
 
 Supported EPUB versions: **2.0**, **3.0**, **3.1**
 
@@ -10,7 +10,7 @@ Install-Package Penman.EpubSharp
 ```
 
 # Supported Frameworks
-`.NET6.0`
+`.NET6.0`, `NETSTANDARD2.0`
 
 # Usage
 
