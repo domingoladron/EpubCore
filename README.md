@@ -1,5 +1,5 @@
 # Penman.EpubSharp
-.NET library for reading and writing EPUB files.  An upgrade of [asido/EpubSharp](https://github.com/asido/EpubSharp)
+.NET 6 library for reading and writing EPUB files.  An upgrade of [asido/EpubSharp](https://github.com/asido/EpubSharp)
 
 Supported EPUB versions: **2.0**, **3.0**, **3.1**
 
@@ -10,7 +10,7 @@ Install-Package Penman.EpubSharp
 ```
 
 # Supported Frameworks
-``.NET6.0, .NETSTANDARD2.0``
+`.NET6.0`
 
 # Usage
 
@@ -49,7 +49,8 @@ EpubWriter.Write(book, "new.epub");
 ```
 
 ## Writing an EPUB
-_**Editing capabilities are currently very limited and might not work at all. Use it at your own risk. The next release will bring a true write support.**_
+_**Editing capabilities are currently very limited and might not work at all. 
+Use it at your own risk. The next release will bring a true write support.**_
 ```cs
 EpubWriter writer = new EpubWriter();
 
@@ -57,4 +58,15 @@ writer.AddAuthor("Foo Bar");
 writer.SetCover(imgData, ImageFormat.Png);
 
 writer.Write("new.epub");
+```
+
+## Epub Book Builder
+
+Use the fluent EpubBookBuilder to create your Epub.
+
+```cs
+
+
+
+
 ```
