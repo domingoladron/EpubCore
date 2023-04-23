@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Penman.EpubSharp.Format;
 
 namespace Penman.EpubSharp.Fluent
@@ -21,6 +22,16 @@ namespace Penman.EpubSharp.Fluent
         public IEpubBookBuilder AddAuthor(string authorName)
         {
             _writer.AddAuthor(authorName);
+            return this;
+        }
+
+        public IEpubBookBuilder AddAuthors(List<string> authorNames)
+        {
+            foreach (var curAuthorName in authorNames)
+            {
+                _writer.AddAuthor(curAuthorName);
+            }
+
             return this;
         }
 
@@ -94,7 +105,7 @@ namespace Penman.EpubSharp.Fluent
 
         public static EpubBookBuilder Create()
         {
-            return new EpubBookBuilder(new EpubWriter());
+            return new EpubBookBuilder(new EpubWriter(new EpubBook()));
         }
     }
 }

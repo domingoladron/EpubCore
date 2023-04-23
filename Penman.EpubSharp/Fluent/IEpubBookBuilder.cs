@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Penman.EpubSharp.Format;
 
 namespace Penman.EpubSharp.Fluent
@@ -10,6 +11,8 @@ namespace Penman.EpubSharp.Fluent
     {
         IEpubBookBuilder WithTitle(string title);
         IEpubBookBuilder AddAuthor(string authorName);
+
+        IEpubBookBuilder AddAuthors(List<string> authorNames);
         IEpubBookBuilder AddChapter(string title, string chapterContents);
 
         IEpubBookBuilder AddStylesheet(string stylesheetName, string stylesheetContents);
