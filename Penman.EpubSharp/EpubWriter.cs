@@ -10,11 +10,6 @@ using Penman.EpubSharp.Misc;
 
 namespace Penman.EpubSharp
 {
-    public enum ImageFormat
-    {
-        Gif, Png, Jpeg, Svg
-    }
-
     public class EpubWriter : IEpubWriter
     {
         private readonly string _opfPath = "EPUB/package.opf";
@@ -74,13 +69,13 @@ namespace Penman.EpubSharp
             }
         }
 
-        public void Write(EpubBook book, string epubBooKPath)
+        public void Write(EpubBook book, string epubBookPath)
         {
             if (book == null) throw new ArgumentNullException(nameof(book));
-            if (string.IsNullOrWhiteSpace(epubBooKPath)) throw new ArgumentNullException(nameof(epubBooKPath));
+            if (string.IsNullOrWhiteSpace(epubBookPath)) throw new ArgumentNullException(nameof(epubBookPath));
 
             var writer = new EpubWriter(book);
-            writer.Write(epubBooKPath);
+            writer.Write(epubBookPath);
         }
 
         public void Write(EpubBook book, Stream stream)
@@ -377,7 +372,7 @@ namespace Penman.EpubSharp
             }
         }
 
-        private XElement FindNavTocOl()
+        public XElement FindNavTocOl()
         {
             if (_format.Nav == null)
             {

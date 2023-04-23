@@ -45,4 +45,9 @@ Limited writing functionality (more to come)</PackageReleaseNotes>
   </ItemGroup>
 
 
+  <ItemGroup>
+    <Folder Include="Fluent\" />
+  </ItemGroup>
+
+
 </Project>
