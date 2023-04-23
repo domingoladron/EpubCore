@@ -1,16 +1,17 @@
-﻿namespace Penman.EpubSharp;
+﻿namespace Penman.EpubSharp {
 
-public class EpubByteFile : EpubFile
-{
-    internal EpubTextFile ToTextFile()
+    public class EpubByteFile : EpubFile
     {
-        return new EpubTextFile
+        internal EpubTextFile ToTextFile()
         {
-            Content = Content,
-            ContentType = ContentType,
-            AbsolutePath = AbsolutePath,
-            Href = Href,
-            MimeType = MimeType
-        };
+            return new EpubTextFile
+            {
+                Content = Content,
+                ContentType = ContentType,
+                AbsolutePath = AbsolutePath,
+                Href = Href,
+                MimeType = MimeType
+            };
+        }
     }
 }

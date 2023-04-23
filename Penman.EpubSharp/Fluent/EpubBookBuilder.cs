@@ -1,98 +1,100 @@
 ﻿using System.IO;
 using Penman.EpubSharp.Format;
 
-namespace Penman.EpubSharp.Fluent;
-
-public class EpubBookBuilder : IEpubBookBuilder
+namespace Penman.EpubSharp.Fluent
 {
-    private readonly IEpubWriter _writer;
+    public class EpubBookBuilder : IEpubBookBuilder
+    {
+        private readonly IEpubWriter _writer;
 
-    public EpubBookBuilder(IEpubWriter writer)
-    {
-        _writer = writer;
-    }
-    public IEpubBookBuilder WithTitle(string title)
-    {
-       _writer.SetTitle(title);
-       return this;
-    }
+        public EpubBookBuilder(IEpubWriter writer)
+        {
+            _writer = writer;
+        }
 
-    public IEpubBookBuilder AddAuthor(string authorName)
-    {
-        _writer.AddAuthor(authorName);
-        return this;
-    }
+        public IEpubBookBuilder WithTitle(string title)
+        {
+            _writer.SetTitle(title);
+            return this;
+        }
 
-    public IEpubBookBuilder AddChapter(string title, string chapterContents)
-    {
-        _writer.AddChapter(title, chapterContents);
-        return this;
-    }
+        public IEpubBookBuilder AddAuthor(string authorName)
+        {
+            _writer.AddAuthor(authorName);
+            return this;
+        }
 
-    public IEpubBookBuilder AddStylesheet(string stylesheetName, string stylesheetContents)
-    {
-        return AddFileContent(stylesheetName, stylesheetContents, EpubContentType.Css);
-    }
+        public IEpubBookBuilder AddChapter(string title, string chapterContents)
+        {
+            _writer.AddChapter(title, chapterContents);
+            return this;
+        }
 
-    public IEpubBookBuilder AddStylesheet(string stylesheetName, byte[] stylesheetContents)
-    {
-        return AddFileContent(stylesheetName, stylesheetContents, EpubContentType.Css);
-    }
+        public IEpubBookBuilder AddStylesheet(string stylesheetName, string stylesheetContents)
+        {
+            return AddFileContent(stylesheetName, stylesheetContents, EpubContentType.Css);
+        }
 
-    public IEpubBookBuilder AddJpg(string imageName, byte[] imageContents)
-    {
-        return AddFileContent(imageName, imageContents, EpubContentType.ImageJpeg);
-    }
+        public IEpubBookBuilder AddStylesheet(string stylesheetName, byte[] stylesheetContents)
+        {
+            return AddFileContent(stylesheetName, stylesheetContents, EpubContentType.Css);
+        }
 
-    public IEpubBookBuilder AddGif(string imageName, byte[] imageContents)
-    {
-        return AddFileContent(imageName, imageContents, EpubContentType.ImageGif);
-    }
+        public IEpubBookBuilder AddJpg(string imageName, byte[] imageContents)
+        {
+            return AddFileContent(imageName, imageContents, EpubContentType.ImageJpeg);
+        }
 
-    public IEpubBookBuilder AddPng(string imageName, byte[] imageContents)
-    {
-        return AddFileContent(imageName, imageContents, EpubContentType.ImagePng);
-    }
+        public IEpubBookBuilder AddGif(string imageName, byte[] imageContents)
+        {
+            return AddFileContent(imageName, imageContents, EpubContentType.ImageGif);
+        }
 
-    public IEpubBookBuilder AddSvg(string imageName, byte[] imageContents)
-    {
-        return AddFileContent(imageName, imageContents, EpubContentType.ImageSvg);
-    }
+        public IEpubBookBuilder AddPng(string imageName, byte[] imageContents)
+        {
+            return AddFileContent(imageName, imageContents, EpubContentType.ImagePng);
+        }
 
-    public IEpubBookBuilder AddTrueTypeFont(string fontFileName, byte[] fontContents)
-    {
-        return AddFileContent(fontFileName, fontContents, EpubContentType.FontTruetype);
-    }
+        public IEpubBookBuilder AddSvg(string imageName, byte[] imageContents)
+        {
+            return AddFileContent(imageName, imageContents, EpubContentType.ImageSvg);
+        }
 
-    public IEpubBookBuilder AddOpenTypeFont(string fontFileName, byte[] fontContents)
-    {
-        return AddFileContent(fontFileName, fontContents, EpubContentType.FontOpentype);
-    }
+        public IEpubBookBuilder AddTrueTypeFont(string fontFileName, byte[] fontContents)
+        {
+            return AddFileContent(fontFileName, fontContents, EpubContentType.FontTruetype);
+        }
 
-    public IEpubBookBuilder AddFileContent(string fileName, string fileContents, EpubContentType type)
-    {
-        _writer.AddFile(fileName, fileContents, type);
-        return this;
-    }
+        public IEpubBookBuilder AddOpenTypeFont(string fontFileName, byte[] fontContents)
+        {
+            return AddFileContent(fontFileName, fontContents, EpubContentType.FontOpentype);
+        }
 
-    public IEpubBookBuilder AddFileContent(string fileName, byte[] fileContents, EpubContentType type)
-    {
-        _writer.AddFile(fileName, fileContents, type);
-        return this;
-    }
+        public IEpubBookBuilder AddFileContent(string fileName, string fileContents, EpubContentType type)
+        {
+            _writer.AddFile(fileName, fileContents, type);
+            return this;
+        }
 
-    public void Build(string savePath)
-    {
-        _writer.Write(savePath);
-    }
+        public IEpubBookBuilder AddFileContent(string fileName, byte[] fileContents, EpubContentType type)
+        {
+            _writer.AddFile(fileName, fileContents, type);
+            return this;
+        }
 
-    public void Build(Stream stream)
-    {
-        _writer.Write(stream);
-    }
+        public void Build(string savePath)
+        {
+            _writer.Write(savePath);
+        }
 
-    public static EpubBookBuilder Create()
-    {
-        return new EpubBookBuilder(new EpubWriter());
+        public void Build(Stream stream)
+        {
+            _writer.Write(stream);
+        }
+
+        public static EpubBookBuilder Create()
+        {
+            return new EpubBookBuilder(new EpubWriter());
+        }
     }
 }

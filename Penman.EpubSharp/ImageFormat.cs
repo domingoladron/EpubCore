@@ -1,6 +1,10 @@
-﻿namespace Penman.EpubSharp;
-
-public enum ImageFormat
+﻿namespace Penman.EpubSharp
 {
-    Gif, Png, Jpeg, Svg
+    public enum ImageFormat
+    {
+        Gif,
+        Png,
+        Jpeg,
+        Svg
+    }
 }
