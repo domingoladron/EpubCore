@@ -9,5 +9,9 @@ namespace Penman.EpubSharp
             get => Constants.DefaultEncoding.GetString(Content, 0, Content.Length);
             set => Content = Constants.DefaultEncoding.GetBytes(value);
         }
+
+        public string FileName { get; set; } = string.Empty;
+
+        public string FullFilePath { get; set; } = string.Empty;
     }
 }

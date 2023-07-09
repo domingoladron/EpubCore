@@ -70,12 +70,13 @@ namespace Penman.EpubSharp
                 book.Resources = LoadResources(archive, book);
                 book.SpecialResources = LoadSpecialResources(archive, book);
                 book.CoverImage = LoadCoverImage(book);
+                book.CoverImageHref = LoadCoverImageName(book);
                 book.TableOfContents = LoadChapters(book);
                 return book;
             }
         }
 
-        private static byte[] LoadCoverImage(EpubBook book)
+        private static string LoadCoverImageName(EpubBook book)
         {
             if (book == null) throw new ArgumentNullException(nameof(book));
             if (book.Format == null) throw new ArgumentNullException(nameof(book.Format));
@@ -85,6 +86,13 @@ namespace Penman.EpubSharp
             {
                 return null;
             }
+
+            return coverPath;
+        }
+
+        private static byte[] LoadCoverImage(EpubBook book)
+        {
+            var coverPath = LoadCoverImageName(book);
 
             var coverImageFile = book.Resources.Images.SingleOrDefault(e => e.Href == coverPath);
             return coverImageFile?.Content;
@@ -97,7 +105,7 @@ namespace Penman.EpubSharp
                 var tocNav = book.Format.Nav.Body.Navs.SingleOrDefault(e => e.Type == NavNav.Attributes.TypeValues.Toc);
                 if (tocNav != null)
                 {
-                    return LoadChaptersFromNav(book.Format.Paths.NavAbsolutePath, tocNav.Dom);
+                    return LoadChaptersFromNav(book.Format.Paths.NavAbsolutePath, tocNav.Dom, book.Resources);
                 }
             }
 
@@ -109,7 +117,8 @@ namespace Penman.EpubSharp
             return new List<EpubChapter>();
         }
 
-        private static List<EpubChapter> LoadChaptersFromNav(string navAbsolutePath, XElement element, EpubChapter parentChapter = null)
+        private static List<EpubChapter> LoadChaptersFromNav(string navAbsolutePath, XElement element,
+            EpubResources bookResources, EpubChapter parentChapter = null)
         {
             if (element == null) throw new ArgumentNullException(nameof(element));
             var ns = element.Name.Namespace;
@@ -148,6 +157,12 @@ namespace Penman.EpubSharp
                         chapter.RelativePath = href.Path;
                         chapter.HashLocation = href.HashLocation;
                         chapter.AbsolutePath = chapter.RelativePath.ToAbsolutePath(navAbsolutePath);
+
+                        var linkedResource = bookResources.All.FirstOrDefault(g => g.AbsolutePath.Equals(chapter.AbsolutePath));
+                        if (linkedResource != null)
+                        {
+                            chapter.LinkedResource = linkedResource;
+                        }
                     }
 
                     var titleTextElement = li.Descendants().FirstOrDefault(e => !string.IsNullOrWhiteSpace(e.Value));
@@ -158,7 +173,7 @@ namespace Penman.EpubSharp
 
                     if (li.Element(ns + NavElements.Ol) != null)
                     {
-                        chapter.SubChapters = LoadChaptersFromNav(navAbsolutePath, li, chapter);
+                        chapter.SubChapters = LoadChaptersFromNav(navAbsolutePath, li, bookResources, chapter);
                     }
                     result.Add(chapter);
 
@@ -247,6 +262,8 @@ namespace Penman.EpubSharp
                             using (var stream = entry.Open())
                             {
                                 file.Content = stream.ReadToEnd();
+                                file.FileName = entry.Name;
+                                file.FullFilePath = entry.FullName;
                             }
 
                             switch (contentType)

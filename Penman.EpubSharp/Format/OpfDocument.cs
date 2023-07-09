@@ -50,8 +50,8 @@ namespace Penman.EpubSharp.Format
             public static readonly XName Version = "version";
         }
 
-        public string UniqueIdentifier { get; internal set; }
-        public EpubVersion EpubVersion { get; internal set; }
+        public string UniqueIdentifier { get; internal set; } = string.Empty;
+        public EpubVersion EpubVersion { get; internal set; } = EpubVersion.Epub3;
         public OpfMetadata Metadata { get; internal set; } = new OpfMetadata();
         public OpfManifest Manifest { get; internal set; } = new OpfManifest();
         public OpfSpine Spine { get; internal set; } = new OpfSpine();

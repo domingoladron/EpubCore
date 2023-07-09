@@ -14,10 +14,13 @@ namespace Penman.EpubSharp {
         public EpubChapter Previous { get; set; }
         public EpubChapter Next { get; set; }
         public IList<EpubChapter> SubChapters { get; set; } = new List<EpubChapter>();
+        public EpubFile LinkedResource { get; set; }
 
         public override string ToString()
         {
             return $"Title: {Title}, Subchapter count: {SubChapters.Count}";
         }
+
+        
     }
 }

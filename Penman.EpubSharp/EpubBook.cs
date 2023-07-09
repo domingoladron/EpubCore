@@ -15,9 +15,20 @@ namespace Penman.EpubSharp
         /// </summary>
         public EpubFormat Format { get; internal set; }
 
-        public string Title => Format.Opf.Metadata.Titles.FirstOrDefault();
+        public string Title => Format.Opf.Metadata.Titles.FirstOrDefault() ?? string.Empty;
+
+        public IList<string> Titles => Format.Opf.Metadata.Titles;
 
         public IEnumerable<string> Authors => Format.Opf.Metadata.Creators.Select(creator => creator.Text);
+
+        public IList<OpfMetadataCreator> Contributors => Format.Opf.Metadata.Contributors;
+
+        public IEnumerable<string> Publishers => Format.Opf.Metadata.Publishers;
+
+        public string UniqueIdentifier => Format.Opf.UniqueIdentifier;
+
+        public EpubVersion EpubVersion => Format.Opf.EpubVersion;
+
 
         /// <summary>
         /// All files within the EPUB.
@@ -30,8 +41,10 @@ namespace Penman.EpubSharp
         public EpubSpecialResources SpecialResources { get; internal set; }
 
         public byte[] CoverImage { get; internal set; }
+        public string CoverImageHref { get; set; }
 
         public IList<EpubChapter> TableOfContents { get; internal set; }
+      
 
         public string ToPlainText()
         {
