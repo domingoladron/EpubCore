@@ -11,10 +11,16 @@ namespace Penman.EpubSharp
         void AddFile(string filename, byte[] content, EpubContentType type);
         void AddFile(string filename, string content, EpubContentType type);
         void AddAuthor(string authorName);
+        void AddPublisher(string publisherName);
+        void ClearPublishers();
+
+        void RemovePublisher(string publisherName);
         void ClearAuthors();
         void RemoveAuthor(string author);
         void RemoveTitle();
         void SetTitle(string title);
+
+        void SetUniqueIdentifier(string uniqueIdentifier);
         EpubChapter AddChapter(string title, string html, string fileId = null);
         void ClearChapters();
         void RemoveCover();
@@ -23,5 +29,6 @@ namespace Penman.EpubSharp
         void Write(string epubBookPath);
         void Write(Stream stream);
         XElement FindNavTocOl();
+
     }
 }

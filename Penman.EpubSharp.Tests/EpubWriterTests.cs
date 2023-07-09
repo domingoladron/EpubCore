@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using Penman.EpubSharp.Format;
 using Xunit;
@@ -70,6 +71,36 @@ namespace Penman.EpubSharp.Tests
 
             writer.RemoveAuthor("Unexisting");
             writer.ClearAuthors();
+        }
+
+        [Fact]
+        public void AddRemovePublisherTest()
+        {
+            var writer = new EpubWriter();
+
+            writer.AddPublisher("Foo Bar");
+            var epub = WriteAndRead(writer);
+            Assert.Single(epub.Publishers);
+
+            writer.AddPublisher("Zoo Gar");
+            epub = WriteAndRead(writer);
+            Assert.Equal(2, epub.Publishers.Count());
+
+            writer.RemovePublisher("Foo Bar");
+            epub = WriteAndRead(writer);
+            Assert.Single(epub.Publishers);
+            Assert.Equal("Zoo Gar", epub.Publishers.First());
+
+            writer.RemovePublisher("Non-existent");
+            epub = WriteAndRead(writer);
+            Assert.Single(epub.Publishers);
+
+            writer.ClearPublishers();
+            epub = WriteAndRead(writer);
+            Assert.Empty(epub.Publishers);
+
+            writer.RemovePublisher("Non-existent");
+            writer.ClearPublishers();
         }
 
         [Fact]
@@ -151,6 +182,17 @@ namespace Penman.EpubSharp.Tests
                 Assert.Equal(0, epub.TableOfContents[i].SubChapters.Count);
             }
         }
+
+        [Fact]
+        public void SetUniqueIdentifierTest()
+        {
+            var randomGuid = Guid.NewGuid();
+            var writer = new EpubWriter();
+            writer.SetUniqueIdentifier(randomGuid.ToString());
+            var epub = WriteAndRead(writer);
+            Assert.Equal(randomGuid.ToString(), epub.UniqueIdentifier);
+        }
+
 
         [Fact]
         public void ClearChaptersTest()

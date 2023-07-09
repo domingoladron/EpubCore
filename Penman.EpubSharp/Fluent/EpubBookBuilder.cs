@@ -13,6 +13,12 @@ namespace Penman.EpubSharp.Fluent
             _writer = writer;
         }
 
+        public IEpubBookBuilder WithUniqueIdentifier(string uniqueIdentifier)
+        {
+            _writer.SetUniqueIdentifier(uniqueIdentifier);
+            return this;
+        }
+
         public IEpubBookBuilder WithTitle(string title)
         {
             _writer.SetTitle(title);
@@ -30,6 +36,22 @@ namespace Penman.EpubSharp.Fluent
             foreach (var curAuthorName in authorNames)
             {
                 _writer.AddAuthor(curAuthorName);
+            }
+
+            return this;
+        }
+
+        public IEpubBookBuilder AddPublisher(string publisherName)
+        {
+            _writer.AddPublisher(publisherName);
+            return this;
+        }
+
+        public IEpubBookBuilder AddPublishers(List<string> publishers)
+        {
+            foreach (var curPublisherName in publishers)
+            {
+                _writer.AddPublisher(curPublisherName);
             }
 
             return this;

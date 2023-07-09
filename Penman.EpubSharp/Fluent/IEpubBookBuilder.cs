@@ -9,10 +9,15 @@ namespace Penman.EpubSharp.Fluent
     /// </summary>
     public interface IEpubBookBuilder
     {
+        IEpubBookBuilder WithUniqueIdentifier(string uniqueIdentifier);
         IEpubBookBuilder WithTitle(string title);
         IEpubBookBuilder AddAuthor(string authorName);
 
         IEpubBookBuilder AddAuthors(List<string> authorNames);
+
+        IEpubBookBuilder AddPublisher(string publisherName);
+
+        IEpubBookBuilder AddPublishers(List<string> publishers);
         IEpubBookBuilder AddChapter(string title, string chapterContents);
 
         IEpubBookBuilder AddStylesheet(string stylesheetName, string stylesheetContents);

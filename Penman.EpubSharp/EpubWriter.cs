@@ -148,6 +148,26 @@ namespace Penman.EpubSharp
             _format.Opf.Metadata.Creators.Add(new OpfMetadataCreator { Text = authorName });
         }
 
+        public void AddPublisher(string publisherName)
+        {
+            if (string.IsNullOrWhiteSpace(publisherName)) throw new ArgumentNullException(nameof(publisherName));
+            _format.Opf.Metadata.Publishers.Add(publisherName);
+        }
+
+        public void ClearPublishers()
+        {
+            _format.Opf.Metadata.Publishers.Clear();
+        }
+
+        public void RemovePublisher(string publisherName)
+        {
+            if (string.IsNullOrWhiteSpace(publisherName)) throw new ArgumentNullException(nameof(publisherName));
+
+            _format.Opf.Metadata.Publishers.Remove(publisherName);
+        }
+
+
+
         public void ClearAuthors()
         {
             _format.Opf.Metadata.Creators.Clear();
@@ -172,6 +192,13 @@ namespace Penman.EpubSharp
             if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
             RemoveTitle();
             _format.Opf.Metadata.Titles.Add(title);
+        }
+
+        public void SetUniqueIdentifier(string uniqueIdentifier)
+        {
+            if (string.IsNullOrWhiteSpace(uniqueIdentifier)) throw new ArgumentNullException(nameof(uniqueIdentifier));
+            RemoveTitle();
+            _format.Opf.UniqueIdentifier = uniqueIdentifier;
         }
 
         public EpubChapter AddChapter(string title, string html, string fileId = null)
