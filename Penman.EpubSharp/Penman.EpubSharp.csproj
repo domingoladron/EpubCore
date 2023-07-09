@@ -10,8 +10,8 @@
     <Description>A library for reading and writing EPUB files.</Description>
     <PackageProjectUrl>https://github.com/domingoladron/Penman.EpubSharp</PackageProjectUrl>
     <Copyright>Copyright 2022</Copyright>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
+    <AssemblyVersion>1.1.2.0</AssemblyVersion>
+    <FileVersion>1.1.2.0</FileVersion>
     <RepositoryUrl>https://github.com/domingoladron/Penman.EpubSharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
