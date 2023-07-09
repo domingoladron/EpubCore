@@ -20,7 +20,7 @@ namespace Penman.EpubSharp.Tests
         {
             var epub = WriteAndRead(new EpubWriter());
 
-            Assert.Null(epub.Title);
+            Assert.Empty(epub.Title);
             Assert.Empty(epub.Authors);
             Assert.Null(epub.CoverImage);
 
@@ -87,7 +87,7 @@ namespace Penman.EpubSharp.Tests
 
             writer.RemoveTitle();
             epub = WriteAndRead(writer);
-            Assert.Null(epub.Title);
+            Assert.Empty(epub.Title);
 
             writer.RemoveTitle();
         }

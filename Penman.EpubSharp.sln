@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penman.EpubSharp", "Penman.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penman.EpubSharp.Tests", "Penman.EpubSharp.Tests\Penman.EpubSharp.Tests.csproj", "{02DE30CD-7D75-4666-9A13-7B4E2CC7B8D3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{0F1CBEF4-85F5-43A7-88FA-BD270C36376D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penman.EpubSharp.ExampleApp", "Penman.EpubSharp.ExampleApp\Penman.EpubSharp.ExampleApp.csproj", "{28F1310A-0CAE-42F4-B951-6A4D0E06E9DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,16 @@ Global
 		{02DE30CD-7D75-4666-9A13-7B4E2CC7B8D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02DE30CD-7D75-4666-9A13-7B4E2CC7B8D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02DE30CD-7D75-4666-9A13-7B4E2CC7B8D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28F1310A-0CAE-42F4-B951-6A4D0E06E9DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28F1310A-0CAE-42F4-B951-6A4D0E06E9DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28F1310A-0CAE-42F4-B951-6A4D0E06E9DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28F1310A-0CAE-42F4-B951-6A4D0E06E9DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{28F1310A-0CAE-42F4-B951-6A4D0E06E9DB} = {0F1CBEF4-85F5-43A7-88FA-BD270C36376D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C90D00B3-3FCF-4A6A-8481-FA00F10D42F4}
