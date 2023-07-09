@@ -21,8 +21,13 @@ var css = book.Resources.Css;
 var images = book.Resources.Images;
 var fonts = book.Resources.Fonts;
 
-foreach (var curHtml in htmlFiles)
-{
-    Console.WriteLine(curHtml.FileName);
 
+
+Console.WriteLine($"Book Title: {title}");
+Console.WriteLine($"Book Authors: {string.Join(",", authors)}");
+Console.WriteLine($"Book Publishers: {string.Join(",", publishers)}");
+foreach (var curChapter in chapters)
+{
+    Console.WriteLine($"Chapter Title: {curChapter.Title}");
+    Console.WriteLine( $"Chapter Content Type: {curChapter.LinkedResource?.ContentType}");
 }
