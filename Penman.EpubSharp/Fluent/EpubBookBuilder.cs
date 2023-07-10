@@ -57,6 +57,13 @@ namespace Penman.EpubSharp.Fluent
             return this;
         }
 
+
+        public IEpubBookBuilder AddChapter(string title, string chapterContents, string fileId)
+        {
+            _writer.AddChapter(title, chapterContents, fileId);
+            return this;
+        }
+
         public IEpubBookBuilder AddChapter(string title, string chapterContents)
         {
             _writer.AddChapter(title, chapterContents);

@@ -56,5 +56,12 @@ namespace Penman.EpubSharp
             }
             return builder.ToString().Trim();
         }
+
+        public EpubTextFile FetchHtmlFile(EpubChapter ePubChapter)
+        {
+            var nameOfFile = ePubChapter.RelativePath;
+            var possibleFile = this.Resources.Html.FirstOrDefault(g => g.FileName.Equals(nameOfFile));
+            return possibleFile;
+        }
     }
 }

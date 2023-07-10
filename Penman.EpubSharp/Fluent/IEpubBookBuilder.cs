@@ -20,6 +20,8 @@ namespace Penman.EpubSharp.Fluent
         IEpubBookBuilder AddPublishers(List<string> publishers);
         IEpubBookBuilder AddChapter(string title, string chapterContents);
 
+        IEpubBookBuilder AddChapter(string title, string chapterContents, string fileId);
+
         IEpubBookBuilder AddStylesheet(string stylesheetName, string stylesheetContents);
 
         IEpubBookBuilder AddStylesheet(string stylesheetName, byte[] stylesheetContents);

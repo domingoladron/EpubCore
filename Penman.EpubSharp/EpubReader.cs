@@ -157,12 +157,6 @@ namespace Penman.EpubSharp
                         chapter.RelativePath = href.Path;
                         chapter.HashLocation = href.HashLocation;
                         chapter.AbsolutePath = chapter.RelativePath.ToAbsolutePath(navAbsolutePath);
-
-                        var linkedResource = bookResources.All.FirstOrDefault(g => g.AbsolutePath.Equals(chapter.AbsolutePath));
-                        if (linkedResource != null)
-                        {
-                            chapter.LinkedResource = linkedResource;
-                        }
                     }
 
                     var titleTextElement = li.Descendants().FirstOrDefault(e => !string.IsNullOrWhiteSpace(e.Value));
