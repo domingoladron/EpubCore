@@ -9,12 +9,15 @@
     <None Remove="Samples\Cover.jpg" />
     <None Remove="Samples\ios-hackers-handbook.epub" />
     <None Remove="Samples\ios-hackers-handbook.txt" />
+    <None Remove="Samples\opentype.otf" />
     <None Remove="Samples\pg68369.epub" />
     <None Remove="Samples\pg68371.epub" />
     <None Remove="Samples\pg68371.txt" />
     <None Remove="Samples\pg68376.epub" />
     <None Remove="Samples\pg68377.epub" />
     <None Remove="Samples\siddhartha-hermanhesse.epub" />
+    <None Remove="Samples\some.png" />
+    <None Remove="Samples\truetype.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +25,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Cover.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\opentype.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\some.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\ios-hackers-handbook.epub">
@@ -46,6 +55,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\siddhartha-hermanhesse.epub">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\truetype.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

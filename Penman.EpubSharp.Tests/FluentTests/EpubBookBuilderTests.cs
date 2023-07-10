@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Penman.EpubSharp.Fluent;
+using Penman.EpubSharp.Format;
 using Xunit;
 
 namespace Penman.EpubSharp.Tests.FluentTests;
@@ -11,7 +12,7 @@ public class EpubBookBuilderTests
 {
     public static string UniqueIdentifier = Guid.NewGuid().ToString();
     protected string WriteLocation = string.Empty;
-    protected Dictionary<string, string> Chapters = new Dictionary<string, string>();
+    protected Dictionary<string, string> Chapters = new();
     public EpubBookBuilderTests()
     {
         ConfigureTempPath();
@@ -25,12 +26,10 @@ public class EpubBookBuilderTests
 
             Chapters.Add(chapterName, chapterContents);
         }
-
-
     }
 
     [Fact]
-    public void CanConstructFromTitleAndUniqueIdentifier()
+    public void CanBuildFromTitleAndUniqueIdentifier()
     {
         var builder = EpubBookBuilder.Create();
         var stream = new MemoryStream();
@@ -47,7 +46,7 @@ public class EpubBookBuilderTests
     }
 
     [Fact]
-    public void CanConstructWithAuthor()
+    public void CanBuildWithAuthor()
     {
         var builder = EpubBookBuilder.Create();
         var stream = new MemoryStream();
@@ -63,7 +62,7 @@ public class EpubBookBuilderTests
     }
 
     [Fact]
-    public void CanConstructWithPublisher()
+    public void CanBuildWithPublisher()
     {
         var builder = EpubBookBuilder.Create();
         var stream = new MemoryStream();
@@ -79,7 +78,7 @@ public class EpubBookBuilderTests
     }
 
     [Fact]
-    public void CanConstructWithChapters()
+    public void CanBuildWithChapters()
     {
         var builder = EpubBookBuilder.Create();
         var stream = new MemoryStream();
@@ -105,6 +104,7 @@ public class EpubBookBuilderTests
             var fileContents = curHtml.TextContent;
             var curChapterKey = Chapters.Keys.FirstOrDefault(c => c.Equals(curEPubChapter.Title));
 
+            Assert.NotNull(curChapterKey);
             var curChapterContent = Chapters[curChapterKey];
 
             Assert.NotNull(curChapterContent);
@@ -113,7 +113,7 @@ public class EpubBookBuilderTests
     }
 
     [Fact]
-    public void CanConstructWithStylesheet()
+    public void CanBuildWithStylesheet()
     {
         var builder = EpubBookBuilder.Create();
         var stream = new MemoryStream();
@@ -133,6 +133,97 @@ public class EpubBookBuilderTests
     }
 
 
+    [Fact]
+    public void CanBuildWithJpg()
+    {
+        var builder = EpubBookBuilder.Create();
+        var stream = new MemoryStream();
+        var imageName = Faker.Lorem.GetFirstWord();
+        
+        var fileBytes = GetFileBytes("Samples/Cover.jpg");
+
+        builder
+            .AddJpg(imageName, fileBytes)
+            .Build(stream);
+        var epub = EpubReader.Read(stream, false);
+
+        var imageFound = epub.Resources.Images.FirstOrDefault();
+        Assert.NotNull(imageFound);
+        Assert.Equal(EpubContentType.ImageJpeg, imageFound.ContentType);
+        Assert.Equal(imageFound.Href, imageName);
+        Assert.Equal(imageFound.Content, fileBytes);
+    }
+
+
+    [Fact]
+    public void CanBuildWithPng()
+    {
+        var builder = EpubBookBuilder.Create();
+        var stream = new MemoryStream();
+        var imageName = Faker.Lorem.GetFirstWord();
+
+        var fileBytes = GetFileBytes("Samples/some.png");
+
+        builder
+            .AddPng(imageName, fileBytes)
+            .Build(stream);
+        var epub = EpubReader.Read(stream, false);
+
+        var imageFound = epub.Resources.Images.FirstOrDefault();
+        Assert.NotNull(imageFound);
+        Assert.Equal(EpubContentType.ImagePng, imageFound.ContentType);
+        Assert.Equal(imageFound.Href, imageName);
+        Assert.Equal(imageFound.Content, fileBytes);
+    }
+
+
+    [Fact]
+    public void CanBuildWithOpenTypeFont()
+    {
+        var builder = EpubBookBuilder.Create();
+        var stream = new MemoryStream();
+        var fontName = Faker.Lorem.GetFirstWord();
+
+        var fileBytes = GetFileBytes("Samples/opentype.otf");
+
+        builder
+            .AddOpenTypeFont(fontName, fileBytes)
+            .Build(stream);
+        var epub = EpubReader.Read(stream, false);
+
+        var imageFound = epub.Resources.Fonts.FirstOrDefault();
+        Assert.NotNull(imageFound);
+        Assert.Equal(EpubContentType.FontOpentype, imageFound.ContentType);
+        Assert.Equal(imageFound.Href, fontName);
+        Assert.Equal(imageFound.Content, fileBytes);
+    }
+
+    [Fact]
+    public void CanBuildWithTrueTypeFont()
+    {
+        var builder = EpubBookBuilder.Create();
+        var stream = new MemoryStream();
+        var fontName = Faker.Lorem.GetFirstWord();
+
+        var fileBytes = GetFileBytes("Samples/truetype.ttf");
+
+        builder
+            .AddTrueTypeFont(fontName, fileBytes)
+            .Build(stream);
+        var epub = EpubReader.Read(stream, false);
+
+        var imageFound = epub.Resources.Fonts.FirstOrDefault();
+        Assert.NotNull(imageFound);
+        Assert.Equal(EpubContentType.FontTruetype, imageFound.ContentType);
+        Assert.Equal(imageFound.Href, fontName);
+        Assert.Equal(imageFound.Content, fileBytes);
+    }
+
+    private static byte[] GetFileBytes(string relativeApplicationPath)
+    {
+        var pathToFile = $"{AppContext.BaseDirectory}/{relativeApplicationPath}";
+        return File.ReadAllBytes(pathToFile);
+    }
 
     private void ConfigureTempPath()
     {
