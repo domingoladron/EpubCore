@@ -49,8 +49,6 @@ EpubWriter.Write(book, "new.epub");
 ```
 
 ## Writing an EPUB
-_**Editing capabilities are currently very limited and might not work at all. 
-Use it at your own risk. The next release will bring a true write support.**_
 ```cs
 EpubWriter writer = new EpubWriter();
 
