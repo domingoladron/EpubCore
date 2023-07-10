@@ -62,11 +62,20 @@ writer.Write("new.epub");
 
 ## Epub Book Builder
 
-Use the fluent EpubBookBuilder to create your Epub.
+Use the fluent EpubBookBuilder to create your Epub.  Much cleaner syntax and easier to understand.
 
 ```cs
+var pathToSaveEPub = "~/myepub.epub";
+var uniqueIdentifier = Guid.NewGuid().ToString();
+var title = "The Title of my EBook";
+var author = "Domingo Ladron";
 
+var builder = EpubBookBuilder.Create();
 
-
-
+builder
+    .WithTitle(title)
+    .WithUniqueIdentifier(UniqueIdentifier)
+    .AddAuthor(author)
+    .AddChapter("Chapter 1", "<html><body><h1>It was a dark and stormy night.</h1></body></html>")
+    .Build(pathToSaveEPub);
 ```
