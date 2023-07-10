@@ -190,6 +190,7 @@ namespace Penman.EpubSharp
         public void SetTitle(string title)
         {
             if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
+            RemoveTitle();
             _format.Opf.Metadata.Titles.Add(title);
         }
 
