@@ -127,7 +127,7 @@ namespace Penman.EpubSharp.Fluent
 
         public static EpubBookBuilder Create()
         {
-            return new EpubBookBuilder(new EpubWriter(new EpubBook()));
+            return new EpubBookBuilder(new EpubWriter());
         }
     }
 }

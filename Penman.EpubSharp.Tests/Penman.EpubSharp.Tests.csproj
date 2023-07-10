@@ -14,6 +14,7 @@
     <None Remove="Samples\pg68371.txt" />
     <None Remove="Samples\pg68376.epub" />
     <None Remove="Samples\pg68377.epub" />
+    <None Remove="Samples\siddhartha-hermanhesse.epub" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,9 +45,13 @@
     <Content Include="Samples\pg68377.epub">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\siddhartha-hermanhesse.epub">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Faker.Net" Version="2.0.154" />
     <PackageReference Include="FluentAssertions" Version="6.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -58,6 +63,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Penman.EpubSharp\Penman.EpubSharp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="FluentTests\" />
   </ItemGroup>
 
 </Project>

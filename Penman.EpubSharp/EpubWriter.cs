@@ -184,20 +184,18 @@ namespace Penman.EpubSharp
         
         public void RemoveTitle()
         {
-            _format.Opf.Metadata.Titles.Clear();
+           _format.Opf.Metadata.Titles.Clear();
         }
 
         public void SetTitle(string title)
         {
             if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
-            RemoveTitle();
             _format.Opf.Metadata.Titles.Add(title);
         }
 
         public void SetUniqueIdentifier(string uniqueIdentifier)
         {
             if (string.IsNullOrWhiteSpace(uniqueIdentifier)) throw new ArgumentNullException(nameof(uniqueIdentifier));
-            RemoveTitle();
             _format.Opf.UniqueIdentifier = uniqueIdentifier;
         }
 
@@ -363,39 +361,35 @@ namespace Penman.EpubSharp
         
         public void Write(string epubBookPath)
         {
-            using (var file = File.Create(epubBookPath))
-            {
-                Write(file);
-            }
+            using var fileStream = File.Create(epubBookPath);
+            Write(fileStream);
         }
 
         public void Write(Stream stream)
         {
-            using (var archive = new ZipArchive(stream, ZipArchiveMode.Create, true))
+            using var archive = new ZipArchive(stream, ZipArchiveMode.Create, true);
+            archive.CreateEntry("mimetype", MimeTypeWriter.Format());
+            archive.CreateEntry(Constants.OcfPath, OcfWriter.Format(_opfPath));
+            archive.CreateEntry(_opfPath, OpfWriter.Format(_format.Opf));
+
+            if (_format.Ncx != null)
             {
-                archive.CreateEntry("mimetype", MimeTypeWriter.Format());
-                archive.CreateEntry(Constants.OcfPath, OcfWriter.Format(_opfPath));
-                archive.CreateEntry(_opfPath, OpfWriter.Format(_format.Opf));
+                archive.CreateEntry(_ncxPath, NcxWriter.Format(_format.Ncx));
+            }
 
-                if (_format.Ncx != null)
-                {
-                    archive.CreateEntry(_ncxPath, NcxWriter.Format(_format.Ncx));
-                }
-
-                var allFiles = new[]
-                {
-                    _resources.Html.Cast<EpubFile>(),
-                    _resources.Css,
-                    _resources.Images,
-                    _resources.Fonts,
-                    _resources.Other
-                }.SelectMany(collection => collection as EpubFile[] ?? collection.ToArray());
-                var relativePath = PathExt.GetDirectoryPath(_opfPath);
-                foreach (var file in allFiles)
-                {
-                    var absolutePath = PathExt.Combine(relativePath, file.Href);
-                    archive.CreateEntry(absolutePath, file.Content);
-                }
+            var allFiles = new[]
+            {
+                _resources.Html.Cast<EpubFile>(),
+                _resources.Css,
+                _resources.Images,
+                _resources.Fonts,
+                _resources.Other
+            }.SelectMany(collection => collection as EpubFile[] ?? collection.ToArray());
+            var relativePath = PathExt.GetDirectoryPath(_opfPath);
+            foreach (var file in allFiles)
+            {
+                var absolutePath = PathExt.Combine(relativePath, file.Href);
+                archive.CreateEntry(absolutePath, file.Content);
             }
         }
 

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
+      
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Chris Laine (domingoladron)</Authors>
     <PackageTags>epub epubs book books 2.0 3.0 3.1</PackageTags>
@@ -21,7 +22,12 @@
 	  <Summary></Summary>
   </PropertyGroup>
 
-  <ItemGroup>
+	<PropertyGroup>
+		<LangVersion>9.0</LangVersion>
+	</PropertyGroup>
+
+
+	<ItemGroup>
     <Content Include="icon\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
