@@ -83,7 +83,6 @@ public class EpubBookBuilderTests
     {
         var builder = EpubBookBuilder.Create();
         var stream = new MemoryStream();
-        var publisherName = Faker.Name.FullName();
         foreach (var curKey in Chapters.Keys)
         {
             if(Chapters.TryGetValue(curKey, out var curChapterContents))
@@ -109,10 +108,28 @@ public class EpubBookBuilderTests
             var curChapterContent = Chapters[curChapterKey];
 
             Assert.NotNull(curChapterContent);
-
             Assert.Equal(curChapterContent, fileContents);
         }
+    }
 
+    [Fact]
+    public void CanConstructWithStylesheet()
+    {
+        var builder = EpubBookBuilder.Create();
+        var stream = new MemoryStream();
+        var stylesheetName = Faker.Lorem.GetFirstWord();
+        var stylesheetContents = Faker.Lorem.Paragraph();
+
+        builder
+            .AddStylesheet(stylesheetName, stylesheetContents)
+            .Build(stream);
+        var epub = EpubReader.Read(stream, false);
+
+        var stylesheetFound = epub.Resources.Css.FirstOrDefault();
+        Assert.NotNull(stylesheetFound);
+
+        Assert.Equal(stylesheetFound.FileName, stylesheetName);
+        Assert.Equal(stylesheetFound.TextContent, stylesheetContents);
     }
 
 
