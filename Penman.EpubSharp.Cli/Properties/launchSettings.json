@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Penman.EpubSharp.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "replace-cover --input-epub=C:\\dev\\siddhartha.epub --cover-img=c:\\dev\\siddhartha.jpg"
+    }
+  }
+}

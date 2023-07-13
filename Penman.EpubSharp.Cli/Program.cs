@@ -1,5 +1,9 @@
 ﻿using CommandLine;
 using System.Reflection;
+using Lamar.Microsoft.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Penman.EpubSharp.Cli.ActionHandlers;
 
 namespace Penman.EpubSharp.Cli
 {
@@ -7,46 +11,29 @@ namespace Penman.EpubSharp.Cli
     {
         static void Main(string[] args)
         {
-            var types = LoadVerbs();
+            using var host = CreateHostBuilder(args).Build();
 
-            Parser.Default.ParseArguments(args, types)
-                .WithParsed(Run)
-                .WithNotParsed(HandleErrors);
+            var result = host.Services.GetService<ICommandHandler>()
+                .ExecuteAsync(args).Result;
+
+          
         }
 
-        private static void HandleErrors(IEnumerable<Error> obj)
+        private static IHostBuilder CreateHostBuilder(string[] args)
         {
-            //do something with the errors
-        }
-
-        private static Type[] LoadVerbs()
-        {
-            return Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => t.GetCustomAttribute<VerbAttribute>() != null).ToArray();
-        }
-
-        private static void Run(object obj)
-        {
-            switch (obj)
+            return Host.CreateDefaultBuilder(args).UseLamar((_, registry) =>
             {
-                case ReplaceCoverOptions c:
-                    RunReplaceCoverAndReturnExitCode(c);
-                    break;
-                case ReplaceStylesheetOptions o:
-                    RunReplaceStylesheetAndReturnExitCode(o);
-                    break;
-            }
-        }
+                registry.AddLogging();
 
-
-        private static int RunReplaceCoverAndReturnExitCode(ReplaceCoverOptions options)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static int RunReplaceStylesheetAndReturnExitCode(ReplaceStylesheetOptions options)
-        {
-            throw new NotImplementedException();
+                registry.Scan(s =>
+                {
+                    s.TheCallingAssembly();
+                    s.AssemblyContainingType<Program>();
+                    s.AssemblyContainingType(typeof(Program));
+                    s.WithDefaultConventions();
+                    s.LookForRegistries();
+                });
+            });
         }
     }
 }
