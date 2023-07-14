@@ -1,4 +1,5 @@
-﻿using CommandLine;
+﻿using System.IO.Abstractions;
+using CommandLine;
 using System.Reflection;
 using Lamar.Microsoft.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,8 @@ namespace Penman.EpubSharp.Cli
             return Host.CreateDefaultBuilder(args).UseLamar((_, registry) =>
             {
                 registry.AddLogging();
+
+                registry.For<IFileSystem>().Use(new FileSystem());
 
                 registry.Scan(s =>
                 {

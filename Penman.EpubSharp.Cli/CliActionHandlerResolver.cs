@@ -4,13 +4,15 @@ namespace Penman.EpubSharp.Cli;
 
 public class CliActionHandlerResolver : ICliActionHandlerResolver
 {
-    private readonly RunReplaceCoverActionHandler _runReplaceCoverActionHandler;
-    private readonly RunReplaceStylesheetActionHandler _runReplaceStylesheetActionHandler;
+    private readonly ReplaceCoverActionHandler _replaceCoverActionHandler;
+    private readonly ReplaceStylesheetActionHandler _replaceStylesheetActionHandler;
 
-    public CliActionHandlerResolver(RunReplaceCoverActionHandler runReplaceCoverActionHandler, RunReplaceStylesheetActionHandler runReplaceStylesheetActionHandler)
+    public CliActionHandlerResolver(
+        ReplaceCoverActionHandler replaceCoverActionHandler, 
+        ReplaceStylesheetActionHandler replaceStylesheetActionHandler)
     {
-        _runReplaceCoverActionHandler = runReplaceCoverActionHandler;
-        _runReplaceStylesheetActionHandler = runReplaceStylesheetActionHandler;
+        _replaceCoverActionHandler = replaceCoverActionHandler;
+        _replaceStylesheetActionHandler = replaceStylesheetActionHandler;
     }
 
 
@@ -19,9 +21,9 @@ public class CliActionHandlerResolver : ICliActionHandlerResolver
         switch (obj)
         {
             case ReplaceCoverOptions c:
-                return _runReplaceCoverActionHandler;
+                return _replaceCoverActionHandler;
             case ReplaceStylesheetOptions o:
-                return _runReplaceStylesheetActionHandler;
+                return _replaceStylesheetActionHandler;
             default:
                 throw new NotImplementedException();
         }
