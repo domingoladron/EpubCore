@@ -360,7 +360,6 @@ namespace Penman.EpubSharp
             {
                 htmlFile.ReplaceValue(pathToOldCover, coverResource.Href);
             }
-
         }
 
         public byte[] Write()
