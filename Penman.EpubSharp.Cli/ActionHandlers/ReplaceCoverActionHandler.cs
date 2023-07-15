@@ -18,7 +18,6 @@ public class ReplaceCoverActionHandler : EpubActionHandlerBase, ICliActionHandle
             return;
         }
 
-
         var pathToCoverImage = replaceCoverOptions.InputCoverImage;
 
         if (TryParseImageFormat(pathToCoverImage, out var imageFormat))
@@ -31,7 +30,6 @@ public class ReplaceCoverActionHandler : EpubActionHandlerBase, ICliActionHandle
         else
         {
             Console.WriteLine("Could not parse input-img to allowed types: (jpg, png, gif, svg)");
-            return;
         }
     }
 }

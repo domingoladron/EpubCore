@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Penman.EpubSharp
 {
@@ -14,5 +15,16 @@ namespace Penman.EpubSharp
         /// This is a concatenation of all the resources files in the epub: html, css, images, etc.
         /// </summary>
         public IList<EpubFile> All { get; internal set; } = new List<EpubFile>();
+
+
+        public EpubTextFile FindExistingStylesheet(string fileName)
+        {
+            return Css.FirstOrDefault(g => g.FileName.Equals(fileName));
+        }
+
+        public EpubTextFile FindExistingHtml(string fileName)
+        {
+            return Html.FirstOrDefault(g => g.FileName.Equals(fileName));
+        }
     }
 }
