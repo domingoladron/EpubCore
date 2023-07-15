@@ -33,8 +33,5 @@ public class ReplaceCoverActionHandler : EpubActionHandlerBase, ICliActionHandle
             Console.WriteLine("Could not parse input-img to allowed types: (jpg, png, gif, svg)");
             return;
         }
-
     }
-
-   
 }
