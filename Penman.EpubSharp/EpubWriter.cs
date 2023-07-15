@@ -365,6 +365,7 @@ namespace Penman.EpubSharp
         {
             using var fileStream = File.Create(epubBookPath);
             Write(fileStream);
+            fileStream.Flush();
         }
 
         public void Write(Stream stream)
@@ -372,6 +373,7 @@ namespace Penman.EpubSharp
             using var archive = new ZipArchive(stream, ZipArchiveMode.Create, true);
             archive.CreateEntry("mimetype", MimeTypeWriter.Format());
             archive.CreateEntry(Constants.OcfPath, OcfWriter.Format(_opfPath));
+           
             archive.CreateEntry(_opfPath, OpfWriter.Format(_format.Opf));
 
             if (_format.Ncx != null)
@@ -393,6 +395,8 @@ namespace Penman.EpubSharp
                 var absolutePath = PathExt.Combine(relativePath, file.Href);
                 archive.CreateEntry(absolutePath, file.Content);
             }
+
+            archive.Dispose();
         }
 
         public XElement FindNavTocOl()

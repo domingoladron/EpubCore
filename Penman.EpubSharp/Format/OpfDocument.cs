@@ -62,7 +62,7 @@ namespace Penman.EpubSharp.Format
             var coverMetaItem = Metadata.FindCoverMeta();
             if (coverMetaItem != null)
             {
-                var item = Manifest.Items.FirstOrDefault(e => e.Id == coverMetaItem.Text);
+                var item = Manifest.Items.FirstOrDefault(e => e.IsCoverItem(coverMetaItem));
                 if (item != null)
                 {
                     return item.Href;
@@ -226,7 +226,7 @@ namespace Penman.EpubSharp.Format
 
         internal void DeleteCoverItem(string id = null)
         {
-            var item = id != null ? Items.FirstOrDefault(e => e.Id == id) : FindCoverItem();
+            var item = !string.IsNullOrEmpty(id) ? Items.FirstOrDefault(e => e.Id == id) : FindCoverItem();
             if (item != null)
             {
                 Items.Remove(item);
@@ -260,6 +260,11 @@ namespace Penman.EpubSharp.Format
         public override string ToString()
         {
             return $"Id: {Id}, Href = {Href}, MediaType = {MediaType}";
+        }
+
+        public bool IsCoverItem(OpfMetadataMeta coverMetaItem)
+        {
+            return Id == coverMetaItem.Text || Properties.Contains(OpfManifest.ManifestItemCoverImageProperty);
         }
     }
 

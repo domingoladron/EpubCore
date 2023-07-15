@@ -11,7 +11,6 @@ public class EpubActionHandlerBase
     public EpubActionHandlerBase(IFileSystem fileSystem)
     {
         FileSystem = fileSystem;
-      
     }
 
     protected bool RetrieveAndValidateEpubSuccessful(EpubManipulatorOptionsBase options)
@@ -59,6 +58,8 @@ public class EpubActionHandlerBase
 
     protected void SaveChanges(EpubManipulatorOptionsBase options)
     {
-        EpubWriter?.Write(string.IsNullOrEmpty(options.OutputEpub) ? options.InputEpub : options.OutputEpub);
+        var finalOutputPath = string.IsNullOrEmpty(options.OutputEpub) ? options.InputEpub : options.OutputEpub;
+
+        EpubWriter?.Write(finalOutputPath);
     }
 }
