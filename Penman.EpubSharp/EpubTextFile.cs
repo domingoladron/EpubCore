@@ -13,5 +13,10 @@ namespace Penman.EpubSharp
         public string FileName { get; set; } = string.Empty;
 
         public string FullFilePath { get; set; } = string.Empty;
+
+        public void ReplaceValue(string value1, string value2)
+        {
+            TextContent = TextContent.Replace(value1, value2);
+        }
     }
 }

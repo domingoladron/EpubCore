@@ -286,23 +286,25 @@ namespace Penman.EpubSharp
         //    throw new NotImplementedException("Implement me!");
         //}
 
-        public void RemoveCover()
+        public string RemoveCover()
         {
             var path = _format.Opf.FindAndRemoveCover();
-            if (path == null) return;
+            if (path == null) return null;
 
             var resource = _resources.Images.SingleOrDefault(e => e.Href == path);
             if (resource != null)
             {
                 _resources.Images.Remove(resource);
             }
+
+            return path;
         }
 
         public void SetCover(byte[] data, ImageFormat imageFormat)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
-            RemoveCover();
+            var pathToOldCover = RemoveCover();
 
             string filename;
             EpubContentType type;
@@ -351,6 +353,14 @@ namespace Penman.EpubSharp
                 Name= "cover",                
                 Content = "cover-image"
             });
+
+            if (string.IsNullOrEmpty(pathToOldCover) || string.IsNullOrEmpty(coverResource.Href)) return;
+            var htmlFiles = _resources.Html;
+            foreach (var htmlFile in htmlFiles)
+            {
+                htmlFile.ReplaceValue(pathToOldCover, coverResource.Href);
+            }
+
         }
 
         public byte[] Write()

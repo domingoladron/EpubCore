@@ -24,7 +24,7 @@ namespace Penman.EpubSharp
         void SetUniqueIdentifier(string uniqueIdentifier);
         EpubChapter AddChapter(string title, string html, string fileId = null);
         void ClearChapters();
-        void RemoveCover();
+        string RemoveCover();
         void SetCover(byte[] data, ImageFormat imageFormat);
         byte[] Write();
         void Write(string epubBookPath);
