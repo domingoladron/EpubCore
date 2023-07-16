@@ -1,0 +1,7 @@
+#pg-header div, #pg-footer div {
+    all: initial;
+    display: block;
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+    margin-left: 1em
+    }

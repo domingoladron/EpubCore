@@ -375,6 +375,7 @@ namespace Penman.EpubSharp
             using var fileStream = File.Create(epubBookPath);
             Write(fileStream);
             fileStream.Flush();
+            fileStream.Dispose();
         }
 
         public void Write(Stream stream)

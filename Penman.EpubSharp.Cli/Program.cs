@@ -22,12 +22,12 @@ namespace Penman.EpubSharp.Cli
 
         private static IHostBuilder CreateHostBuilder(string[] args)
         {
-            return Host.CreateDefaultBuilder(args).UseLamar((_, registry) =>
+            return Host.CreateDefaultBuilder(args)
+                .UseLamar((_, registry) =>
             {
-                registry.AddLogging();
-
                 registry.For<IFileSystem>().Use(new FileSystem());
-
+                registry.AddLogging();
+                
                 registry.Scan(s =>
                 {
                     s.TheCallingAssembly();
