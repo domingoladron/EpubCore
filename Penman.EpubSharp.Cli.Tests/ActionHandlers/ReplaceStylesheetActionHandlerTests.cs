@@ -1,4 +1,5 @@
 using System.IO.Abstractions;
+using System.IO.Abstractions.TestingHelpers;
 using Penman.EpubSharp.Cli.ActionHandlers;
 using Shouldly;
 
@@ -6,8 +7,9 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
 {
     public class ReplaceStylesheetActionHandlerTests : ActionHandlerTestBase
     {
-        public string PathToNewStylesheet { get; set; }
+        public string PathToNewStylesheet = string.Empty;
         public string NameOfOldStylesheet = "0.css";
+
         [Fact]
         public async void TheNewStylesheetReplacesTheExistingOne()
         {
@@ -15,18 +17,24 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
             PathToNewStylesheet = GivenAFile("TestData/0-new.css");
 
             var inputStylesheetContent = await File.ReadAllTextAsync(PathToNewStylesheet);
+            var epubContent = await File.ReadAllBytesAsync(PathToTestEpub);
 
             var options = new ReplaceStylesheetOptions
             {
-                InputStylesheet = PathToNewStylesheet,
+                InputStylesheet = @"d:\0-new.css",
                 ReplaceStylesheetName = NameOfOldStylesheet,
-                InputEpub = PathToTestEpub,
-                OutputEpub = GivenATempFile(TestEPubResult)
+                InputEpub = @"d:\new.epub",
+                OutputEpub = @"d:\new-1.epub"
             };
 
             try
             {
-                var handler = new ReplaceStylesheetActionHandler(new FileSystem());
+                var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
+                {
+                    { @"d:\0-new.css", new MockFileData(inputStylesheetContent) },
+                    { @"d:\new.epub", new MockFileData(epubContent) }
+                });
+                var handler = new ReplaceStylesheetActionHandler(fileSystem);
                 handler.HandleCliAction(options);
                 
 
@@ -43,7 +51,7 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
             }
             finally
             {
-                File.Delete(TestEPubResult);
+                File.Delete(options.OutputEpub);
             }
 
 

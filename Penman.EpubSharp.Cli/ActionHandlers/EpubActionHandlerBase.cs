@@ -20,7 +20,9 @@ public class EpubActionHandlerBase
             Console.WriteLine($"Cannot find file input-epub {options.InputEpub}");
             return false;
         }
-        EpubToProcess = EpubReader.Read(options.InputEpub);
+
+        var epubData = FileSystem.File.ReadAllBytes(options.InputEpub);
+        EpubToProcess = EpubReader.Read(epubData);
         EpubWriter = new EpubWriter(EpubToProcess);
 
         return true;
