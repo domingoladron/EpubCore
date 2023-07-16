@@ -286,23 +286,25 @@ namespace Penman.EpubSharp
         //    throw new NotImplementedException("Implement me!");
         //}
 
-        public void RemoveCover()
+        public string RemoveCover()
         {
             var path = _format.Opf.FindAndRemoveCover();
-            if (path == null) return;
+            if (path == null) return null;
 
             var resource = _resources.Images.SingleOrDefault(e => e.Href == path);
             if (resource != null)
             {
                 _resources.Images.Remove(resource);
             }
+
+            return path;
         }
 
         public void SetCover(byte[] data, ImageFormat imageFormat)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
-            RemoveCover();
+            var pathToOldCover = RemoveCover();
 
             string filename;
             EpubContentType type;
@@ -351,6 +353,13 @@ namespace Penman.EpubSharp
                 Name= "cover",                
                 Content = "cover-image"
             });
+
+            if (string.IsNullOrEmpty(pathToOldCover) || string.IsNullOrEmpty(coverResource.Href)) return;
+            var htmlFiles = _resources.Html;
+            foreach (var htmlFile in htmlFiles)
+            {
+                htmlFile.ReplaceValue(pathToOldCover, coverResource.Href);
+            }
         }
 
         public byte[] Write()
@@ -365,6 +374,8 @@ namespace Penman.EpubSharp
         {
             using var fileStream = File.Create(epubBookPath);
             Write(fileStream);
+            fileStream.Flush();
+            fileStream.Dispose();
         }
 
         public void Write(Stream stream)
@@ -372,6 +383,7 @@ namespace Penman.EpubSharp
             using var archive = new ZipArchive(stream, ZipArchiveMode.Create, true);
             archive.CreateEntry("mimetype", MimeTypeWriter.Format());
             archive.CreateEntry(Constants.OcfPath, OcfWriter.Format(_opfPath));
+           
             archive.CreateEntry(_opfPath, OpfWriter.Format(_format.Opf));
 
             if (_format.Ncx != null)
@@ -393,6 +405,8 @@ namespace Penman.EpubSharp
                 var absolutePath = PathExt.Combine(relativePath, file.Href);
                 archive.CreateEntry(absolutePath, file.Content);
             }
+
+            archive.Dispose();
         }
 
         public XElement FindNavTocOl()

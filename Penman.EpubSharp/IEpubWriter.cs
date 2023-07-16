@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.IO.Compression;
 using System.Xml.Linq;
 using Penman.EpubSharp.Format;
 
@@ -23,7 +24,7 @@ namespace Penman.EpubSharp
         void SetUniqueIdentifier(string uniqueIdentifier);
         EpubChapter AddChapter(string title, string html, string fileId = null);
         void ClearChapters();
-        void RemoveCover();
+        string RemoveCover();
         void SetCover(byte[] data, ImageFormat imageFormat);
         byte[] Write();
         void Write(string epubBookPath);

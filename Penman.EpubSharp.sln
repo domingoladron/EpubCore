@@ -11,6 +11,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{0F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penman.EpubSharp.ExampleApp", "Penman.EpubSharp.ExampleApp\Penman.EpubSharp.ExampleApp.csproj", "{28F1310A-0CAE-42F4-B951-6A4D0E06E9DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cli", "Cli", "{7F50A16C-410B-418C-831D-C35523580A3F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penman.EpubSharp.Cli", "Penman.EpubSharp.Cli\Penman.EpubSharp.Cli.csproj", "{90AB1A7F-2779-40C7-80D0-44FF534A0189}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3270693F-2526-4FB5-B1F5-D7AE287DB7FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Penman.EpubSharp.Cli.Tests", "Penman.EpubSharp.Cli.Tests\Penman.EpubSharp.Cli.Tests.csproj", "{BAB4BFB2-E927-42EE-8756-B476B7702F96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,12 +37,23 @@ Global
 		{28F1310A-0CAE-42F4-B951-6A4D0E06E9DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28F1310A-0CAE-42F4-B951-6A4D0E06E9DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28F1310A-0CAE-42F4-B951-6A4D0E06E9DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90AB1A7F-2779-40C7-80D0-44FF534A0189}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90AB1A7F-2779-40C7-80D0-44FF534A0189}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90AB1A7F-2779-40C7-80D0-44FF534A0189}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90AB1A7F-2779-40C7-80D0-44FF534A0189}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAB4BFB2-E927-42EE-8756-B476B7702F96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAB4BFB2-E927-42EE-8756-B476B7702F96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAB4BFB2-E927-42EE-8756-B476B7702F96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAB4BFB2-E927-42EE-8756-B476B7702F96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{02DE30CD-7D75-4666-9A13-7B4E2CC7B8D3} = {3270693F-2526-4FB5-B1F5-D7AE287DB7FC}
 		{28F1310A-0CAE-42F4-B951-6A4D0E06E9DB} = {0F1CBEF4-85F5-43A7-88FA-BD270C36376D}
+		{90AB1A7F-2779-40C7-80D0-44FF534A0189} = {7F50A16C-410B-418C-831D-C35523580A3F}
+		{BAB4BFB2-E927-42EE-8756-B476B7702F96} = {3270693F-2526-4FB5-B1F5-D7AE287DB7FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C90D00B3-3FCF-4A6A-8481-FA00F10D42F4}
