@@ -19,7 +19,7 @@ jobs:
     - name: Build
       run: dotnet build -c Release
     - name: Test
-      run: dotnet test -c Release --no-build
+      run: dotnet test ./Penman.EpubSharp.Tests/Penman.EpubSharp.Tests.csproj -c Release --no-build
     - name: Pack nugets
       run: dotnet pack Penman.EpubSharp/Penman.EpubSharp.csproj -c Release --no-build --output .
     - name: Push to NuGet
