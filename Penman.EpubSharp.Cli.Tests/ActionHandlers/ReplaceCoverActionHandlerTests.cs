@@ -21,7 +21,7 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
             {
                 InputCoverImage = @"d:\cover.jpg",
                 InputEpub = @"d:\new.epub",
-                OutputEpub = @"d:\new-1.epub"
+                OutputEpub = @"d:\new-2.epub"
             };
 
             try

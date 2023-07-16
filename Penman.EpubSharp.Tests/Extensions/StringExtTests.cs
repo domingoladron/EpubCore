@@ -9,14 +9,14 @@ namespace Penman.EpubSharp.Tests.Extensions
         [Fact]
         public void CanGetAbsolutePathInIdealScenario()
         {
-            AssertionExtensions.Should((string)"file.txt".ToAbsolutePath("one/two/")).Be("/one/two/file.txt");
+            AssertionExtensions.Should((string)"file.txt".ToAbsolutePath("one/two/")).Be("one/two/file.txt");
             AssertionExtensions.Should((string)"file.txt".ToAbsolutePath("/one/two/")).Be("/one/two/file.txt");
         }
 
         [Fact]
         public void CanGetAbsolutePathByTrimmingPathFilename()
         {
-            AssertionExtensions.Should((string)"file.txt".ToAbsolutePath("one/two")).Be("/one/file.txt");
+            AssertionExtensions.Should((string)"file.txt".ToAbsolutePath("one/two")).Be("one/file.txt");
             AssertionExtensions.Should((string)"file.txt".ToAbsolutePath("/one/two")).Be("/one/file.txt");
         }
 
