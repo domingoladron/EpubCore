@@ -11,11 +11,15 @@
 
   <ItemGroup>
     <None Remove="TestData\0-new.css" />
+    <None Remove="TestData\cover.jpg" />
     <None Remove="TestData\test1.epub" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="TestData\0-new.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\cover.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\test1.epub">
