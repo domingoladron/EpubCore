@@ -24,7 +24,7 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
                 InputStylesheet = @"d:\0-new.css",
                 ReplaceStylesheetName = NameOfOldStylesheet,
                 InputEpub = @"d:\new.epub",
-                OutputEpub = @"d:\new-1.epub"
+                OutputEpub = @$"d:\new-{Guid.NewGuid()}.epub"
             };
 
             try

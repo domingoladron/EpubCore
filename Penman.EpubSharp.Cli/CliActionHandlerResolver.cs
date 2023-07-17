@@ -1,29 +1,32 @@
-﻿using Penman.EpubSharp.Cli.ActionHandlers;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Penman.EpubSharp.Cli.ActionHandlers;
 
 namespace Penman.EpubSharp.Cli;
 
 public class CliActionHandlerResolver : ICliActionHandlerResolver
 {
-    private readonly ReplaceCoverActionHandler _replaceCoverActionHandler;
-    private readonly ReplaceStylesheetActionHandler _replaceStylesheetActionHandler;
+    private readonly IServiceProvider _serviceProvider;
 
     public CliActionHandlerResolver(
-        ReplaceCoverActionHandler replaceCoverActionHandler, 
-        ReplaceStylesheetActionHandler replaceStylesheetActionHandler)
+        IServiceProvider serviceProvider)
     {
-        _replaceCoverActionHandler = replaceCoverActionHandler;
-        _replaceStylesheetActionHandler = replaceStylesheetActionHandler;
+        _serviceProvider = serviceProvider;
     }
 
-
-    public ICliActionHandler Resolve(object obj)
+    public ICliActionHandler? Resolve(object obj)
     {
         switch (obj)
         {
-            case ReplaceCoverOptions c:
-                return _replaceCoverActionHandler;
-            case ReplaceStylesheetOptions o:
-                return _replaceStylesheetActionHandler;
+            case ReplaceCoverOptions:
+                return _serviceProvider.GetService<ReplaceCoverActionHandler>();
+            case ReplaceStylesheetOptions:
+                return _serviceProvider.GetService<ReplaceStylesheetActionHandler>();
+            case UpdateTitlesOptions:
+                return _serviceProvider.GetService<UpdateTitlesActionHandler>();
+            case UpdateAuthorsOptions:
+                return _serviceProvider.GetService<UpdateAuthorsActionHandler>();
+            case UpdatePublishersOptions:
+                return _serviceProvider.GetService<UpdatePublishersActionHandler>();
             default:
                 throw new NotImplementedException();
         }

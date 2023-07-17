@@ -1,25 +1,22 @@
+using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 using Penman.EpubSharp.Cli.ActionHandlers;
 using Shouldly;
 
 namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
 {
-    public class ReplaceCoverActionHandlerTests : ActionHandlerTestBase
+    public class UpdateTitlesActionHandlerTests : ActionHandlerTestBase
     {
-        public string PathToNewCover = string.Empty;
-
         [Fact]
-        public async void TheNewCoverReplacesTheExistingOne()
+        public async void TheNewTitlesReplaceTheExistingOnes()
         {
             PathToTestEpub = GivenAFile(TestEPub);
-            PathToNewCover = GivenAFile("TestData/cover.jpg");
-
-            var newCoverContents = await File.ReadAllBytesAsync(PathToNewCover);
+            var newTitles = new List<string>() { "Title", "SubTitle" };
             var epubContent = await File.ReadAllBytesAsync(PathToTestEpub);
 
-            var options = new ReplaceCoverOptions()
+            var options = new UpdateTitlesOptions()
             {
-                InputCoverImage = @"d:\cover.jpg",
+                Titles = newTitles,
                 InputEpub = @"d:\new.epub",
                 OutputEpub = @$"d:\new-{Guid.NewGuid()}.epub"
             };
@@ -28,20 +25,17 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
             {
                 var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
                 {
-                    { @"d:\cover.jpg", new MockFileData(newCoverContents) },
                     { @"d:\new.epub", new MockFileData(epubContent) }
                 });
-                
-                var handler = new ReplaceCoverActionHandler(fileSystem);
+                var handler = new UpdateTitlesActionHandler(fileSystem);
                 handler.HandleCliAction(options);
                 
-
                 var epubReader = EpubReader.Read(options.OutputEpub);
-                var updatedCoverImageContents = epubReader.CoverImage;
+                var titles = epubReader.Titles;
 
-                updatedCoverImageContents.ShouldNotBeNull();
-                updatedCoverImageContents.ShouldBe(newCoverContents);
-
+                titles.ShouldNotBeEmpty();
+                titles.Count.ShouldBe(2);
+                titles.ShouldBe(newTitles);
             }
             catch (Exception ex)
             {
