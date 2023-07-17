@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -193,6 +194,19 @@ namespace Penman.EpubSharp
             //Remove the old title 
             RemoveTitle();
             _format.Opf.Metadata.Titles.Add(title);
+        }
+
+        public void SetTitles(IEnumerable<string> titles)
+        {
+            var enumerable = titles as string[] ?? titles.ToArray();
+            if (!enumerable.Any()) throw new ArgumentNullException(nameof(titles));
+            //Remove the old title 
+            RemoveTitle();
+            foreach (var curTitle in enumerable.ToList())
+            {
+                _format.Opf.Metadata.Titles.Add(curTitle);
+            }
+            
         }
 
         public void SetUniqueIdentifier(string uniqueIdentifier)

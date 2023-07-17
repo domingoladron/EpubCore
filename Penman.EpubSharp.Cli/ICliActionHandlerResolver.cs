@@ -2,5 +2,5 @@
 
 public interface ICliActionHandlerResolver
 {
-    ICliActionHandler Resolve(object obj);
+    ICliActionHandler? Resolve(object obj);
 }
