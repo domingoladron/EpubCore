@@ -8,7 +8,7 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
     {
         readonly List<string> _newAuthors = new() { "Author1", "Author2" };
         [Fact]
-        public async void TheNewAuthorssReplaceTheExistingOnes()
+        public async void TheNewAuthorsReplaceTheExistingOnes()
         {
             PathToTestEpub = GivenAFile(TestEPub);
             
