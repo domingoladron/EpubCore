@@ -4,19 +4,19 @@ using Shouldly;
 
 namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
 {
-    public class UpdateAuthorsActionHandlerTests : ActionHandlerTestBase
+    public class UpdatePublishersActionHandlerTests : ActionHandlerTestBase
     {
-        readonly List<string> _newAuthors = new() { "Author1", "Author2" };
+        readonly List<string> _newPublishers = new() { "Publisher1", "Publisher2" };
         [Fact]
-        public async void TheNewAuthorsReplaceTheExistingOnes()
+        public async void TheNewPublishersReplaceTheExistingOnes()
         {
             PathToTestEpub = GivenAFile(TestEPub);
             
             var epubContent = await File.ReadAllBytesAsync(PathToTestEpub);
 
-            var options = new UpdateAuthorsOptions()
+            var options = new UpdatePublishersOptions()
             {
-                Authors = _newAuthors,
+                Publishers = _newPublishers,
                 ClearPrevious = true,
                 InputEpub = @"d:\new.epub",
                 OutputEpub = @$"d:\new-{Guid.NewGuid()}.epub"
@@ -28,15 +28,15 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
                 {
                     { @"d:\new.epub", new MockFileData(epubContent) }
                 });
-                var handler = new UpdateAuthorsActionHandler(fileSystem);
+                var handler = new UpdatePublishersActionHandler(fileSystem);
                 handler.HandleCliAction(options);
                 
                 var epubReader = EpubReader.Read(options.OutputEpub);
-                var authors = epubReader.Authors.ToList();
+                var publishers = epubReader.Publishers.ToList();
 
-                authors.ShouldNotBeEmpty();
-                authors.Count.ShouldBe(2);
-                authors.ShouldBe(_newAuthors);
+                publishers.ShouldNotBeEmpty();
+                publishers.Count.ShouldBe(_newPublishers.Count);
+                publishers.ShouldBe(_newPublishers);
             }
             catch (Exception ex)
             {
@@ -49,18 +49,18 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
         }
 
         [Fact]
-        public async void TheNewAuthorsAreAddedToTheExistingOnes()
+        public async void TheNewPublishersAreAddedToTheExistingOnes()
         {
             PathToTestEpub = GivenAFile(TestEPub);
 
             var epubContent = await File.ReadAllBytesAsync(PathToTestEpub);
 
             var epubBook = EpubReader.Read(PathToTestEpub);
-            var currentAuthors = epubBook.Authors;
+            var currentPublishers = epubBook.Publishers;
 
-            var options = new UpdateAuthorsOptions()
+            var options = new UpdatePublishersOptions()
             {
-                Authors = _newAuthors,
+                Publishers = _newPublishers,
                 ClearPrevious = false,
                 InputEpub = @"d:\new.epub",
                 OutputEpub = @$"d:\new-{Guid.NewGuid()}.epub"
@@ -73,19 +73,19 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
                     { @"d:\new.epub", new MockFileData(epubContent) }
                 });
                 
-                var handler = new UpdateAuthorsActionHandler(fileSystem);
+                var handler = new UpdatePublishersActionHandler(fileSystem);
                 handler.HandleCliAction(options);
 
                 epubBook = EpubReader.Read(options.OutputEpub);
-                var authors = epubBook.Authors.ToList();
+                var publishers = epubBook.Publishers.ToList();
 
-                var allAuthors = currentAuthors.ToList();
-                allAuthors.AddRange(_newAuthors.ToList());
+                var allPublishers = currentPublishers.ToList();
+                allPublishers.AddRange(_newPublishers.ToList());
 
 
-                authors.ShouldNotBeEmpty();
-                authors.Count.ShouldBe(allAuthors.Count);
-                authors.ShouldBe(allAuthors);
+                publishers.ShouldNotBeEmpty();
+                publishers.Count.ShouldBe(allPublishers.Count);
+                publishers.ShouldBe(allPublishers);
             }
             catch (Exception ex)
             {
