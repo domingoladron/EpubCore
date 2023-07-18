@@ -8,8 +8,11 @@ namespace Penman.EpubSharp.Cli.ActionHandlers;
 
 public class GetEpubDetailsActionHandler : EpubActionHandlerBase, ICliActionHandler
 {
-    public GetEpubDetailsActionHandler(IFileSystem fileSystem) : base(fileSystem)
+    private readonly IMessageSerialiser _messageSerialiser;
+
+    public GetEpubDetailsActionHandler(IFileSystem fileSystem, IMessageSerialiser messageSerialiser) : base(fileSystem)
     {
+        _messageSerialiser = messageSerialiser;
     }
 
     public void HandleCliAction(object options)
@@ -22,35 +25,12 @@ public class GetEpubDetailsActionHandler : EpubActionHandlerBase, ICliActionHand
         switch (getEpubDetailsOptions.OutputFormat)
         {
             case OutputFormat.Json:
-                OutputJson(getEpubDetails);
+                Console.WriteLine(_messageSerialiser.Serialise(getEpubDetails, OutputFormat.Json));
                 break;
             case OutputFormat.Yaml:
-                OutputYaml(getEpubDetails);
+                Console.WriteLine(_messageSerialiser.Serialise(getEpubDetails, OutputFormat.Yaml));
                 break;
         }
        
-    }
-
-    private void OutputYaml(GetEpubDetails getEpubDetails)
-    {
-        var yamlResult = new SerializerBuilder()
-            .WithIndentedSequences()
-            .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitNull)
-            .Build()
-            .Serialize(getEpubDetails);
-
-        Console.WriteLine(yamlResult);
-    }
-
-    private void OutputJson(GetEpubDetails getEpubDetails)
-    {
-        var jsonOptions = new JsonSerializerOptions
-        {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            WriteIndented = true
-        };
-        var jsonVersion = JsonSerializer.Serialize(getEpubDetails, jsonOptions);
-
-        Console.WriteLine(jsonVersion);
     }
 }
