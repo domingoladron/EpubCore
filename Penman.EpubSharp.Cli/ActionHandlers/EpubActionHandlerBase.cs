@@ -13,7 +13,7 @@ public class EpubActionHandlerBase
         FileSystem = fileSystem;
     }
 
-    protected bool RetrieveAndValidateEpubSuccessful(EpubManipulatorOptionsBase options)
+    protected bool RetrieveAndValidateEpubSuccessful(EpubInputOptionsBase options)
     {
         if (!FileSystem.File.Exists(options.InputEpub))
         {

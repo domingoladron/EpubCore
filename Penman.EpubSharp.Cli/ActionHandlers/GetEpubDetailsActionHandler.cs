@@ -1,4 +1,8 @@
-﻿using System.IO.Abstractions;
+﻿using Penman.EpubSharp.Cli.Models;
+using System.IO.Abstractions;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using YamlDotNet.Serialization;
 
 namespace Penman.EpubSharp.Cli.ActionHandlers;
 
@@ -13,17 +17,40 @@ public class GetEpubDetailsActionHandler : EpubActionHandlerBase, ICliActionHand
         if (options is not GetEpubDetailsOptions getEpubDetailsOptions) return;
         if (!RetrieveAndValidateEpubSuccessful(getEpubDetailsOptions)) return;
 
-        if (getEpubDetailsOptions.Filter.Any())
+        var getEpubDetails = new GetEpubDetails(EpubToProcess, getEpubDetailsOptions.Filter.ToList());
+
+        switch (getEpubDetailsOptions.OutputFormat)
         {
-            Console.WriteLine("You have entered the following filter criteria:");
-            foreach (var curFilter in getEpubDetailsOptions.Filter)
-            {
-                Console.WriteLine($"     * {curFilter}");
-            }
+            case OutputFormat.Json:
+                OutputJson(getEpubDetails);
+                break;
+            case OutputFormat.Yaml:
+                OutputYaml(getEpubDetails);
+                break;
         }
-        else
+       
+    }
+
+    private void OutputYaml(GetEpubDetails getEpubDetails)
+    {
+        var yamlResult = new SerializerBuilder()
+            .WithIndentedSequences()
+            .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitNull)
+            .Build()
+            .Serialize(getEpubDetails);
+
+        Console.WriteLine(yamlResult);
+    }
+
+    private void OutputJson(GetEpubDetails getEpubDetails)
+    {
+        var jsonOptions = new JsonSerializerOptions
         {
-            Console.WriteLine("Retrieving all EPub Details");
-        }
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            WriteIndented = true
+        };
+        var jsonVersion = JsonSerializer.Serialize(getEpubDetails, jsonOptions);
+
+        Console.WriteLine(jsonVersion);
     }
 }
