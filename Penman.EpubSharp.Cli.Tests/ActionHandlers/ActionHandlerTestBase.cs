@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using AutoFixture;
 
 namespace Penman.EpubSharp.Cli.Tests.ActionHandlers;
 
@@ -6,6 +7,7 @@ public class ActionHandlerTestBase
 {
     protected const string TestEPub = "TestData/test1.epub";
     protected const string TestEPubResult = "test1-result.epub";
+    protected Fixture Fixture = new Fixture();
     protected string PathToTestEpub { get; set; }
 
     public string GivenAnEpub(string epubName)

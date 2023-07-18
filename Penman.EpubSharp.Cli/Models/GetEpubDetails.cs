@@ -29,6 +29,10 @@ public class GetEpubDetails
 
     public List<string> Html { get; set; } = null!;
 
+    public GetEpubDetails()
+    {
+        
+    }
     public GetEpubDetails(EpubBook book, ICollection<GetEpubFilterKey>? filterKeys)
     {
         if (ShouldBeIncluded(filterKeys, GetEpubFilterKey.UniqueIdentifier))
