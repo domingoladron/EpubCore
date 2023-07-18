@@ -21,6 +21,7 @@ public class CommandHandler : ICommandHandler
         var types = LoadVerbs();
         var parser = new Parser(with =>
         {
+            with.HelpWriter = Console.Out;
             //ignore case for enum values
             with.CaseInsensitiveEnumValues = true;
         });

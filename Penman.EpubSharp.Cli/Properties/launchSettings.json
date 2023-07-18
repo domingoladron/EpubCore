@@ -2,7 +2,7 @@
   "profiles": {
     "Penman.EpubSharp.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "get-details --input-epub D:\\dev\\siddhartha.epub --filter Uniqueidentifier|Titles"
+      "commandLineArgs": "get-details --help"
     }
   }
 }
