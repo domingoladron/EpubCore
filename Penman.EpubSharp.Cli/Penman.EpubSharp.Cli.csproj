@@ -17,10 +17,15 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
     <PackageReference Include="System.IO.Abstractions" Version="19.2.29" />
     <PackageReference Include="TestableIO.System.IO.Abstractions" Version="19.2.29" />
+    <PackageReference Include="YamlDotNet" Version="13.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Penman.EpubSharp\Penman.EpubSharp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

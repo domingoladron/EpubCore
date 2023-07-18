@@ -2,7 +2,7 @@
   "profiles": {
     "Penman.EpubSharp.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "replace-cover --input-epub=D:\\dev\\siddhartha.epub --cover-img=D:\\dev\\siddhartha.jpg --output-epub=D:\\dev\\siddhartha2.epub"
+      "commandLineArgs": "get-details --input-epub C:\\dev\\siddhartha.epub"
     }
   }
 }

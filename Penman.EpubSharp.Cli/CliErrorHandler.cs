@@ -8,7 +8,7 @@ public class CliErrorHandler : ICliErrorHandler
     {
         //foreach (var error in errors)
         //{
-        //    Console.WriteLine(error.Tag);
+        //    Console.WriteLine(error.);
         //}
     }
 }
