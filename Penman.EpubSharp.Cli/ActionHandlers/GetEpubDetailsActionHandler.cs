@@ -1,18 +1,17 @@
-﻿using Penman.EpubSharp.Cli.Models;
-using System.IO.Abstractions;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using YamlDotNet.Serialization;
+﻿using System.IO.Abstractions;
+using Penman.EpubSharp.Cli.Factories;
 
 namespace Penman.EpubSharp.Cli.ActionHandlers;
 
 public class GetEpubDetailsActionHandler : EpubActionHandlerBase, ICliActionHandler
 {
     private readonly IMessageSerialiser _messageSerialiser;
+    private readonly IGetEpubDetailsFactory _getEpubDetailsFactory;
 
-    public GetEpubDetailsActionHandler(IFileSystem fileSystem, IMessageSerialiser messageSerialiser) : base(fileSystem)
+    public GetEpubDetailsActionHandler(IFileSystem fileSystem, IMessageSerialiser messageSerialiser, IGetEpubDetailsFactory getEpubDetailsFactory) : base(fileSystem)
     {
         _messageSerialiser = messageSerialiser;
+        _getEpubDetailsFactory = getEpubDetailsFactory;
     }
 
     public void HandleCliAction(object options)
@@ -20,7 +19,7 @@ public class GetEpubDetailsActionHandler : EpubActionHandlerBase, ICliActionHand
         if (options is not GetEpubDetailsOptions getEpubDetailsOptions) return;
         if (!RetrieveAndValidateEpubSuccessful(getEpubDetailsOptions)) return;
 
-        var getEpubDetails = new GetEpubDetails(EpubToProcess, getEpubDetailsOptions.Filter.ToList());
+        var getEpubDetails = _getEpubDetailsFactory.Create(EpubToProcess, getEpubDetailsOptions.Filter.ToList());
 
         switch (getEpubDetailsOptions.OutputFormat)
         {
@@ -30,6 +29,8 @@ public class GetEpubDetailsActionHandler : EpubActionHandlerBase, ICliActionHand
             case OutputFormat.Yaml:
                 Console.WriteLine(_messageSerialiser.Serialise(getEpubDetails, OutputFormat.Yaml));
                 break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
        
     }

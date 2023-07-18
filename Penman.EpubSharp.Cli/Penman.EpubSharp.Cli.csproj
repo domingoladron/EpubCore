@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Factories\" />
   </ItemGroup>
 
 </Project>
