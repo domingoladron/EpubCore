@@ -23,6 +23,10 @@ public class CliActionHandlerResolver : ICliActionHandlerResolver
                 return _serviceProvider.GetService<ReplaceStylesheetActionHandler>();
             case UpdateTitlesOptions:
                 return _serviceProvider.GetService<UpdateTitlesActionHandler>();
+            case UpdateAuthorsOptions:
+                return _serviceProvider.GetService<UpdateAuthorsActionHandler>();
+            case UpdatePublishersOptions:
+                return _serviceProvider.GetService<UpdatePublishersActionHandler>();
             default:
                 throw new NotImplementedException();
         }
