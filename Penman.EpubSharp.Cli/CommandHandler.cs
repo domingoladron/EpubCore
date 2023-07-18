@@ -19,8 +19,13 @@ public class CommandHandler : ICommandHandler
     public async Task<int> ExecuteAsync(string[] args)
     {
         var types = LoadVerbs();
+        var parser = new Parser(with =>
+        {
+            //ignore case for enum values
+            with.CaseInsensitiveEnumValues = true;
+        });
 
-        var result = Parser.Default.ParseArguments(args, types)
+        var result = parser.ParseArguments(args, types)
             .WithParsed(Run)
             .WithNotParsed(_cliErrorHandler.HandleError);
         if (result.Tag == ParserResultType.Parsed)

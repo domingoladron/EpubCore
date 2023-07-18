@@ -27,6 +27,8 @@ public class CliActionHandlerResolver : ICliActionHandlerResolver
                 return _serviceProvider.GetService<UpdateAuthorsActionHandler>();
             case UpdatePublishersOptions:
                 return _serviceProvider.GetService<UpdatePublishersActionHandler>();
+            case GetEpubDetailsOptions:
+                return _serviceProvider.GetService<GetEpubDetailsActionHandler>();
             default:
                 throw new NotImplementedException();
         }
