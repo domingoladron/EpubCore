@@ -5,9 +5,11 @@ namespace Penman.EpubSharp.Cli.ActionHandlers;
 
 public class ExtractEPubActionHandler : EpubActionHandlerBase, ICliActionHandler
 {
+    private readonly IFileExtractor _fileExtractor;
 
-    public ExtractEPubActionHandler(IFileSystem fileSystem) : base(fileSystem)
+    public ExtractEPubActionHandler(IFileSystem fileSystem, IFileExtractor fileExtractor) : base(fileSystem)
     {
+        _fileExtractor = fileExtractor;
     }
 
     public void HandleCliAction(object options)
@@ -15,12 +17,15 @@ public class ExtractEPubActionHandler : EpubActionHandlerBase, ICliActionHandler
         if (options is not ExtractEpubOptions extractEpubOptions) return;
         if (!RetrieveAndValidateEpubSuccessful(extractEpubOptions)) return;
 
-        using var archive = ZipFile.OpenRead(extractEpubOptions.InputEpub);
-        if (!FileSystem.Directory.Exists(extractEpubOptions.DestinationDirectory))
-            FileSystem.Directory.CreateDirectory(extractEpubOptions.DestinationDirectory);
-        
-        archive.ExtractToDirectory(extractEpubOptions.DestinationDirectory);
+        if (_fileExtractor.ExtractToDirectory(extractEpubOptions.InputEpub, extractEpubOptions.DestinationDirectory))
+        {
+            Console.WriteLine($"Extract to {extractEpubOptions.DestinationDirectory} complete");
+        }
+        else
+        {
+            Console.WriteLine($"Failed to extract to {extractEpubOptions.DestinationDirectory}");
+        }
 
-        Console.WriteLine($"Extract to {extractEpubOptions.DestinationDirectory} complete");
+       
     }
 }
