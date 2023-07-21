@@ -2,7 +2,7 @@
   "profiles": {
     "Penman.EpubSharp.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "get-details --input-epub C:\\dev\\siddhartha.epub --output yaml"
+      "commandLineArgs": "extract --input-epub D:\\dev\\siddhartha.epub --destination D:\\dev\\siddhartha"
     }
   }
 }
