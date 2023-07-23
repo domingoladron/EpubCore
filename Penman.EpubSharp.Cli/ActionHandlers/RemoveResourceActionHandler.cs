@@ -1,5 +1,4 @@
 ﻿using System.IO.Abstractions;
-using JasperFx.Core;
 using Penman.EpubSharp.Cli.Managers;
 
 namespace Penman.EpubSharp.Cli.ActionHandlers
@@ -18,20 +17,10 @@ namespace Penman.EpubSharp.Cli.ActionHandlers
             if (options is not RemoveResourceOptions removeResourceOptions) return;
             if (!RetrieveAndValidateEpubSuccessful(removeResourceOptions)) return;
             
-            if (!_resourceManager.RemoveResource(EpubToProcess, removeResourceOptions.RemoveItemName, removeResourceOptions.EpubResourceType))
+            if (!_resourceManager.RemoveResource(EpubToProcess, EpubWriter, removeResourceOptions.RemoveItemName, removeResourceOptions.EpubResourceType))
             {
                 ConsoleWriter.WriteError($"Resource file of type {removeResourceOptions.EpubResourceType} not found: {removeResourceOptions.RemoveItemName}");
                 return;
-            }
-
-            // Handle the cover page removal as well if that's the
-            // image being removed
-            if (removeResourceOptions.EpubResourceType.Equals(EpubResourceType.Image))
-            {
-                if (EpubToProcess.CoverImageHref.EqualsIgnoreCase(removeResourceOptions.RemoveItemName))
-                {
-                    EpubWriter.RemoveCover();
-                }
             }
 
             SaveChanges(removeResourceOptions);

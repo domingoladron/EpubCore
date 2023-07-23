@@ -1,4 +1,6 @@
-﻿namespace Penman.EpubSharp.Cli.Managers;
+﻿using JasperFx.Core;
+
+namespace Penman.EpubSharp.Cli.Managers;
 
 public class EpubResourceManager : IEpubResourceManager
 {
@@ -12,8 +14,16 @@ public class EpubResourceManager : IEpubResourceManager
         return book.Resources.FindExistingHtml(htmlFileName);
     }
 
-    public bool RemoveResource(EpubBook book, string resourceName, EpubResourceType resourceType)
+    public bool RemoveResource(EpubBook book, EpubWriter epubWriter, string resourceName, EpubResourceType resourceType)
     {
+        // Handle the cover page removal as well if that's the
+        // image being removed
+        if (resourceType.Equals(EpubResourceType.Image) && book.CoverImageHref.EqualsIgnoreCase(resourceName))
+        {
+            epubWriter.RemoveCover();
+            return true;
+        }
+
         return book.Resources.RemoveResource(resourceName, resourceType);
     }
 }

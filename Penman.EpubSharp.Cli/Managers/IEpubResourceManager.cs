@@ -8,6 +8,6 @@ public interface IEpubResourceManager
     EpubTextFile? RetrieveCss(EpubBook book, string cssFileName);
     EpubTextFile? RetrieveHtml(EpubBook book, string htmlFileName);
 
-    bool RemoveResource(EpubBook book, string resourceName, EpubResourceType resourceType);
+    bool RemoveResource(EpubBook book, EpubWriter epubWriter, string resourceName, EpubResourceType resourceType);
    
 }
