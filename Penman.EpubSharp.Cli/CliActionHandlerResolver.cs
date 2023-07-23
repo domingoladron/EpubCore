@@ -21,6 +21,8 @@ public class CliActionHandlerResolver : ICliActionHandlerResolver
                 return _serviceProvider.GetService<ReplaceCoverActionHandler>();
             case ReplaceStylesheetOptions:
                 return _serviceProvider.GetService<ReplaceStylesheetActionHandler>();
+            case ReplaceHtmlOptions:
+                return _serviceProvider.GetService<ReplaceHtmlActionHandler>();
             case UpdateTitlesOptions:
                 return _serviceProvider.GetService<UpdateTitlesActionHandler>();
             case UpdateAuthorsOptions:

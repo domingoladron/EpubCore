@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penman.EpubSharp.Cli", "Pen
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3270693F-2526-4FB5-B1F5-D7AE287DB7FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Penman.EpubSharp.Cli.Tests", "Penman.EpubSharp.Cli.Tests\Penman.EpubSharp.Cli.Tests.csproj", "{BAB4BFB2-E927-42EE-8756-B476B7702F96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penman.EpubSharp.Cli.Tests", "Penman.EpubSharp.Cli.Tests\Penman.EpubSharp.Cli.Tests.csproj", "{BAB4BFB2-E927-42EE-8756-B476B7702F96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
