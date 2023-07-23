@@ -27,6 +27,57 @@ namespace Penman.EpubSharp
             return Html.FirstOrDefault(g => g.FileName.ToLower().Equals(fileName.ToLower()));
         }
 
+        public EpubByteFile FindExistingImage(string fileName)
+        {
+            return Images.FirstOrDefault(g => g.Href.ToLower().Equals(fileName.ToLower()));
+        }
+
+        public EpubByteFile FindExistingFont(string fileName)
+        {
+            return Fonts.FirstOrDefault(g => g.Href.ToLower().Equals(fileName.ToLower()));
+        }
+
+        public EpubFile FindExistingOther(string fileName)
+        {
+            return Other.FirstOrDefault(g => g.Href.ToLower().Equals(fileName.ToLower()));
+        }
+
+        public bool RemoveResource(string resourceName, EpubResourceType resourceType)
+        {
+            switch (resourceType) 
+            {
+                case EpubResourceType.Html:
+                    return RemoveHtml(resourceName);
+                case EpubResourceType.Css:
+                    return RemoveCss(resourceName);
+                case EpubResourceType.Image:
+                    return RemoveImage(resourceName);
+                case EpubResourceType.Font:
+                    return RemoveFont(resourceName);
+                default:
+                    return RemoveOther(resourceName);
+            }
+        }
+
+        private bool RemoveOther(string resourceName)
+        {
+            var resource = FindExistingOther(resourceName);
+            return resource != null && Other.Remove(resource);
+        }
+
+        private bool RemoveFont(string resourceName)
+        {
+            var resource = FindExistingFont(resourceName);
+            return resource != null && Fonts.Remove(resource);
+        }
+
+        private bool RemoveImage(string resourceName)
+        {
+            var resource = FindExistingImage(resourceName);
+            return resource != null && Images.Remove(resource);
+        }
+
+
         public bool RemoveHtml(string htmlFileName)
         {
             var html = FindExistingHtml(htmlFileName);

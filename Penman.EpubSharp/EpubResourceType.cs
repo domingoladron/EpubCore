@@ -1,9 +1,10 @@
-﻿namespace Penman.EpubSharp.Cli;
+﻿namespace Penman.EpubSharp;
 
 public enum EpubResourceType
 {
     Html,
     Css,
     Font,
-    Image
+    Image,
+    Other
 }

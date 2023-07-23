@@ -12,12 +12,8 @@ public class EpubResourceManager : IEpubResourceManager
         return book.Resources.FindExistingHtml(htmlFileName);
     }
 
-    public bool RemoveHtml(EpubBook book, string htmlFileName)
+    public bool RemoveResource(EpubBook book, string resourceName, EpubResourceType resourceType)
     {
-        return book.Resources.RemoveHtml(htmlFileName);
-    }
-    public bool RemoveCss(EpubBook book, string cssFileName)
-    {
-        return book.Resources.RemoveCss(cssFileName);
+        return book.Resources.RemoveResource(resourceName, resourceType);
     }
 }
