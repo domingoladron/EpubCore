@@ -31,6 +31,8 @@ public class CliActionHandlerResolver : ICliActionHandlerResolver
                 return _serviceProvider.GetService<GetEpubDetailsActionHandler>();
             case ExtractEpubOptions:
                 return _serviceProvider.GetService<ExtractEPubActionHandler>();
+            case GetHtmlOptions:
+                return _serviceProvider.GetService<GetHtmlActionHandler>();
             default:
                 throw new NotImplementedException();
         }

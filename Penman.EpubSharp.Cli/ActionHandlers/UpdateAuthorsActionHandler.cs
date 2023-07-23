@@ -4,7 +4,7 @@ namespace Penman.EpubSharp.Cli.ActionHandlers
 {
     public class UpdateAuthorsActionHandler : EpubActionHandlerBase, ICliActionHandler
     {
-        public UpdateAuthorsActionHandler(IFileSystem fileSystem) : base(fileSystem)
+        public UpdateAuthorsActionHandler(IFileSystem fileSystem, IConsoleWriter consoleWriter) : base(fileSystem, consoleWriter)
         {
         }
 

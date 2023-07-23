@@ -4,7 +4,7 @@ namespace Penman.EpubSharp.Cli.ActionHandlers;
 
 public class ReplaceCoverActionHandler : EpubActionHandlerBase, ICliActionHandler
 {
-    public ReplaceCoverActionHandler(IFileSystem fileSystem) : base(fileSystem)
+    public ReplaceCoverActionHandler(IFileSystem fileSystem, IConsoleWriter consoleWriter) : base(fileSystem, consoleWriter)
     {
     }
 
@@ -14,7 +14,7 @@ public class ReplaceCoverActionHandler : EpubActionHandlerBase, ICliActionHandle
         if (!RetrieveAndValidateEpubSuccessful(replaceCoverOptions)) return;
         if (!FileSystem.File.Exists(replaceCoverOptions.InputCoverImage))
         {
-            Console.WriteLine($"Input file not found: {replaceCoverOptions.InputCoverImage}");
+            ConsoleWriter.WriteError($"Input file not found: {replaceCoverOptions.InputCoverImage}");
             return;
         }
 
@@ -29,7 +29,7 @@ public class ReplaceCoverActionHandler : EpubActionHandlerBase, ICliActionHandle
         }
         else
         {
-            Console.WriteLine("Could not parse input-img to allowed types: (jpg, png, gif, svg)");
+            ConsoleWriter.WriteError("Could not parse input-img to allowed types: (jpg, png, gif, svg)");
         }
     }
 }

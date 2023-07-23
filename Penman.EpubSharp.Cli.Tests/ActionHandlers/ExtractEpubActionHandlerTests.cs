@@ -30,7 +30,7 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
                     { @"d:\new.epub", new MockFileData(epubContent) }
                 });
 
-                var handler = new ExtractEPubActionHandler(fileSystem, _fileExtractor.Object);
+                var handler = new ExtractEPubActionHandler(fileSystem, ConsoleWriter.Object, _fileExtractor.Object);
                 handler.HandleCliAction(options);
 
                 _fileExtractor.Verify(g => g.ExtractToDirectory(options.InputEpub, options.DestinationDirectory), Times.Once);

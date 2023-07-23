@@ -48,7 +48,7 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
                     { @"d:\new.epub", new MockFileData(epubContent) }
                 });
                 
-                var handler = new GetEpubDetailsActionHandler(fileSystem, messageSerialiser.Object, factory.Object);
+                var handler = new GetEpubDetailsActionHandler(fileSystem, ConsoleWriter.Object, messageSerialiser.Object, factory.Object);
                 handler.HandleCliAction(options);
 
 
