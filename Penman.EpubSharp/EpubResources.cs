@@ -26,5 +26,17 @@ namespace Penman.EpubSharp
         {
             return Html.FirstOrDefault(g => g.FileName.ToLower().Equals(fileName.ToLower()));
         }
+
+        public bool RemoveHtml(string htmlFileName)
+        {
+            var html = FindExistingHtml(htmlFileName);
+            return html != null && Html.Remove(html);
+        }
+
+        public bool RemoveCss(string cssFileName)
+        {
+            var css = FindExistingStylesheet(cssFileName);
+            return css != null && Css.Remove(css);
+        }
     }
 }

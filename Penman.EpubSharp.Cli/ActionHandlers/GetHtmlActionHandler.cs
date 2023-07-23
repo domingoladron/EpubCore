@@ -1,18 +1,18 @@
 ﻿using System.IO.Abstractions;
 using JasperFx.Core;
-using Penman.EpubSharp.Cli.Retrievers;
+using Penman.EpubSharp.Cli.Managers;
 
 namespace Penman.EpubSharp.Cli.ActionHandlers;
 
 public class GetHtmlActionHandler : EpubActionHandlerBase, ICliActionHandler
 {
-    private readonly IEpubResourceRetriever _epubResourceRetriever;
+    private readonly IEpubResourceManager _epubResourceManager;
     public GetHtmlActionHandler(
         IFileSystem fileSystem, 
         IConsoleWriter consoleWriter,
-        IEpubResourceRetriever epubResourceRetriever) : base(fileSystem, consoleWriter)
+        IEpubResourceManager epubResourceManager) : base(fileSystem, consoleWriter)
     {
-        _epubResourceRetriever = epubResourceRetriever;
+        _epubResourceManager = epubResourceManager;
     }
 
     public void HandleCliAction(object options)
@@ -20,7 +20,7 @@ public class GetHtmlActionHandler : EpubActionHandlerBase, ICliActionHandler
         if (options is not GetHtmlOptions getHtmlOptions) return;
         if (!RetrieveAndValidateEpubSuccessful(getHtmlOptions)) return;
 
-        var htmlFile = _epubResourceRetriever.RetrieveHtml(EpubToProcess, getHtmlOptions.HtmlFileName);
+        var htmlFile = _epubResourceManager.RetrieveHtml(EpubToProcess, getHtmlOptions.HtmlFileName);
 
         if (htmlFile == null)
         {
