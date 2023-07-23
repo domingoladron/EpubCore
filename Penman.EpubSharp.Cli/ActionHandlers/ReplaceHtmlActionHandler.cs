@@ -22,16 +22,16 @@ namespace Penman.EpubSharp.Cli.ActionHandlers
                 return;
             }
 
-            var existingStylesheet =
+            var existingHtml =
                 _resourceRetriever.RetrieveHtml(EpubToProcess, replaceHtmlOptions.ReplaceHtmlName);
-            if (existingStylesheet == null)
+            if (existingHtml == null)
             {
                 ConsoleWriter.WriteError($"Existing html file not found: {replaceHtmlOptions.ReplaceHtmlName}");
                 return;
             }
 
             var newHtmlContents = await FileSystem.File.ReadAllTextAsync(replaceHtmlOptions.InputHtml);
-            existingStylesheet.TextContent = newHtmlContents;
+            existingHtml.TextContent = newHtmlContents;
 
             SaveChanges(replaceHtmlOptions);
         }
