@@ -1,15 +1,15 @@
 ﻿using System.IO.Abstractions;
-using Penman.EpubSharp.Cli.Retrievers;
+using Penman.EpubSharp.Cli.Managers;
 
 namespace Penman.EpubSharp.Cli.ActionHandlers
 {
     public class ReplaceStylesheetActionHandler : EpubActionHandlerBase, ICliActionHandler
     {
-        private readonly IEpubResourceRetriever _resourceRetriever;
+        private readonly IEpubResourceManager _resourceManager;
 
-        public ReplaceStylesheetActionHandler(IFileSystem fileSystem, IConsoleWriter consoleWriter, IEpubResourceRetriever resourceRetriever) : base(fileSystem, consoleWriter)
+        public ReplaceStylesheetActionHandler(IFileSystem fileSystem, IConsoleWriter consoleWriter, IEpubResourceManager resourceManager) : base(fileSystem, consoleWriter)
         {
-            _resourceRetriever = resourceRetriever;
+            _resourceManager = resourceManager;
         }
 
         public async void HandleCliAction(object options)
@@ -23,7 +23,7 @@ namespace Penman.EpubSharp.Cli.ActionHandlers
             }
 
             var existingStylesheet =
-                _resourceRetriever.RetrieveCss(EpubToProcess, replaceCssOptions.ReplaceStylesheetName);
+                _resourceManager.RetrieveCss(EpubToProcess, replaceCssOptions.ReplaceStylesheetName);
             if (existingStylesheet == null)
             {
                 ConsoleWriter.WriteError($"Existing css file not found: {replaceCssOptions.ReplaceStylesheetName}");
