@@ -1,15 +1,15 @@
 ﻿using System.IO.Abstractions;
-using Penman.EpubSharp.Cli.Retrievers;
+using Penman.EpubSharp.Cli.Managers;
 
 namespace Penman.EpubSharp.Cli.ActionHandlers
 {
     public class ReplaceHtmlActionHandler : EpubActionHandlerBase, ICliActionHandler
     {
-        private readonly IEpubResourceRetriever _resourceRetriever;
+        private readonly IEpubResourceManager _resourceManager;
 
-        public ReplaceHtmlActionHandler(IFileSystem fileSystem, IConsoleWriter consoleWriter, IEpubResourceRetriever resourceRetriever) : base(fileSystem, consoleWriter)
+        public ReplaceHtmlActionHandler(IFileSystem fileSystem, IConsoleWriter consoleWriter, IEpubResourceManager resourceManager) : base(fileSystem, consoleWriter)
         {
-            _resourceRetriever = resourceRetriever;
+            _resourceManager = resourceManager;
         }
 
         public async void HandleCliAction(object options)
@@ -23,7 +23,7 @@ namespace Penman.EpubSharp.Cli.ActionHandlers
             }
 
             var existingHtml =
-                _resourceRetriever.RetrieveHtml(EpubToProcess, replaceHtmlOptions.ReplaceHtmlName);
+                _resourceManager.RetrieveHtml(EpubToProcess, replaceHtmlOptions.ReplaceHtmlName);
             if (existingHtml == null)
             {
                 ConsoleWriter.WriteError($"Existing html file not found: {replaceHtmlOptions.ReplaceHtmlName}");

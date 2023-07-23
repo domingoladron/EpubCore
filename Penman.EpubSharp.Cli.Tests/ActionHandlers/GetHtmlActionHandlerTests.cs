@@ -2,15 +2,13 @@ using System.IO.Abstractions.TestingHelpers;
 using AutoFixture;
 using Moq;
 using Penman.EpubSharp.Cli.ActionHandlers;
-using Penman.EpubSharp.Cli.Factories;
-using Penman.EpubSharp.Cli.Models;
-using Penman.EpubSharp.Cli.Retrievers;
+using Penman.EpubSharp.Cli.Managers;
 
 namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
 {
     public class GetHtmlActionHandlerTests : ActionHandlerTestBase
     {
-        private readonly Mock<IEpubResourceRetriever> _epubResourceRetriever = new();
+        private readonly Mock<IEpubResourceManager> _epubResourceRetriever = new();
         private EpubTextFile? _htmlFile = null;
 
         [Fact]
