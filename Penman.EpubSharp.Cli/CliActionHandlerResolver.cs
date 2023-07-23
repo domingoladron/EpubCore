@@ -35,8 +35,8 @@ public class CliActionHandlerResolver : ICliActionHandlerResolver
                 return _serviceProvider.GetService<ExtractEPubActionHandler>();
             case GetHtmlOptions:
                 return _serviceProvider.GetService<GetHtmlActionHandler>();
-            case RemoveHtmlOptions:
-                return _serviceProvider.GetService<RemoveHtmlActionHandler>();
+            case RemoveResourceOptions:
+                return _serviceProvider.GetService<RemoveResourceActionHandler>();
             default:
                 throw new NotImplementedException();
         }
