@@ -19,12 +19,12 @@ namespace Penman.EpubSharp
 
         public EpubTextFile FindExistingStylesheet(string fileName)
         {
-            return Css.FirstOrDefault(g => g.FileName.Equals(fileName));
+            return Css.FirstOrDefault(g => g.FileName.ToLower().Equals(fileName.ToLower()));
         }
 
         public EpubTextFile FindExistingHtml(string fileName)
         {
-            return Html.FirstOrDefault(g => g.FileName.Equals(fileName));
+            return Html.FirstOrDefault(g => g.FileName.ToLower().Equals(fileName.ToLower()));
         }
     }
 }

@@ -5,5 +5,6 @@
 /// </summary>
 public interface IEpubResourceRetriever
 {
+    EpubTextFile? RetrieveCss(EpubBook book, string cssFileName);
     EpubTextFile? RetrieveHtml(EpubBook book, string htmlFileName);
 }

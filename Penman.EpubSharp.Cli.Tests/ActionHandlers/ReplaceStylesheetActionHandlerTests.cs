@@ -34,7 +34,7 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
                     { @"d:\0-new.css", new MockFileData(inputStylesheetContent) },
                     { @"d:\new.epub", new MockFileData(epubContent) }
                 });
-                var handler = new ReplaceStylesheetActionHandler(fileSystem, ConsoleWriter.Object);
+                var handler = new ReplaceStylesheetActionHandler(fileSystem, ConsoleWriter.Object, ResourceRetriever.Object);
                 handler.HandleCliAction(options);
                 
 
