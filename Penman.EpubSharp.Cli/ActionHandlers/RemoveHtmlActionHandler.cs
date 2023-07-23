@@ -14,12 +14,12 @@ namespace Penman.EpubSharp.Cli.ActionHandlers
 
         public void HandleCliAction(object options)
         {
-            if (options is not RemoveHtmlOptions removeHtmlOptions) return;
+            if (options is not RemoveResourceOptions removeHtmlOptions) return;
             if (!RetrieveAndValidateEpubSuccessful(removeHtmlOptions)) return;
             
-            if (!_resourceManager.RemoveHtml(EpubToProcess, removeHtmlOptions.RemoveHtmlName))
+            if (!_resourceManager.RemoveHtml(EpubToProcess, removeHtmlOptions.RemoveItemName))
             {
-                ConsoleWriter.WriteError($"Html file not found: {removeHtmlOptions.RemoveHtmlName}");
+                ConsoleWriter.WriteError($"Html file not found: {removeHtmlOptions.RemoveItemName}");
                 return;
             }
 

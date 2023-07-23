@@ -15,7 +15,7 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
             var epubContent = await File.ReadAllBytesAsync(PathToTestEpub);
             var options = new RemoveHtmlOptions()
             {
-                RemoveHtmlName= NameOfOldHtml,
+                RemoveItemName= NameOfOldHtml,
                 InputEpub = @"d:\new.epub",
                 OutputEpub = @$"d:\new-{Guid.NewGuid()}.epub"
             };
