@@ -7,10 +7,12 @@ public class EpubActionHandlerBase
     protected readonly IFileSystem FileSystem;
     protected EpubBook? EpubToProcess;
     protected EpubWriter ? EpubWriter;
+    protected IConsoleWriter ConsoleWriter;
 
-    public EpubActionHandlerBase(IFileSystem fileSystem)
+    public EpubActionHandlerBase(IFileSystem fileSystem, IConsoleWriter consoleWriter)
     {
         FileSystem = fileSystem;
+        ConsoleWriter = consoleWriter;
     }
 
     protected bool RetrieveAndValidateEpubSuccessful(EpubInputOptionsBase options)

@@ -27,7 +27,7 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
                 {
                     { @"d:\new.epub", new MockFileData(epubContent) }
                 });
-                var handler = new UpdateTitlesActionHandler(fileSystem);
+                var handler = new UpdateTitlesActionHandler(fileSystem, ConsoleWriter.Object);
                 handler.HandleCliAction(options);
                 
                 var epubReader = EpubReader.Read(options.OutputEpub);

@@ -4,7 +4,7 @@ namespace Penman.EpubSharp.Cli.ActionHandlers
 {
     public class ReplaceStylesheetActionHandler : EpubActionHandlerBase, ICliActionHandler
     {
-        public ReplaceStylesheetActionHandler(IFileSystem fileSystem) : base(fileSystem)
+        public ReplaceStylesheetActionHandler(IFileSystem fileSystem, IConsoleWriter consoleWriter) : base(fileSystem, consoleWriter)
         {
         }
 
@@ -14,7 +14,7 @@ namespace Penman.EpubSharp.Cli.ActionHandlers
             if (!RetrieveAndValidateEpubSuccessful(replaceCssOptions)) return;
             if (!FileSystem.File.Exists(replaceCssOptions.InputStylesheet))
             {
-                Console.WriteLine($"Input file not found: {replaceCssOptions.InputStylesheet}");
+                ConsoleWriter.WriteError($"Input file not found: {replaceCssOptions.InputStylesheet}");
                 return;
             }
 
@@ -22,7 +22,7 @@ namespace Penman.EpubSharp.Cli.ActionHandlers
                 EpubToProcess.Resources.FindExistingStylesheet(replaceCssOptions.ReplaceStylesheetName);
             if (existingStylesheet == null)
             {
-                Console.WriteLine($"Existing css file not found: {replaceCssOptions.ReplaceStylesheetName}");
+                ConsoleWriter.WriteError($"Existing css file not found: {replaceCssOptions.ReplaceStylesheetName}");
                 return;
             }
 

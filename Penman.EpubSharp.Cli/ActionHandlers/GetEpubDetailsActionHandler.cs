@@ -8,7 +8,7 @@ public class GetEpubDetailsActionHandler : EpubActionHandlerBase, ICliActionHand
     private readonly IMessageSerialiser _messageSerialiser;
     private readonly IGetEpubDetailsFactory _getEpubDetailsFactory;
 
-    public GetEpubDetailsActionHandler(IFileSystem fileSystem, IMessageSerialiser messageSerialiser, IGetEpubDetailsFactory getEpubDetailsFactory) : base(fileSystem)
+    public GetEpubDetailsActionHandler(IFileSystem fileSystem, IConsoleWriter consoleWriter, IMessageSerialiser messageSerialiser, IGetEpubDetailsFactory getEpubDetailsFactory) : base(fileSystem, consoleWriter)
     {
         _messageSerialiser = messageSerialiser;
         _getEpubDetailsFactory = getEpubDetailsFactory;
@@ -24,10 +24,10 @@ public class GetEpubDetailsActionHandler : EpubActionHandlerBase, ICliActionHand
         switch (getEpubDetailsOptions.OutputFormat)
         {
             case OutputFormat.Json:
-                Console.WriteLine(_messageSerialiser.Serialise(getEpubDetails, OutputFormat.Json));
+                ConsoleWriter.WriteSuccess(_messageSerialiser.Serialise(getEpubDetails, OutputFormat.Json));
                 break;
             case OutputFormat.Yaml:
-                Console.WriteLine(_messageSerialiser.Serialise(getEpubDetails, OutputFormat.Yaml));
+                ConsoleWriter.WriteSuccess(_messageSerialiser.Serialise(getEpubDetails, OutputFormat.Yaml));
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

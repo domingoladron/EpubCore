@@ -32,7 +32,7 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
                     { @"d:\new.epub", new MockFileData(epubContent) }
                 });
                 
-                var handler = new ReplaceCoverActionHandler(fileSystem);
+                var handler = new ReplaceCoverActionHandler(fileSystem, ConsoleWriter.Object);
                 handler.HandleCliAction(options);
                 
 

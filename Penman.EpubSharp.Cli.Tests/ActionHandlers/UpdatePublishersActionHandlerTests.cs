@@ -28,7 +28,7 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
                 {
                     { @"d:\new.epub", new MockFileData(epubContent) }
                 });
-                var handler = new UpdatePublishersActionHandler(fileSystem);
+                var handler = new UpdatePublishersActionHandler(fileSystem, ConsoleWriter.Object);
                 handler.HandleCliAction(options);
                 
                 var epubReader = EpubReader.Read(options.OutputEpub);
@@ -73,7 +73,7 @@ namespace Penman.EpubSharp.Cli.Tests.ActionHandlers
                     { @"d:\new.epub", new MockFileData(epubContent) }
                 });
                 
-                var handler = new UpdatePublishersActionHandler(fileSystem);
+                var handler = new UpdatePublishersActionHandler(fileSystem, ConsoleWriter.Object);
                 handler.HandleCliAction(options);
 
                 epubBook = EpubReader.Read(options.OutputEpub);

@@ -7,7 +7,7 @@ public class ExtractEPubActionHandler : EpubActionHandlerBase, ICliActionHandler
 {
     private readonly IFileExtractor _fileExtractor;
 
-    public ExtractEPubActionHandler(IFileSystem fileSystem, IFileExtractor fileExtractor) : base(fileSystem)
+    public ExtractEPubActionHandler(IFileSystem fileSystem, IConsoleWriter consoleWriter, IFileExtractor fileExtractor) : base(fileSystem, consoleWriter)
     {
         _fileExtractor = fileExtractor;
     }
@@ -19,13 +19,11 @@ public class ExtractEPubActionHandler : EpubActionHandlerBase, ICliActionHandler
 
         if (_fileExtractor.ExtractToDirectory(extractEpubOptions.InputEpub, extractEpubOptions.DestinationDirectory))
         {
-            Console.WriteLine($"Extract to {extractEpubOptions.DestinationDirectory} complete");
+            ConsoleWriter.WriteSuccess($"Extract to {extractEpubOptions.DestinationDirectory} complete");
         }
         else
         {
-            Console.WriteLine($"Failed to extract to {extractEpubOptions.DestinationDirectory}");
+            ConsoleWriter.WriteError($"Failed to extract to {extractEpubOptions.DestinationDirectory}");
         }
-
-       
     }
 }
