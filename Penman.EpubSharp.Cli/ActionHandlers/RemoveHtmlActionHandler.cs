@@ -19,7 +19,7 @@ namespace Penman.EpubSharp.Cli.ActionHandlers
             
             if (!_resourceManager.RemoveHtml(EpubToProcess, removeHtmlOptions.RemoveHtmlName))
             {
-                ConsoleWriter.WriteError($"Existing html file not found: {removeHtmlOptions.RemoveHtmlName}");
+                ConsoleWriter.WriteError($"Html file not found: {removeHtmlOptions.RemoveHtmlName}");
                 return;
             }
 
