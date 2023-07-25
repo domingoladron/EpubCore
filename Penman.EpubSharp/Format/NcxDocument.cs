@@ -49,40 +49,6 @@ namespace Penman.EpubSharp.Format
         public string Scheme { get; internal set; }
     }
 
-    public class NcxNapMap
-    {
-        /// <summary>
-        /// Populated only when an EPUB with NCX is read.
-        /// </summary>
-        public XElement Dom { get; internal set; }
-        public IList<NcxNavPoint> NavPoints { get; internal set; } = new List<NcxNavPoint>();
-    }
-
-    public class NcxNavPoint
-    {
-        internal static class Attributes
-        {
-            public static readonly XName Id = "id";
-            public static readonly XName Class = "class";
-            public static readonly XName PlayOrder = "playOrder";
-            public static readonly XName ContentSrc = "src";
-        }
-
-        public string Id { get; internal set; }
-        public string Class { get; internal set; }
-        public int? PlayOrder { get; internal set; }
-        // NavLabelText and ContentSrc are flattened elements for convenience.
-        // In case <navLabel> or <content/> need to carry more data, then they should have a dedicated model created.
-        public string NavLabelText { get; internal set; }
-        public string ContentSrc { get; internal set; }
-        public IList<NcxNavPoint> NavPoints { get; internal set; } = new List<NcxNavPoint>();
-
-        public override string ToString()
-        {
-            return $"Id: {Id}, ContentSource: {ContentSrc}";
-        }
-    }
-
     public enum NcxPageTargetType
     {
         Front = 1,

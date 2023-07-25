@@ -26,4 +26,10 @@ public class EpubResourceManager : IEpubResourceManager
 
         return book.Resources.RemoveResource(resourceName, resourceType);
     }
+
+    public bool AddResource(EpubBook book, EpubWriter epubWriter, EpubFile epubFileToAdd, string? addBeforeThisResource,
+        EpubResourceType resourceType)
+    {
+        throw new NotImplementedException();
+    }
 }
