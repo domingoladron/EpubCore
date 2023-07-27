@@ -12,6 +12,8 @@ namespace Penman.EpubSharp
         void AddFile(string filename, byte[] content, EpubContentType type);
         void AddFile(string filename, string content, EpubContentType type);
         void InsertFileBefore(string filename, byte[] content, EpubContentType type, string beforeFileName = null);
+        void InsertFileBefore(string filename, string content, EpubContentType type,
+            string beforeFileName = null);
         void AddAuthor(string authorName);
         void AddPublisher(string publisherName);
         void ClearPublishers();

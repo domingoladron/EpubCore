@@ -281,6 +281,41 @@ namespace Penman.EpubSharp.Tests
             Assert.Equal(0x24, epub.Resources.Fonts.First().Content.First());
         }
 
+        [Fact]
+        public void InsertFileBeforeTest()
+        {
+            var writer = new EpubWriter();
+            writer.AddFile("style.css", "body {}", EpubContentType.Css);
+            writer.AddFile("img.jpeg", new byte[] { 0x42 }, EpubContentType.ImageJpeg);
+            writer.AddFile("font.ttf", new byte[] { 0x24 }, EpubContentType.FontTruetype);
+
+            var epub = WriteAndRead(writer);
+
+            writer = new EpubWriter(epub);
+
+            writer.InsertFileBefore("style2.css", "body {2}", EpubContentType.Css, "style.css");
+
+            writer.InsertFileBefore("img2.jpeg", new byte[] {0x52}, EpubContentType.ImageJpeg, "img.jpeg");
+
+            writer.InsertFileBefore("font2.ttf", new byte[] { 0x68 }, EpubContentType.FontTruetype, "font.ttf");
+
+            epub = WriteAndRead(writer);
+
+            Assert.Equal(2, epub.Resources.Css.Count);
+            Assert.Equal("style2.css", epub.Resources.Css.First().Href);
+            Assert.Equal("body {2}", epub.Resources.Css.First().TextContent);
+
+            Assert.Equal(2, epub.Resources.Images.Count);
+            Assert.Equal("img2.jpeg", epub.Resources.Images.First().Href);
+            Assert.Single(epub.Resources.Images.First().Content);
+            Assert.Equal(0x52, epub.Resources.Images.First().Content.First());
+
+            Assert.Equal(2, epub.Resources.Fonts.Count);
+            Assert.Equal("font2.ttf", epub.Resources.Fonts.First().Href);
+            Assert.Single(epub.Resources.Fonts.First().Content);
+            Assert.Equal(0x68, epub.Resources.Fonts.First().Content.First());
+        }
+
         private EpubBook WriteAndRead(EpubWriter writer)
         {
             var stream = new MemoryStream();

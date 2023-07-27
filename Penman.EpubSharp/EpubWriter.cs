@@ -224,6 +224,12 @@ namespace Penman.EpubSharp
             }
         }
 
+        public void InsertFileBefore(string filename, string content, EpubContentType type,
+            string beforeFileName = null)
+        {
+            InsertFileBefore(filename, Constants.DefaultEncoding.GetBytes(content), type, beforeFileName);
+        }
+
         public void AddFile(string filename, byte[] content, EpubContentType type)
         {
            InsertFileBefore(filename, content, type);
