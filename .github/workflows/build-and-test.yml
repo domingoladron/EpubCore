@@ -19,5 +19,7 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore
-      - name: Test
+      - name: Test EpubCore
         run: dotnet test ./EpubCore.Tests/EpubCore.Tests.csproj --no-restore --verbosity normal
+      - name: Test EpubCoreCli
+        run: dotnet test ./EpubCore.Cli.Tests/EpubCore.Cli.Tests.csproj --no-restore --verbosity normal
