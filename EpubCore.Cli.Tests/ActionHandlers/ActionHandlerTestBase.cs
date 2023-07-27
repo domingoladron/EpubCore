@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using EpubCore.Cli.Managers;
 using Moq;
+using System.Reflection;
 
 namespace EpubCore.Cli.Tests.ActionHandlers;
 
@@ -11,12 +12,14 @@ public class ActionHandlerTestBase
     protected Fixture Fixture = new Fixture();
     protected Mock<IConsoleWriter> ConsoleWriter;
     protected Mock<EpubResourceManager> ResourceRetriever;
+    protected string ExecutingPath = string.Empty;
     protected string PathToTestEpub { get; set; }
 
     protected ActionHandlerTestBase()
     {
         ConsoleWriter = new Mock<IConsoleWriter>();
         ResourceRetriever = new Mock<EpubResourceManager>();
+        ExecutingPath =Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
     }
 
     public string GivenAnEpub(string epubName)

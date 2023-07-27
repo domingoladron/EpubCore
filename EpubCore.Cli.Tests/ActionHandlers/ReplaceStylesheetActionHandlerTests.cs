@@ -20,18 +20,18 @@ namespace EpubCore.Cli.Tests.ActionHandlers
 
             var options = new ReplaceStylesheetOptions
             {
-                InputStylesheet = @"d:\0-new.css",
+                InputStylesheet = @$"{ExecutingPath}/0-new.css",
                 ReplaceStylesheetName = NameOfOldStylesheet,
-                InputEpub = @"d:\new.epub",
-                OutputEpub = @$"d:\new-{Guid.NewGuid()}.epub"
+                InputEpub = @$"{ExecutingPath}/new.epub",
+                OutputEpub = @$"{ExecutingPath}/new-{Guid.NewGuid()}.epub"
             };
 
             try
             {
                 var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
                 {
-                    { @"d:\0-new.css", new MockFileData(inputStylesheetContent) },
-                    { @"d:\new.epub", new MockFileData(epubContent) }
+                    { @$"{ExecutingPath}/0-new.css", new MockFileData(inputStylesheetContent) },
+                    { @$"{ExecutingPath}/new.epub", new MockFileData(epubContent) }
                 });
                 var handler = new ReplaceStylesheetActionHandler(fileSystem, ConsoleWriter.Object, ResourceRetriever.Object);
                 handler.HandleCliAction(options);

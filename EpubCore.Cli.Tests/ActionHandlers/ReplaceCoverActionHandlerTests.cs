@@ -19,17 +19,17 @@ namespace EpubCore.Cli.Tests.ActionHandlers
 
             var options = new ReplaceCoverOptions()
             {
-                InputCoverImage = @"d:\cover.jpg",
-                InputEpub = @"d:\new.epub",
-                OutputEpub = @$"d:\new-{Guid.NewGuid()}.epub"
+                InputCoverImage = @$"{ExecutingPath}/cover.jpg",
+                InputEpub = @$"{ExecutingPath}/new.epub",
+                OutputEpub = @$"{ExecutingPath}/new-{Guid.NewGuid()}.epub"
             };
 
             try
             {
                 var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
                 {
-                    { @"d:\cover.jpg", new MockFileData(newCoverContents) },
-                    { @"d:\new.epub", new MockFileData(epubContent) }
+                    { @$"{ExecutingPath}/cover.jpg", new MockFileData(newCoverContents) },
+                    { @$"{ExecutingPath}/new.epub", new MockFileData(epubContent) }
                 });
                 
                 var handler = new ReplaceCoverActionHandler(fileSystem, ConsoleWriter.Object);
