@@ -23,7 +23,7 @@ namespace EpubCore.Cli.ActionHandlers
             }
 
             var existingStylesheet =
-                _resourceManager.RetrieveCss(EpubToProcess, replaceCssOptions.ReplaceStylesheetName);
+                _resourceManager.RetrieveCss(EpubToProcess!, replaceCssOptions.ReplaceStylesheetName);
             if (existingStylesheet == null)
             {
                 ConsoleWriter.WriteError($"Existing css file not found: {replaceCssOptions.ReplaceStylesheetName}");

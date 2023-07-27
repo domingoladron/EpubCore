@@ -19,7 +19,7 @@ public class GetEpubDetailsActionHandler : EpubActionHandlerBase, ICliActionHand
         if (options is not GetEpubDetailsOptions getEpubDetailsOptions) return;
         if (!RetrieveAndValidateEpubSuccessful(getEpubDetailsOptions)) return;
 
-        var getEpubDetails = _getEpubDetailsFactory.Create(EpubToProcess, getEpubDetailsOptions.Filter.ToList());
+        var getEpubDetails = _getEpubDetailsFactory.Create(EpubToProcess!, getEpubDetailsOptions.Filter.ToList());
 
         switch (getEpubDetailsOptions.OutputFormat)
         {

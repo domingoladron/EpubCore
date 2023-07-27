@@ -23,7 +23,7 @@ namespace EpubCore.Cli.ActionHandlers
             }
 
             var existingHtml =
-                _resourceManager.RetrieveHtml(EpubToProcess, replaceHtmlOptions.ReplaceHtmlName);
+                _resourceManager.RetrieveHtml(EpubToProcess!, replaceHtmlOptions.ReplaceHtmlName);
             if (existingHtml == null)
             {
                 ConsoleWriter.WriteError($"Existing html file not found: {replaceHtmlOptions.ReplaceHtmlName}");

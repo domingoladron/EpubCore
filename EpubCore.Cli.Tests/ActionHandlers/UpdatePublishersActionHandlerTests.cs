@@ -18,15 +18,15 @@ namespace EpubCore.Cli.Tests.ActionHandlers
             {
                 Publishers = _newPublishers,
                 ClearPrevious = true,
-                InputEpub = @"d:\new.epub",
-                OutputEpub = @$"d:\new-{Guid.NewGuid()}.epub"
+                InputEpub = @$"{ExecutingPath}/new.epub",
+                OutputEpub = @$"{ExecutingPath}/new-{Guid.NewGuid()}.epub"
             };
 
             try
             {
                 var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
                 {
-                    { @"d:\new.epub", new MockFileData(epubContent) }
+                    { @$"{ExecutingPath}/new.epub", new MockFileData(epubContent) }
                 });
                 var handler = new UpdatePublishersActionHandler(fileSystem, ConsoleWriter.Object);
                 handler.HandleCliAction(options);
@@ -62,15 +62,15 @@ namespace EpubCore.Cli.Tests.ActionHandlers
             {
                 Publishers = _newPublishers,
                 ClearPrevious = false,
-                InputEpub = @"d:\new.epub",
-                OutputEpub = @$"d:\new-{Guid.NewGuid()}.epub"
+                InputEpub = @$"{ExecutingPath}/new.epub",
+                OutputEpub = @$"{ExecutingPath}/new-{Guid.NewGuid()}.epub"
             };
 
             try
             {
                 var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
                 {
-                    { @"d:\new.epub", new MockFileData(epubContent) }
+                    { @$"{ExecutingPath}/new.epub", new MockFileData(epubContent) }
                 });
                 
                 var handler = new UpdatePublishersActionHandler(fileSystem, ConsoleWriter.Object);

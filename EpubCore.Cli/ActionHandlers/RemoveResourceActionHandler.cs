@@ -17,7 +17,7 @@ namespace EpubCore.Cli.ActionHandlers
             if (options is not RemoveResourceOptions removeResourceOptions) return;
             if (!RetrieveAndValidateEpubSuccessful(removeResourceOptions)) return;
             
-            if (!_resourceManager.RemoveResource(EpubToProcess, EpubWriter, removeResourceOptions.RemoveItemName, removeResourceOptions.EpubResourceType))
+            if (!_resourceManager.RemoveResource(EpubToProcess!, EpubWriter!, removeResourceOptions.RemoveItemName, removeResourceOptions.EpubResourceType))
             {
                 ConsoleWriter.WriteError($"Resource file of type {removeResourceOptions.EpubResourceType} not found: {removeResourceOptions.RemoveItemName}");
                 return;

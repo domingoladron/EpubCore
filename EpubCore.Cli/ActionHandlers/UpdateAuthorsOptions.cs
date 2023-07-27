@@ -6,7 +6,7 @@ namespace EpubCore.Cli.ActionHandlers;
 public class UpdateAuthorsOptions : EpubManipulatorOptionsBase
 {
     [Option('a', "author", Required = true, HelpText = "Author to add to your EPub", Min=1)]
-    public IEnumerable<string> Authors { get; set; }
+    public IEnumerable<string> Authors { get; set; } = new List<string>();
 
     [Option('c', "clear-previous", HelpText = "Clear previous authors", Default = false)]
     public bool ClearPrevious { get; set; }

@@ -8,19 +8,19 @@ namespace EpubCore.Cli.ActionHandlers
         {
         }
 
-        public async void HandleCliAction(object options)
+        public void HandleCliAction(object options)
         {
             if (options is not UpdatePublishersOptions updateAuthorsOptions) return;
             if (!RetrieveAndValidateEpubSuccessful(updateAuthorsOptions)) return;
 
             if (updateAuthorsOptions.ClearPrevious)
             {
-                EpubWriter.ClearPublishers();
+                EpubWriter!.ClearPublishers();
             }
 
             foreach (var curPublisher in updateAuthorsOptions.Publishers)
             {
-                EpubWriter.AddPublisher(curPublisher);
+                EpubWriter!.AddPublisher(curPublisher);
             }
             
             SaveChanges(updateAuthorsOptions);

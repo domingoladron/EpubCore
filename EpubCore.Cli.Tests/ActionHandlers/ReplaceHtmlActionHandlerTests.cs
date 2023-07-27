@@ -20,18 +20,18 @@ namespace EpubCore.Cli.Tests.ActionHandlers
 
             var options = new ReplaceHtmlOptions()
             {
-                InputHtml= @"d:\0-new.html",
+                InputHtml=@$"{ExecutingPath}/0-new.html",
                 ReplaceHtmlName= NameOfOldHtml,
-                InputEpub = @"d:\new.epub",
-                OutputEpub = @$"d:\new-{Guid.NewGuid()}.epub"
+                InputEpub =@$"{ExecutingPath}/new.epub",
+                OutputEpub = @$"{ExecutingPath}/new-{Guid.NewGuid()}.epub"
             };
 
             try
             {
                 var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
                 {
-                    { @"d:\0-new.html", new MockFileData(inputHtmlContent) },
-                    { @"d:\new.epub", new MockFileData(epubContent) }
+                    {@$"{ExecutingPath}/0-new.html", new MockFileData(inputHtmlContent) },
+                    {@$"{ExecutingPath}/new.epub", new MockFileData(epubContent) }
                 });
                 var handler = new ReplaceHtmlActionHandler(fileSystem, ConsoleWriter.Object, ResourceRetriever.Object);
                 handler.HandleCliAction(options);

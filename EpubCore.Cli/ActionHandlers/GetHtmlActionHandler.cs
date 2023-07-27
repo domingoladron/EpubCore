@@ -19,7 +19,7 @@ public class GetHtmlActionHandler : EpubActionHandlerBase, ICliActionHandler
         if (options is not GetHtmlOptions getHtmlOptions) return;
         if (!RetrieveAndValidateEpubSuccessful(getHtmlOptions)) return;
 
-        var htmlFile = _epubResourceManager.RetrieveHtml(EpubToProcess, getHtmlOptions.HtmlFileName);
+        var htmlFile = _epubResourceManager.RetrieveHtml(EpubToProcess!, getHtmlOptions.HtmlFileName);
 
         if (htmlFile == null)
         {
