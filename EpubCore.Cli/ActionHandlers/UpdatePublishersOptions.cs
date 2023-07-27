@@ -6,7 +6,7 @@ namespace EpubCore.Cli.ActionHandlers;
 public class UpdatePublishersOptions : EpubManipulatorOptionsBase
 {
     [Option('p', "publisher", Required = true, HelpText = "Publisher to add to your EPub", Min=1)]
-    public IEnumerable<string> Publishers { get; set; }
+    public IEnumerable<string> Publishers { get; set; } = new List<string>();
 
     [Option('c', "clear-previous", HelpText = "Clear previous publisher", Default = false)]
     public bool ClearPrevious { get; set; }

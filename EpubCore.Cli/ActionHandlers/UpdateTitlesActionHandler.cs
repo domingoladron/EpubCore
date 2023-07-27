@@ -8,12 +8,12 @@ namespace EpubCore.Cli.ActionHandlers
         {
         }
 
-        public async void HandleCliAction(object options)
+        public void HandleCliAction(object options)
         {
             if (options is not UpdateTitlesOptions updateTitlesOptions) return;
             if (!RetrieveAndValidateEpubSuccessful(updateTitlesOptions)) return;
 
-            EpubWriter.SetTitles(updateTitlesOptions.Titles);
+            EpubWriter!.SetTitles(updateTitlesOptions.Titles);
 
             SaveChanges(updateTitlesOptions);
         }

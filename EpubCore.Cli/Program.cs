@@ -11,7 +11,7 @@ namespace EpubCore.Cli
         {
             using var host = CreateHostBuilder(args).Build();
 
-            var result = host.Services.GetService<ICommandHandler>()
+            var result = host.Services.GetService<ICommandHandler>()!
                 .ExecuteAsync(args).Result;
 
           

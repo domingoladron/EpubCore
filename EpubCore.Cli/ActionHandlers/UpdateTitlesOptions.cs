@@ -6,6 +6,6 @@ namespace EpubCore.Cli.ActionHandlers;
 public class UpdateTitlesOptions : EpubManipulatorOptionsBase
 {
     [Option('t', "titles", Required = true, HelpText = "Titles to swap out of our EPub", Min=1)]
-    public IEnumerable<string> Titles { get; set; }
+    public IEnumerable<string> Titles { get; set; } = new List<string>();
 
 }

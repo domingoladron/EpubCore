@@ -53,7 +53,7 @@ namespace EpubCore.Cli.Tests.ActionHandlers
 
                 if (htmlFound)
                 {
-                    ConsoleWriter.Verify(g => g.WriteSuccess(_htmlFile.TextContent), Times.Once);
+                    ConsoleWriter.Verify(g => g.WriteSuccess(_htmlFile!.TextContent), Times.Once);
                 }
                 else
                 {

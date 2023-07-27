@@ -6,6 +6,6 @@ namespace EpubCore.Cli.ActionHandlers;
 public class GetHtmlOptions : EpubInputOptionsBase
 {
     [Option('h', "html-file", Required = true, HelpText = "The nme of the html file for which to fetch the contents")]
-    public string HtmlFileName { get; set; }
+    public string HtmlFileName { get; set; } = string.Empty;
 
 }

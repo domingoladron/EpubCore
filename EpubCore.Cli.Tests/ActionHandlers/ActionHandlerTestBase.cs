@@ -13,13 +13,13 @@ public class ActionHandlerTestBase
     protected Mock<IConsoleWriter> ConsoleWriter;
     protected Mock<EpubResourceManager> ResourceRetriever;
     protected string ExecutingPath = string.Empty;
-    protected string PathToTestEpub { get; set; }
+    protected string PathToTestEpub { get; set; } = null!;
 
     protected ActionHandlerTestBase()
     {
         ConsoleWriter = new Mock<IConsoleWriter>();
         ResourceRetriever = new Mock<EpubResourceManager>();
-        ExecutingPath =Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        ExecutingPath =Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
     }
 
     public string GivenAnEpub(string epubName)

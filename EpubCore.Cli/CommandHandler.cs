@@ -37,7 +37,7 @@ public class CommandHandler : ICommandHandler
     private void Run(object obj)
     {
         var handler = _cliActionHandlerResolver.Resolve(obj);
-        handler.HandleCliAction(obj);
+        handler!.HandleCliAction(obj);
        
     }
 

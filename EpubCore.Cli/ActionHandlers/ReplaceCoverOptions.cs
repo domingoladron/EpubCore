@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using static System.String;
 
 namespace EpubCore.Cli.ActionHandlers;
 
@@ -6,6 +7,6 @@ namespace EpubCore.Cli.ActionHandlers;
 public class ReplaceCoverOptions : EpubManipulatorOptionsBase
 {
     [Option('c', "cover-img", Required = true, HelpText = "Path to new cover image (.jpg, .png)")]
-    public string InputCoverImage { get; set; }
+    public string InputCoverImage { get; set; } = Empty;
 
 }

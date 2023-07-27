@@ -16,7 +16,7 @@ public class ExtractEPubActionHandler : EpubActionHandlerBase, ICliActionHandler
         if (options is not ExtractEpubOptions extractEpubOptions) return;
         if (!RetrieveAndValidateEpubSuccessful(extractEpubOptions)) return;
 
-        if (_fileExtractor.ExtractToDirectory(extractEpubOptions.InputEpub, extractEpubOptions.DestinationDirectory))
+        if (_fileExtractor.ExtractToDirectory(extractEpubOptions.InputEpub!, extractEpubOptions.DestinationDirectory))
         {
             ConsoleWriter.WriteSuccess($"Extract to {extractEpubOptions.DestinationDirectory} complete");
         }
