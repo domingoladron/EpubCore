@@ -19,8 +19,8 @@ jobs:
     - name: Build
       run: dotnet build -c Release
     - name: Test
-      run: dotnet test ./Penman.EpubSharp.Tests/Penman.EpubSharp.Tests.csproj -c Release --no-build
+      run: dotnet test ./EpubCore.Tests/EpubCore.Tests.csproj -c Release --no-build
     - name: Pack nugets
-      run: dotnet pack Penman.EpubSharp/Penman.EpubSharp.csproj -c Release --no-build --output .
+      run: dotnet pack EpubCore/EpubCore.csproj -c Release --no-build --output .
     - name: Push to NuGet
       run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json

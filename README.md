@@ -6,7 +6,7 @@ Supported EPUB versions: **2.0**, **3.0**, **3.1**
 # Installation
 
 ```
-Install-Package Penman.EpubSharp
+Install-Package EpubCore
 ```
 
 # Supported Frameworks
