@@ -16,7 +16,7 @@
     <RepositoryUrl>https://github.com/domingoladron/EpubCore</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Fixes to broken write tools + beginning of a CLI</PackageReleaseNotes>
+    <PackageReleaseNotes>Full rename of the solution and package</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
 	  <Summary></Summary>
