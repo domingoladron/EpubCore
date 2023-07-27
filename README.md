@@ -1,4 +1,6 @@
 # EpubCore
+![](docs/wiki/img/icon.png)
+
 .NET 6 / .NET Standard 2.0 library and tools for reading, writing and manipulating EPUB files.  
 
 Supported EPUB versions: **2.0**, **3.0**, **3.1**
