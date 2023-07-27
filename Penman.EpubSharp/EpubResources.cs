@@ -16,7 +16,6 @@ namespace Penman.EpubSharp
         /// </summary>
         public IList<EpubFile> All { get; internal set; } = new List<EpubFile>();
 
-
         public EpubTextFile FindExistingStylesheet(string fileName)
         {
             return Css.FirstOrDefault(g => g.FileName.ToLower().Equals(fileName.ToLower()));

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Penman.EpubSharp.Format;
@@ -174,6 +175,39 @@ namespace Penman.EpubSharp.Tests
 
             Assert.Equal(2, epub.TableOfContents.Count);
             for (var i = 0; i < chapters.Length; ++i)
+            {
+                Assert.Equal(chapters[i].Title, epub.TableOfContents[i].Title);
+                Assert.Equal(chapters[i].RelativePath, epub.TableOfContents[i].RelativePath);
+                Assert.Equal(chapters[i].HashLocation, epub.TableOfContents[i].HashLocation);
+                Assert.Equal(0, chapters[i].SubChapters.Count);
+                Assert.Equal(0, epub.TableOfContents[i].SubChapters.Count);
+            }
+        }
+
+        [Fact]
+        public void CanInsertChapterTest()
+        {
+            var writer = new EpubWriter();
+            var chapters = new List<EpubChapter>
+            {
+                writer.AddChapter("Chapter 1", "bla bla bla"),
+                writer.AddChapter("Chapter 2", "foo bar")
+            };
+
+            Assert.Equal("Chapter 1", chapters[0].Title);
+            Assert.Equal("Chapter 2", chapters[1].Title);
+
+            var epub = WriteAndRead(writer);
+
+            writer = new EpubWriter(epub);
+
+            chapters.Insert(0, writer.InsertChapterBefore("Chapter 0", "nothing", null, chapters[0].RelativePath));
+
+            epub = WriteAndRead(writer);
+           
+
+            Assert.Equal(3, epub.TableOfContents.Count);
+            for (var i = 0; i < chapters.Count; ++i)
             {
                 Assert.Equal(chapters[i].Title, epub.TableOfContents[i].Title);
                 Assert.Equal(chapters[i].RelativePath, epub.TableOfContents[i].RelativePath);
