@@ -9,6 +9,6 @@ public class ConsoleWriter : IConsoleWriter
 
     public void WriteError(string message)
     {
-        Console.WriteLine(message);
+        Console.Error.WriteLine(message);
     }
 }
