@@ -20,4 +20,4 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
       - name: Test
-        run: dotnet test ./Penman.EpubSharp.Tests/Penman.EpubSharp.Tests.csproj --no-restore --verbosity normal
+        run: dotnet test ./EpubCore.Tests/EpubCore.Tests.csproj --no-restore --verbosity normal
