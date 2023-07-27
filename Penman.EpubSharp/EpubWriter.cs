@@ -88,7 +88,7 @@ namespace Penman.EpubSharp
             writer.Write(stream);
         }
 
-        public void AddFile(string filename, byte[] content, EpubContentType type)
+        public void InsertFileBefore(string filename, byte[] content, EpubContentType type, string beforeFileName = null)
         {
             if (string.IsNullOrWhiteSpace(filename)) throw new ArgumentNullException(nameof(filename));
             if (content == null) throw new ArgumentNullException(nameof(content));
@@ -105,37 +105,134 @@ namespace Penman.EpubSharp
             switch (type)
             {
                 case EpubContentType.Css:
-                    _resources.Css.Add(file.ToTextFile());
+                    if (string.IsNullOrEmpty(beforeFileName))
+                    {
+                        _resources.Css.Add(file.ToTextFile());
+                    }
+                    else
+                    {
+                        var soughtResource = _resources.Css.FirstOrDefault(g => g.FileName.Equals(beforeFileName));
+                        if (soughtResource != null)
+                        {
+                            var index = _resources.Css.IndexOf(soughtResource);
+                            _resources.Css.Insert(index, file.ToTextFile());
+                        }
+                        else
+                        {
+                            _resources.Css.Add(file.ToTextFile());
+                        }
+                    }
+                   
                     break;
 
                 case EpubContentType.FontOpentype:
                 case EpubContentType.FontTruetype:
-                    _resources.Fonts.Add(file);
+                    if (string.IsNullOrEmpty(beforeFileName))
+                    {
+                        _resources.Fonts.Add(file);
+                    }
+                    else
+                    {
+                        var soughtResource = _resources.Fonts.FirstOrDefault(g => g.Href.Equals(beforeFileName));
+                        if (soughtResource != null)
+                        {
+                            var index = _resources.Fonts.IndexOf(soughtResource);
+                            _resources.Fonts.Insert(index, file);
+                        }
+                        else
+                        {
+                            _resources.Fonts.Add(file);
+                        }
+                    }
+
                     break;
 
                 case EpubContentType.ImageGif:
                 case EpubContentType.ImageJpeg:
                 case EpubContentType.ImagePng:
                 case EpubContentType.ImageSvg:
-                    _resources.Images.Add(file);
+                    if (string.IsNullOrEmpty(beforeFileName))
+                    {
+                        _resources.Images.Add(file);
+                    }
+                    else
+                    {
+                        var soughtResource = _resources.Images.FirstOrDefault(g => g.Href.Equals(beforeFileName));
+                        if (soughtResource != null)
+                        {
+                            var index = _resources.Images.IndexOf(soughtResource);
+                            _resources.Images.Insert(index, file);
+                        }
+                        else
+                        {
+                            _resources.Images.Add(file);
+                        }
+                    }
+
                     break;
 
                 case EpubContentType.Xml:
                 case EpubContentType.Xhtml11:
                 case EpubContentType.Other:
-                    _resources.Other.Add(file);
+                    if (string.IsNullOrEmpty(beforeFileName))
+                    {
+                        _resources.Other.Add(file);
+                    }
+                    else
+                    {
+                        var soughtResource = _resources.Other.FirstOrDefault(g => g.Href.Equals(beforeFileName));
+                        if (soughtResource != null)
+                        {
+                            var index = _resources.Other.IndexOf(soughtResource);
+                            _resources.Other.Insert(index, file);
+                        }
+                        else
+                        {
+                            _resources.Other.Add(file);
+                        }
+                    }
+
                     break;
 
                 default:
                     throw new InvalidOperationException($"Unsupported file type: {type}");
             }
 
-            _format.Opf.Manifest.Items.Add(new OpfManifestItem
+            var manifestEntry = new OpfManifestItem
             {
                 Id = Guid.NewGuid().ToString("N"),
                 Href = filename,
                 MediaType = file.MimeType
-            });
+            };
+
+            if (string.IsNullOrEmpty(beforeFileName))
+            {
+                _format.Opf.Manifest.Items.Add(manifestEntry);
+            }
+            else
+            {
+                var soughtResource = _format.Opf.Manifest.Items.FirstOrDefault(g =>g.Href.Equals(beforeFileName));
+                if (soughtResource != null)
+                {
+                    var index = _format.Opf.Manifest.Items.IndexOf(soughtResource);
+                    _format.Opf.Manifest.Items.Insert(index, manifestEntry); 
+                }
+                else
+                {
+                    _format.Opf.Manifest.Items.Add(manifestEntry);
+                }
+            }
+        }
+
+        public void InsertFileBefore(string filename, string content, EpubContentType type,
+            string beforeFileName = null)
+        {
+            InsertFileBefore(filename, Constants.DefaultEncoding.GetBytes(content), type, beforeFileName);
+        }
+
+        public void AddFile(string filename, byte[] content, EpubContentType type)
+        {
+           InsertFileBefore(filename, content, type);
         }
 
         public void AddFile(string filename, string content, EpubContentType type)
@@ -215,12 +312,15 @@ namespace Penman.EpubSharp
             _format.Opf.UniqueIdentifier = uniqueIdentifier;
         }
 
-        public EpubChapter AddChapter(string title, string html, string fileId = null)
+        public EpubChapter InsertChapterBefore(string title, string html, string fileId = null, string beforeFileName = null)
         {
             if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
             if (html == null) throw new ArgumentNullException(nameof(html));
 
             fileId = fileId ?? Guid.NewGuid().ToString("N");
+            EpubTextFile beforeEpubTextFile = null;
+            OpfManifestItem selectedManifestItem = null;
+
             var file = new EpubTextFile
             {
                 AbsolutePath = fileId + ".html",
@@ -229,28 +329,129 @@ namespace Penman.EpubSharp
                 ContentType = EpubContentType.Xhtml11
             };
             file.MimeType = ContentType.ContentTypeToMimeType[file.ContentType];
-            _resources.Html.Add(file);
 
+            if (string.IsNullOrEmpty(beforeFileName))
+            {
+                _resources.Html.Add(file);
+            }
+            else
+            {
+                beforeEpubTextFile = _resources.Html.FirstOrDefault(g => g.FileName.Equals(beforeFileName));
+                if (beforeEpubTextFile == null)
+                {
+                    _resources.Html.Add(file);
+                }
+                else
+                {
+                    var index = _resources.Html.IndexOf(beforeEpubTextFile);
+                    _resources.Html.Insert(index, file);
+                }
+            }
+            
             var manifestItem = new OpfManifestItem
             {
                 Id = fileId,
                 Href = file.Href,
                 MediaType = file.MimeType
             };
-            _format.Opf.Manifest.Items.Add(manifestItem);
+
+            if (string.IsNullOrWhiteSpace(beforeFileName))
+            {
+                _format.Opf.Manifest.Items.Add(manifestItem);
+            }
+            else
+            {
+                selectedManifestItem = _format.Opf.Manifest.Items.FirstOrDefault(g => g.Href == beforeFileName);
+                if (selectedManifestItem == null)
+                {
+                    _format.Opf.Manifest.Items.Add(manifestItem);
+                }
+                else
+                {
+                    var index = _format.Opf.Manifest.Items.IndexOf(selectedManifestItem);
+
+                    _format.Opf.Manifest.Items.Insert(index, manifestItem);
+                }
+            }
+            
 
             var spineItem = new OpfSpineItemRef { IdRef = manifestItem.Id, Linear = true };
-            _format.Opf.Spine.ItemRefs.Add(spineItem);
+            if (selectedManifestItem == null)
+            {
+                _format.Opf.Spine.ItemRefs.Add(spineItem);
+            }
+            else
+            {
+                var beforeSpinItem =
+                    _format.Opf.Spine.ItemRefs.FirstOrDefault(g => g.IdRef.Equals(selectedManifestItem.Id));
+                if (beforeSpinItem == null)
+                {
+                    _format.Opf.Spine.ItemRefs.Add(spineItem);
+                }
+                else
+                {
+                    var index = _format.Opf.Spine.ItemRefs.IndexOf(beforeSpinItem);
+                    _format.Opf.Spine.ItemRefs.Insert(index, spineItem);
+                }
+            }
 
-            FindNavTocOl()?.Add(new XElement(NavElements.Li, new XElement(NavElements.A, new XAttribute("href", file.Href), title)));
+            var tocElement = new XElement(NavElements.Li,
+                new XElement(NavElements.A, new XAttribute("href", file.Href), title));
 
-            _format.Ncx?.NavMap.NavPoints.Add(new NcxNavPoint
+            if (beforeEpubTextFile == null)
+            {
+                FindNavTocOl()?.Add(tocElement);
+            }
+            else
+            {
+                var beforeTocItem = FindNavTocOl()?.Descendants().FirstOrDefault(g =>
+                    g.Attribute("href") != null && g.Attribute("href")!.Value == beforeEpubTextFile.Href);
+                if (beforeTocItem == null)
+                {
+                    FindNavTocOl()?.Add(tocElement);
+                }
+                else
+                {
+                    beforeTocItem.AddBeforeSelf(tocElement);
+                }
+            }
+
+            var nxcNavPoint = new NcxNavPoint
             {
                 Id = Guid.NewGuid().ToString("N"),
                 NavLabelText = title,
-                ContentSrc = file.Href,
-                PlayOrder = _format.Ncx.NavMap.NavPoints.Any() ? _format.Ncx.NavMap.NavPoints.Max(e => e.PlayOrder) : 1
-            });
+                ContentSrc = file.Href
+            };
+
+            var defaultPlayOrder = _format.Ncx.NavMap.NavPoints.Any()
+                ? _format.Ncx.NavMap.NavPoints.Max(e => e.PlayOrder)
+                : 1;
+
+            if (beforeEpubTextFile == null)
+            {
+                nxcNavPoint.PlayOrder = defaultPlayOrder;
+                _format.Ncx?.NavMap.NavPoints.Add(nxcNavPoint);
+            }
+            else
+            {
+                var beforeNcxNavPoint =
+                    _format.Ncx?.NavMap.NavPoints.FirstOrDefault(g => g.ContentSrc == beforeEpubTextFile.Href);
+                if (beforeNcxNavPoint == null)
+                {
+                    nxcNavPoint.PlayOrder = defaultPlayOrder;
+                    _format.Ncx?.NavMap.NavPoints.Add(nxcNavPoint);
+                }
+                else
+                {
+                    nxcNavPoint.PlayOrder = (beforeNcxNavPoint.PlayOrder <= 0) ? 0 : beforeNcxNavPoint.PlayOrder - 1;
+
+                    var index = _format.Ncx?.NavMap.NavPoints.IndexOf(beforeNcxNavPoint);
+
+                    _format.Ncx?.NavMap.NavPoints.Insert(index??0, nxcNavPoint);
+                }
+
+                _format.Ncx?.NavMap.ReorderNavPointsPlayOrder();
+            }
 
             return new EpubChapter
             {
@@ -258,6 +459,14 @@ namespace Penman.EpubSharp
                 Title = title,
                 RelativePath = file.AbsolutePath
             };
+        }
+
+
+
+
+        public EpubChapter AddChapter(string title, string html, string fileId = null)
+        {
+            return InsertChapterBefore(title, html, fileId);
         }
 
         public void ClearChapters()
