@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
 	  <PackAsTool>true</PackAsTool>
 	  <ToolCommandName>epub</ToolCommandName>
-	  <PackageOutputPath>./nupkg</PackageOutputPath>
+	  <PackageOutputPath>../nupkg</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
