@@ -37,6 +37,8 @@ public class CliActionHandlerResolver : ICliActionHandlerResolver
                 return _serviceProvider.GetService<GetHtmlActionHandler>();
             case RemoveResourceOptions:
                 return _serviceProvider.GetService<RemoveResourceActionHandler>();
+            case GenerateDocumentationOptions:
+                return _serviceProvider.GetService<GenerateDocumentationActionHandler>();
             default:
                 throw new NotImplementedException();
         }

@@ -4,7 +4,7 @@ In order to make it as easy as possible to manipulate epub files with little / n
 
 ## Prerequisites
 
-`.NET 6.0` or greater
+`.NET 7.0` or greater
 
 ## How to install from the interwebs
 
