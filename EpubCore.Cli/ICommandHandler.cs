@@ -2,5 +2,5 @@
 
 public interface ICommandHandler
 {
-    Task<int> ExecuteAsync(string[] args);
+    int Execute(string[] args);
 }
