@@ -79,3 +79,10 @@ builder
     .AddChapter("Chapter 1", "<html><body><h1>It was a dark and stormy night.</h1></body></html>")
     .Build(pathToSaveEPub);
 ```
+
+## EpubCore CLI
+As of 1.6.0, I've released a simple but effective epub CLI.  This allows you to manipulate Epub files from the command line without needing to do any coding.
+
+For complete details on installing and using the `epub` CLI, you can get details here
+
+[epub cli documentation](docs/wiki/epub-cli.md)

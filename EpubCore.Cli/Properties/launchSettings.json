@@ -2,7 +2,7 @@
   "profiles": {
     "EpubCore.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "get-html --input-epub D:\\dev\\siddhartha.epub --html-file 2000430189831848965_2500-h-15.htm.xhtml"
+      "commandLineArgs": "gen-cli-docs --out docs/wiki/epub-cli-docs.md"
     }
   }
 }

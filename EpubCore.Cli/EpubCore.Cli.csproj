@@ -7,11 +7,12 @@
     <Nullable>enable</Nullable>
 	  <PackAsTool>true</PackAsTool>
 	  <ToolCommandName>epub</ToolCommandName>
-	  <PackageOutputPath>./nupkg</PackageOutputPath>
+	  <PackageOutputPath>../nupkg</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
+    <PackageReference Include="DotMarkdown" Version="0.2.0" />
     <PackageReference Include="Lamar.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
