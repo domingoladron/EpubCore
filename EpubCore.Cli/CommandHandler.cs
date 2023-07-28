@@ -65,7 +65,8 @@ public class CommandHandler : ICommandHandler
                     {
                         HelpText = optionVal.HelpText,
                         ShortName = optionVal.ShortName,
-                        LongName = optionVal.LongName
+                        LongName = optionVal.LongName,
+                        Required = optionVal.Required
                     };
 
                     helpDocEntry.Parameters.Add(helpParam);
@@ -96,7 +97,7 @@ public class CommandHandler : ICommandHandler
 
         using var writer = MarkdownWriter.Create(sb);
         writer.WriteHeading1("EpubCore.Cli Verbs");
-        foreach (var helpDocEntry in helpDocEntries)
+        foreach (var helpDocEntry in helpDocEntries.OrderBy(g => g.VerbName))
         {
             writer.WriteHeading2(helpDocEntry.VerbName);
             writer.WriteLinkOrText(helpDocEntry.HelpText);
@@ -106,10 +107,12 @@ public class CommandHandler : ICommandHandler
                 writer.WriteFencedCodeBlock($"{helpDocEntry.VerbName} <parameters>");
                 writer.WriteHeading3("Parameters");
             }
-            foreach (var curParameter in helpDocEntry.Parameters)
+            foreach (var curParameter in helpDocEntry.Parameters.OrderByDescending(g => g.Required).ThenBy(g => g.LongName))
             {
-                writer.WriteHeading4($" --{curParameter.LongName} ( -{curParameter.ShortName} )");
-                writer.WriteLinkOrText(curParameter.HelpText);
+                var requiredString = curParameter.Required ? "[required]" : "";
+                writer.WriteHeading4($" --{curParameter.LongName} ( -{curParameter.ShortName} ) {requiredString}");
+                
+                writer.WriteLinkOrText($"{curParameter.HelpText}");
             }
         }
 

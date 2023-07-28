@@ -10,27 +10,27 @@ add-resource <parameters>
 
 ### Parameters
 
-####  \-\-add\-resource \( \-a \)
+####  \-\-add\-resource \( \-a \) \[required\]
 
 Path to new new EPub resource to add
 
-####  \-\-before\-resource \( \-b \)
-
-Add before this existing EPub resource \(name\-of\-existing\.html\)
-
-####  \-\-resource\-type \( \-t \)
-
-Type of EPub resource \(Html, Css, Font, Image, Other\)
-
-####  \-\-out \( \-o \)
-
-Path to write final epub\.  If empty, overwrites input epub
-
-####  \-\-in \( \-i \)
+####  \-\-in \( \-i \) \[required\]
 
 Path to epub to parse
 
-####  \-\-verbose \( \-v \)
+####  \-\-resource\-type \( \-t \) \[required\]
+
+Type of EPub resource \(Html, Css, Font, Image, Other\)
+
+####  \-\-before\-resource \( \-b \) 
+
+Add before this existing EPub resource \(name\-of\-existing\.html\)
+
+####  \-\-out \( \-o \) 
+
+Path to write final epub\.  If empty, overwrites input epub
+
+####  \-\-verbose \( \-v \) 
 
 If true, writes heaps of logging
 
@@ -44,15 +44,15 @@ extract <parameters>
 
 ### Parameters
 
-####  \-\-destination \( \-d \)
+####  \-\-destination \( \-d \) \[required\]
 
 path to destination directory of where to extract the EPub's files
 
-####  \-\-in \( \-i \)
+####  \-\-in \( \-i \) \[required\]
 
 Path to epub to parse
 
-####  \-\-verbose \( \-v \)
+####  \-\-verbose \( \-v \) 
 
 If true, writes heaps of logging
 
@@ -66,7 +66,7 @@ gen-cli-docs <parameters>
 
 ### Parameters
 
-####  \-\-out \( \-o \)
+####  \-\-out \( \-o \) \[required\]
 
 File path to write documentation for the CLI
 
@@ -80,19 +80,19 @@ get-details <parameters>
 
 ### Parameters
 
-####  \-\-filter \( \-f \)
-
-Pipe\-delimited filter keys of the data you want to be returned\.  Filter values include: Uniqueidentifier\|Version\|Authors\|Publishers\|Contributors\|Titles\|Toc\|Css\|Cover\|Images\|Fonts\|Html
-
-####  \-\-format \( \-f \)
-
-Output format of data \(Json or Yaml\)
-
-####  \-\-in \( \-i \)
+####  \-\-in \( \-i \) \[required\]
 
 Path to epub to parse
 
-####  \-\-verbose \( \-v \)
+####  \-\-filter \( \-f \) 
+
+Pipe\-delimited filter keys of the data you want to be returned\.  Filter values include: Uniqueidentifier\|Version\|Authors\|Publishers\|Contributors\|Titles\|Toc\|Css\|Cover\|Images\|Fonts\|Html
+
+####  \-\-format \( \-f \) 
+
+Output format of data \(Json or Yaml\)
+
+####  \-\-verbose \( \-v \) 
 
 If true, writes heaps of logging
 
@@ -106,15 +106,15 @@ get-html <parameters>
 
 ### Parameters
 
-####  \-\-html\-file \( \-h \)
+####  \-\-html\-file \( \-h \) \[required\]
 
 The nme of the html file for which to fetch the contents
 
-####  \-\-in \( \-i \)
+####  \-\-in \( \-i \) \[required\]
 
 Path to epub to parse
 
-####  \-\-verbose \( \-v \)
+####  \-\-verbose \( \-v \) 
 
 If true, writes heaps of logging
 
@@ -128,23 +128,23 @@ remove-resource <parameters>
 
 ### Parameters
 
-####  \-\-existing\-resource \( \-e \)
+####  \-\-existing\-resource \( \-e \) \[required\]
 
 Name of existing EPub resource \(name\-of\-existing\.html\)
 
-####  \-\-resource\-type \( \-t \)
-
-Type of EPub resource \(Html, Css, Font, Image, Other\)
-
-####  \-\-out \( \-o \)
-
-Path to write final epub\.  If empty, overwrites input epub
-
-####  \-\-in \( \-i \)
+####  \-\-in \( \-i \) \[required\]
 
 Path to epub to parse
 
-####  \-\-verbose \( \-v \)
+####  \-\-resource\-type \( \-t \) \[required\]
+
+Type of EPub resource \(Html, Css, Font, Image, Other\)
+
+####  \-\-out \( \-o \) 
+
+Path to write final epub\.  If empty, overwrites input epub
+
+####  \-\-verbose \( \-v \) 
 
 If true, writes heaps of logging
 
@@ -158,49 +158,19 @@ replace-cover <parameters>
 
 ### Parameters
 
-####  \-\-cover\-img \( \-c \)
+####  \-\-cover\-img \( \-c \) \[required\]
 
 Path to new cover image \(\.jpg, \.png\)
 
-####  \-\-out \( \-o \)
-
-Path to write final epub\.  If empty, overwrites input epub
-
-####  \-\-in \( \-i \)
+####  \-\-in \( \-i \) \[required\]
 
 Path to epub to parse
 
-####  \-\-verbose \( \-v \)
-
-If true, writes heaps of logging
-
-## replace\-html\-content
-
-Replace the contents of an existing html with new html content\.
-
-```
-replace-html-content <parameters>
-```
-
-### Parameters
-
-####  \-\-html\-path \( \-h \)
-
-Path to new html file \(path/to/new\.html\)
-
-####  \-\-existing\-html \( \-e \)
-
-Name of existing EPub html \(name\-of\-existing\.html\)
-
-####  \-\-out \( \-o \)
+####  \-\-out \( \-o \) 
 
 Path to write final epub\.  If empty, overwrites input epub
 
-####  \-\-in \( \-i \)
-
-Path to epub to parse
-
-####  \-\-verbose \( \-v \)
+####  \-\-verbose \( \-v \) 
 
 If true, writes heaps of logging
 
@@ -214,23 +184,53 @@ replace-css-content <parameters>
 
 ### Parameters
 
-####  \-\-css\-path \( \-c \)
+####  \-\-css\-path \( \-c \) \[required\]
 
 Path to new stylesheet file \(path/to/new\.css\)
 
-####  \-\-existing\-css \( \-e \)
+####  \-\-existing\-css \( \-e \) \[required\]
 
 Name of existing EPub stylesheet \(name\-of\-existing\.css\)
 
-####  \-\-out \( \-o \)
-
-Path to write final epub\.  If empty, overwrites input epub
-
-####  \-\-in \( \-i \)
+####  \-\-in \( \-i \) \[required\]
 
 Path to epub to parse
 
-####  \-\-verbose \( \-v \)
+####  \-\-out \( \-o \) 
+
+Path to write final epub\.  If empty, overwrites input epub
+
+####  \-\-verbose \( \-v \) 
+
+If true, writes heaps of logging
+
+## replace\-html\-content
+
+Replace the contents of an existing html with new html content\.
+
+```
+replace-html-content <parameters>
+```
+
+### Parameters
+
+####  \-\-existing\-html \( \-e \) \[required\]
+
+Name of existing EPub html \(name\-of\-existing\.html\)
+
+####  \-\-html\-path \( \-h \) \[required\]
+
+Path to new html file \(path/to/new\.html\)
+
+####  \-\-in \( \-i \) \[required\]
+
+Path to epub to parse
+
+####  \-\-out \( \-o \) 
+
+Path to write final epub\.  If empty, overwrites input epub
+
+####  \-\-verbose \( \-v \) 
 
 If true, writes heaps of logging
 
@@ -244,23 +244,23 @@ update-authors <parameters>
 
 ### Parameters
 
-####  \-\-author \( \-a \)
+####  \-\-author \( \-a \) \[required\]
 
 Author to add to your EPub
 
-####  \-\-clear\-previous \( \-c \)
-
-Clear previous authors
-
-####  \-\-out \( \-o \)
-
-Path to write final epub\.  If empty, overwrites input epub
-
-####  \-\-in \( \-i \)
+####  \-\-in \( \-i \) \[required\]
 
 Path to epub to parse
 
-####  \-\-verbose \( \-v \)
+####  \-\-clear\-previous \( \-c \) 
+
+Clear previous authors
+
+####  \-\-out \( \-o \) 
+
+Path to write final epub\.  If empty, overwrites input epub
+
+####  \-\-verbose \( \-v \) 
 
 If true, writes heaps of logging
 
@@ -274,23 +274,23 @@ update-publisher <parameters>
 
 ### Parameters
 
-####  \-\-publisher \( \-p \)
-
-Publisher to add to your EPub
-
-####  \-\-clear\-previous \( \-c \)
-
-Clear previous publisher
-
-####  \-\-out \( \-o \)
-
-Path to write final epub\.  If empty, overwrites input epub
-
-####  \-\-in \( \-i \)
+####  \-\-in \( \-i \) \[required\]
 
 Path to epub to parse
 
-####  \-\-verbose \( \-v \)
+####  \-\-publisher \( \-p \) \[required\]
+
+Publisher to add to your EPub
+
+####  \-\-clear\-previous \( \-c \) 
+
+Clear previous publisher
+
+####  \-\-out \( \-o \) 
+
+Path to write final epub\.  If empty, overwrites input epub
+
+####  \-\-verbose \( \-v \) 
 
 If true, writes heaps of logging
 
@@ -304,18 +304,18 @@ update-titles <parameters>
 
 ### Parameters
 
-####  \-\-titles \( \-t \)
-
-Titles to swap out of our EPub
-
-####  \-\-out \( \-o \)
-
-Path to write final epub\.  If empty, overwrites input epub
-
-####  \-\-in \( \-i \)
+####  \-\-in \( \-i \) \[required\]
 
 Path to epub to parse
 
-####  \-\-verbose \( \-v \)
+####  \-\-titles \( \-t \) \[required\]
+
+Titles to swap out of our EPub
+
+####  \-\-out \( \-o \) 
+
+Path to write final epub\.  If empty, overwrites input epub
+
+####  \-\-verbose \( \-v \) 
 
 If true, writes heaps of logging
