@@ -22,7 +22,9 @@ jobs:
       run: dotnet test ./EpubCore.Tests/EpubCore.Tests.csproj -c Release --no-build
     - name: Test EpubCoreCli
       run: dotnet test ./EpubCore.Cli.Tests/EpubCore.Cli.Tests.csproj --no-restore --verbosity normal
-    - name: Pack nugets
-      run: dotnet pack EpubCore/EpubCore.csproj -c Release --no-build --output .
+    - name: Pack EPubCore nuget package
+      run: dotnet pack EpubCore/EpubCore.csproj -c Release --no-build --output ./nupkg
+    - name: Pack EpubCore CLI
+      run: dotnet pack EpubCore.Cli/EpubCore.Cli.csproj -c Release --no-build --output ./nupkg
     - name: Push to NuGet
-      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push "./nupkg/*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json

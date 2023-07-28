@@ -5,7 +5,7 @@
 Add a new resource from the EPub\.
 
 ```
-add-resource <parameters>
+epub add-resource <parameters>
 ```
 
 ### Parameters
@@ -39,7 +39,7 @@ If true, writes heaps of logging
 Extract the contents of this EPub file
 
 ```
-extract <parameters>
+epub extract <parameters>
 ```
 
 ### Parameters
@@ -61,7 +61,7 @@ If true, writes heaps of logging
 Generate documentation for the CLI
 
 ```
-gen-cli-docs <parameters>
+epub gen-cli-docs <parameters>
 ```
 
 ### Parameters
@@ -75,7 +75,7 @@ File path to write documentation for the CLI
 Get details about this EPub file
 
 ```
-get-details <parameters>
+epub get-details <parameters>
 ```
 
 ### Parameters
@@ -101,7 +101,7 @@ If true, writes heaps of logging
 Get contents of html file
 
 ```
-get-html <parameters>
+epub get-html <parameters>
 ```
 
 ### Parameters
@@ -123,7 +123,7 @@ If true, writes heaps of logging
 Remove an existing resource from the EPub\.
 
 ```
-remove-resource <parameters>
+epub remove-resource <parameters>
 ```
 
 ### Parameters
@@ -153,7 +153,7 @@ If true, writes heaps of logging
 Replace the cover image in the epub\.
 
 ```
-replace-cover <parameters>
+epub replace-cover <parameters>
 ```
 
 ### Parameters
@@ -179,7 +179,7 @@ If true, writes heaps of logging
 Replace the contents of an existing css with new css\.
 
 ```
-replace-css-content <parameters>
+epub replace-css-content <parameters>
 ```
 
 ### Parameters
@@ -209,7 +209,7 @@ If true, writes heaps of logging
 Replace the contents of an existing html with new html content\.
 
 ```
-replace-html-content <parameters>
+epub replace-html-content <parameters>
 ```
 
 ### Parameters
@@ -239,7 +239,7 @@ If true, writes heaps of logging
 Update the author\(s\) in the epub\.
 
 ```
-update-authors <parameters>
+epub update-authors <parameters>
 ```
 
 ### Parameters
@@ -269,7 +269,7 @@ If true, writes heaps of logging
 Update the publisher\(s\) in the epub\.
 
 ```
-update-publisher <parameters>
+epub update-publisher <parameters>
 ```
 
 ### Parameters
@@ -299,7 +299,7 @@ If true, writes heaps of logging
 Update the title\(s\) in the epub\.
 
 ```
-update-titles <parameters>
+epub update-titles <parameters>
 ```
 
 ### Parameters

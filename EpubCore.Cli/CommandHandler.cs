@@ -104,7 +104,7 @@ public class CommandHandler : ICommandHandler
             if (helpDocEntry.Parameters.Any())
             {
                 writer.WriteLinkOrText("");
-                writer.WriteFencedCodeBlock($"{helpDocEntry.VerbName} <parameters>");
+                writer.WriteFencedCodeBlock($"epub {helpDocEntry.VerbName} <parameters>");
                 writer.WriteHeading3("Parameters");
             }
             foreach (var curParameter in helpDocEntry.Parameters.OrderByDescending(g => g.Required).ThenBy(g => g.LongName))

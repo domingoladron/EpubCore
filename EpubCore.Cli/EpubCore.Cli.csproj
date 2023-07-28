@@ -8,6 +8,12 @@
 	  <PackAsTool>true</PackAsTool>
 	  <ToolCommandName>epub</ToolCommandName>
 	  <PackageOutputPath>../nupkg</PackageOutputPath>
+	  <Title>EpubCore.Cli</Title>
+	  <Description>EpubCore Cli</Description>
+	  <Copyright>Copyright 2023</Copyright>
+	  <PackageProjectUrl>https://github.com/domingoladron/EpubCore</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/domingoladron/EpubCore</RepositoryUrl>
+	  <Version>0.8.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +27,15 @@
     <PackageReference Include="YamlDotNet" Version="13.1.1" />
   </ItemGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<None Include="..\docs\wiki\epub-cli.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+
+	<ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Factories\" />
   </ItemGroup>
