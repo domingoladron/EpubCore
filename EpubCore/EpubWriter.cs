@@ -293,6 +293,11 @@ namespace EpubCore
             _format.Opf.Metadata.Titles.Add(title);
         }
 
+        public void SetVersion(EpubVersion version)
+        {
+            _format.Opf.EpubVersion = version;
+        }
+
         public void SetTitles(IEnumerable<string> titles)
         {
             var enumerable = titles as string[] ?? titles.ToArray();
@@ -650,6 +655,26 @@ namespace EpubCore
             }
 
             return element;
+        }
+
+        public ImageFormat GetContentTypeForImageName(string imageName)
+        {
+            var extension = Path.GetExtension(imageName);
+            switch (extension)
+            {
+                case ".jpg":
+                    return ImageFormat.Jpeg;
+                case ".jpeg":
+                    return ImageFormat.Jpeg;
+                case ".png":
+                    return ImageFormat.Png;
+                case ".svg":
+                    return ImageFormat.Svg;
+                case ".gif":
+                    return ImageFormat.Gif;
+                default:
+                    throw new ArgumentException($"Unsupported cover format: {extension}");
+            }
         }
 
 

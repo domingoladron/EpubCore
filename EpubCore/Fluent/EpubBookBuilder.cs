@@ -13,6 +13,12 @@ namespace EpubCore.Fluent
             _writer = writer;
         }
 
+        public IEpubBookBuilder WithVersion(EpubVersion version)
+        {
+            _writer.SetVersion(version);
+            return this;
+        }
+
         public IEpubBookBuilder WithUniqueIdentifier(string uniqueIdentifier)
         {
             _writer.SetUniqueIdentifier(uniqueIdentifier);
@@ -35,6 +41,9 @@ namespace EpubCore.Fluent
         {
             foreach (var curAuthorName in authorNames)
             {
+                if (string.IsNullOrEmpty(curAuthorName))
+                    continue;
+
                 _writer.AddAuthor(curAuthorName);
             }
 
@@ -43,6 +52,9 @@ namespace EpubCore.Fluent
 
         public IEpubBookBuilder AddPublisher(string publisherName)
         {
+            if (string.IsNullOrEmpty(publisherName))
+                return this;
+
             _writer.AddPublisher(publisherName);
             return this;
         }
@@ -51,6 +63,8 @@ namespace EpubCore.Fluent
         {
             foreach (var curPublisherName in publishers)
             {
+                if (string.IsNullOrEmpty(curPublisherName))
+                    continue;
                 _writer.AddPublisher(curPublisherName);
             }
 
@@ -78,6 +92,12 @@ namespace EpubCore.Fluent
         public IEpubBookBuilder AddStylesheet(string stylesheetName, byte[] stylesheetContents)
         {
             return AddFileContent(stylesheetName, stylesheetContents, EpubContentType.Css);
+        }
+
+        public IEpubBookBuilder AddBookCover(string imageName, byte[] imageContents)
+        {
+            _writer.SetCover(imageContents, _writer.GetContentTypeForImageName(imageName));
+            return this;
         }
 
         public IEpubBookBuilder AddJpg(string imageName, byte[] imageContents)

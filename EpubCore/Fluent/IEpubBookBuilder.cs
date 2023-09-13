@@ -9,6 +9,7 @@ namespace EpubCore.Fluent
     /// </summary>
     public interface IEpubBookBuilder
     {
+        IEpubBookBuilder WithVersion(EpubVersion version);
         IEpubBookBuilder WithUniqueIdentifier(string uniqueIdentifier);
         IEpubBookBuilder WithTitle(string title);
         IEpubBookBuilder AddAuthor(string authorName);
@@ -25,6 +26,8 @@ namespace EpubCore.Fluent
         IEpubBookBuilder AddStylesheet(string stylesheetName, string stylesheetContents);
 
         IEpubBookBuilder AddStylesheet(string stylesheetName, byte[] stylesheetContents);
+
+        IEpubBookBuilder AddBookCover(string imageName, byte[] imageContents);
 
         IEpubBookBuilder AddJpg(string imageName, byte[] imageContents);
 

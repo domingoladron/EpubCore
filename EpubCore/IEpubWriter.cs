@@ -23,6 +23,7 @@ namespace EpubCore
         void RemoveTitle();
         void SetTitle(string title);
 
+        void SetVersion(EpubVersion version);
         void SetUniqueIdentifier(string uniqueIdentifier);
         EpubChapter AddChapter(string title, string html, string fileId = null);
         EpubChapter InsertChapterBefore(string title, string html, string fileId = null, string beforeFileName = null);
@@ -34,5 +35,6 @@ namespace EpubCore
         void Write(Stream stream);
         XElement FindNavTocOl();
 
+        ImageFormat GetContentTypeForImageName(string imageName);
     }
 }
