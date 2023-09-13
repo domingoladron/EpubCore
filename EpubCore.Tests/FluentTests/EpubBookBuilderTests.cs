@@ -99,7 +99,7 @@ public class EpubBookBuilderTests
 
         foreach (var curEPubChapter in epub.TableOfContents)
         {
-            var curHtml = epub.FetchHtmlFile(curEPubChapter);
+            var curHtml = epub.FetchHtmlFileForChapter(curEPubChapter);
             Assert.NotNull(curHtml);
             var fileContents = curHtml.TextContent;
             var curChapterKey = Chapters.Keys.FirstOrDefault(c => c.Equals(curEPubChapter.Title));
