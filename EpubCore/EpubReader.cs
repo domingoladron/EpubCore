@@ -309,6 +309,8 @@ namespace EpubCore
                                     resources.Images.Add(file);
                                     break;
                                 case EpubContentType.FontTruetype:
+                                case EpubContentType.XFontTruetype:
+                                case EpubContentType.XFontOpentype:
                                 case EpubContentType.FontOpentype:
                                     resources.Fonts.Add(file);
                                     break;

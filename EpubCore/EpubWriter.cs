@@ -126,7 +126,9 @@ namespace EpubCore
                     break;
 
                 case EpubContentType.FontOpentype:
+                case EpubContentType.XFontOpentype:
                 case EpubContentType.FontTruetype:
+                case EpubContentType.XFontTruetype:
                     if (string.IsNullOrEmpty(beforeFileName))
                     {
                         _resources.Fonts.Add(file);

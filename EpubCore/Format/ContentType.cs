@@ -17,7 +17,9 @@ namespace EpubCore.Format
         ImagePng,
         ImageSvg,
         FontTruetype,
+        XFontTruetype,
         FontOpentype,
+        XFontOpentype,
         Other
     }
 
@@ -37,7 +39,9 @@ namespace EpubCore.Format
             { "image/png", EpubContentType.ImagePng },
             { "image/svg+xml", EpubContentType.ImageSvg },
             { "font/truetype", EpubContentType.FontTruetype },
+            { "application/x-font-ttf",EpubContentType.XFontTruetype},
             { "font/opentype", EpubContentType.FontOpentype },
+            { "application/x-font-otf",EpubContentType.XFontOpentype},
             { "application/vnd.ms-opentype", EpubContentType.FontOpentype }
         };
 
