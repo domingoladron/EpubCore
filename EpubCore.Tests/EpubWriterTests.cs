@@ -123,6 +123,19 @@ namespace EpubCore.Tests
 
             writer.RemoveTitle();
         }
+        
+        [Fact]
+        public void AddLanguageTest()
+        {
+            var writer = new EpubWriter();
+            var language = "en-US";
+
+            writer.AddLanguage(language);
+
+            var epub = WriteAndRead(writer);
+            Assert.NotEmpty(epub.Format.Opf.Metadata.Languages);
+            Assert.Contains(epub.Format.Opf.Metadata.Languages, l => l.Equals(language));
+        }
 
         [Fact]
         public void SetCoverTest()

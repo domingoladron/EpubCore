@@ -31,7 +31,13 @@ namespace EpubCore.Fluent
             return this;
         }
 
-        public IEpubBookBuilder AddAuthor(string authorName)
+        public IEpubBookBuilder WithLanguage(string language)
+        {
+            _writer.AddLanguage(language);
+            return this;
+        }
+
+    public IEpubBookBuilder AddAuthor(string authorName)
         {
             _writer.AddAuthor(authorName);
             return this;

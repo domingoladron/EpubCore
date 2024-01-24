@@ -295,6 +295,11 @@ namespace EpubCore
             _format.Opf.Metadata.Titles.Add(title);
         }
 
+        public void AddLanguage(string language)
+        {
+            _format.Opf.Metadata.Languages.Add(language);
+        }
+
         public void SetVersion(EpubVersion version)
         {
             _format.Opf.EpubVersion = version;

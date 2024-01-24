@@ -22,6 +22,7 @@ namespace EpubCore
         void RemoveAuthor(string author);
         void RemoveTitle();
         void SetTitle(string title);
+        void AddLanguage(string language);
 
         void SetVersion(EpubVersion version);
         void SetUniqueIdentifier(string uniqueIdentifier);
