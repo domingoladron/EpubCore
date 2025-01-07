@@ -7,16 +7,16 @@
     <Authors>Chris Laine (domingoladron)</Authors>
     <PackageTags>epub epubs book books 2.0 3.0 3.1</PackageTags>
     <PackageId>EpubCore</PackageId>
-    <Version>1.6.1.0</Version>
+    <Version>1.6.2.0</Version>
     <Description>A library for reading and writing EPUB files.</Description>
     <PackageProjectUrl>https://github.com/domingoladron/EpubCore</PackageProjectUrl>
-    <Copyright>Copyright 2023</Copyright>
-    <AssemblyVersion>1.6.1.0</AssemblyVersion>
-    <FileVersion>1.6.1.0</FileVersion>
+    <Copyright>Copyright 2025</Copyright>
+    <AssemblyVersion>1.6.2.0</AssemblyVersion>
+    <FileVersion>1.6.2.0</FileVersion>
     <RepositoryUrl>https://github.com/domingoladron/EpubCore</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>Adding logic to handle x-application font mime types</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixing bug where too many Epub.Chapters generated</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
 	  <Summary></Summary>
