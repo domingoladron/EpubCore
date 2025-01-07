@@ -169,7 +169,12 @@ namespace EpubCore
                     {
                         chapter.SubChapters = LoadChaptersFromNav(navAbsolutePath, li, bookResources, chapter);
                     }
-                    result.Add(chapter);
+
+                    // If we don't already have a chapter with this absolute path, then add it.  Otherwise, ignore it.
+                    if (result.FirstOrDefault(x => x.AbsolutePath.Equals(chapter.AbsolutePath)) == null)
+                    {
+                        result.Add(chapter);
+                    }
 
                     previous = chapter.SubChapters.Any() ? chapter.SubChapters.Last() : chapter;
                 }
