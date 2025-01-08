@@ -219,6 +219,22 @@ public class EpubBookBuilderTests
         Assert.Equal(imageFound.Content, fileBytes);
     }
 
+    [Fact]
+    public void CanBuildWithLanguage()
+    {
+        var builder = EpubBookBuilder.Create();
+        var stream = new MemoryStream();
+        var language = "en-US";
+        builder.WithLanguage(language)
+          .Build(stream);
+
+        var epub = EpubReader.Read(stream, false);
+
+        Assert.NotNull(epub);
+        Assert.Equal(1, epub.Format.Opf.Metadata.Languages.Count);
+        Assert.Equal(epub.Format.Opf.Metadata.Languages.First(), language);
+    }
+
     private static byte[] GetFileBytes(string relativeApplicationPath)
     {
         var pathToFile = $"{AppContext.BaseDirectory}/{relativeApplicationPath}";

@@ -12,6 +12,7 @@ namespace EpubCore.Fluent
         IEpubBookBuilder WithVersion(EpubVersion version);
         IEpubBookBuilder WithUniqueIdentifier(string uniqueIdentifier);
         IEpubBookBuilder WithTitle(string title);
+        IEpubBookBuilder WithLanguage(string language);
         IEpubBookBuilder AddAuthor(string authorName);
 
         IEpubBookBuilder AddAuthors(List<string> authorNames);
